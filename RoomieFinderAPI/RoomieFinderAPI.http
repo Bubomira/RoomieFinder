@@ -1,0 +1,6 @@
+@RoomieFinderAPI_HostAddress = http://localhost:5056
+
+GET {{RoomieFinderAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
