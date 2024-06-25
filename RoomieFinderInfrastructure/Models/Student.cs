@@ -5,9 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RoomieFinderInfrastructure.Models
 {
-    public class Student:ApplicationUser
+    public class Student
     {
-
+        [Key]
+        [Required]
+        [Comment("The unique identifyer for each student")]
+        public int StudentId { get; set; }
         [Required]
         [Comment("Year of attending the university")]
         public int YearAtUniversity { get; set; }
@@ -27,5 +30,14 @@ namespace RoomieFinderInfrastructure.Models
 
         [ForeignKey(nameof(Room))]
         public int RoomId { get; set; }
+
+        public IList<StudentAnswer> StudentAnswers { get; set; } = new List<StudentAnswer>();
+
+
+        public required ApplicationUser ApplicationUser { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(ApplicationUser))]
+        public required string ApplicationUserId { get; set; }
     }
 }

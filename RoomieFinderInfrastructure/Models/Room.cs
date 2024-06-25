@@ -26,7 +26,6 @@ namespace RoomieFinderInfrastructure.Models
         public int DormitoryId { get; set; }
         public required Dormitory Dormitory { get; set; }
 
-
         public IList<Student> Students { get; set; } = new List<Student>();
     }
 }
