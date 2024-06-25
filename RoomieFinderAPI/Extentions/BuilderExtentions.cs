@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RoomieFinderInfrastructure.Models;
 using Microsoft.AspNetCore.Identity;
+using RoomieFinderInfrastructure.UnitOfWork;
 
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,9 @@ public static class BuilderExtentions
 
         builder.AddDbContext<RoomieFinderDbContext>(opt =>
             opt.UseSqlServer(connectionString)
-        ) ;
+        );
+
+        builder.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return builder;
     }
