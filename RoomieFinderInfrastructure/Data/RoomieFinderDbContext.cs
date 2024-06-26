@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using RoomieFinderInfrastructure.Models;
-
+using RoomieFinderInfrastructure.SeedDb.Configurations;
 
 namespace RoomieFinderInfrastructure.Data
 {
@@ -24,21 +24,11 @@ namespace RoomieFinderInfrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //many-tomany relationship between student and asnwers
-            builder.Entity<StudentAnswer>()
-                .HasOne(sa => sa.Student)
-                .WithMany(s => s.StudentAnswers)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasForeignKey(sa => sa.StudentId);
-
-            builder.Entity<StudentAnswer>()
-                .HasOne(sa => sa.Answer)
-                .WithMany(s => s.StudentAnswers)
-                .HasForeignKey(sa => sa.AnswerId);
-
-            //configuring key for many-to-many student answer table
-            builder.Entity<StudentAnswer>()
-                .HasKey(sa => new { sa.AnswerId, sa.StudentId });
+            builder.ApplyConfiguration(new StudentAnswerConfiguration());
+            builder.ApplyConfiguration(new ApplicationUserConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
+            builder.ApplyConfiguration(new StudentConfiguration());
 
             base.OnModelCreating(builder);
         }
