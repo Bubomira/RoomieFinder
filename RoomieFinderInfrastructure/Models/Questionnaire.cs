@@ -1,7 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using static RoomieFinderInfrastructure.Constants.ModelConstants.QuestionnaireConstants;
 
 namespace RoomieFinderInfrastructure.Models
@@ -25,14 +24,6 @@ namespace RoomieFinderInfrastructure.Models
         [MaxLength(DescriptionMaxLength)]
         [Comment("Description of the questionnaire, gives aditional info")]
         public required string Description { get; set; }
-
-
-        public required University University { get; set; }
-        [Required]
-        [ForeignKey(nameof(University))]
-        [Comment("Foreign key referencing table university")]
-        public int UniversityId { get; set; }
-
 
         public IList<Question> Questions { get; set; } = new List<Question>();
 

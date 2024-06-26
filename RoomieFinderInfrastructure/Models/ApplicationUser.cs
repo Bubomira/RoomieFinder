@@ -21,7 +21,5 @@ namespace RoomieFinderInfrastructure.Models
 
         public Student? Student { get; set; }
 
-        public UniversityAdmin? UniversityAdmin { get; set; }
-
     }
 }
