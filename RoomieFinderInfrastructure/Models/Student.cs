@@ -19,15 +19,14 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("Shows if a student has graduated, graduated students cannot use the application")]
         public bool HasGraduated { get; set; }     
        
-        public required Room Room { get; set; }
+        public  Room? Room { get; set; }
 
         [ForeignKey(nameof(Room))]
-        public int RoomId { get; set; }
+        public int? RoomId { get; set; }
 
         public IList<StudentAnswer> StudentAnswers { get; set; } = new List<StudentAnswer>();
 
-
-        public required ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser ApplicationUser { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
