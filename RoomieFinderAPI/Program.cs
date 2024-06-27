@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AttachDbContext(builder.Configuration)
+    .AddJWT(builder.Configuration)
     .AttachIdentity();
 
 builder.Services.AddControllers();
