@@ -23,8 +23,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader();
+});
 
 app.Run();

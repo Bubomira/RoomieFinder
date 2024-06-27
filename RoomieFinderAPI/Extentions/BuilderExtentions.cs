@@ -6,6 +6,8 @@ using RoomieFinderInfrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using RoomieFinderCore.Contracts;
+using RoomieFinderCore.Services;
 
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -56,6 +58,8 @@ public static class BuilderExtentions
                  ValidateLifetime = true,                 
              };
          });
+
+        builder.AddScoped<IJWTSContract, JWTService>();
 
         return builder;
     }
