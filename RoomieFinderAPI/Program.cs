@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AttachDbContext(builder.Configuration)
     .AddJWT(builder.Configuration)
-    .AttachIdentity();
+    .AttachIdentity()
+    .AddServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
