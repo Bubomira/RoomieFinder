@@ -6,8 +6,8 @@ using RoomieFinderInfrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using RoomieFinderCore.Contracts;
-using RoomieFinderCore.Services;
+using RoomieFinderCore.Contracts.AuthContracts;
+using RoomieFinderCore.Services.AuthServices;
 
 
 namespace Microsoft.Extensions.DependencyInjection;

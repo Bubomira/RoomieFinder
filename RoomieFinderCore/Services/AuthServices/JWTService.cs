@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RoomieFinderCore.Contracts;
+using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderInfrastructure.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace RoomieFinderCore.Services
+namespace RoomieFinderCore.Services.AuthServices
 {
     public class JWTService : IJWTSContract
     {

@@ -1,7 +1,6 @@
-﻿
-using RoomieFinderInfrastructure.Models;
+﻿using RoomieFinderInfrastructure.Models;
 
-namespace RoomieFinderCore.Contracts
+namespace RoomieFinderCore.Contracts.AuthContracts
 {
     public interface IJWTSContract
     {
