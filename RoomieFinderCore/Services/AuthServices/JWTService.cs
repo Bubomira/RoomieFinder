@@ -24,7 +24,7 @@ namespace RoomieFinderCore.Services.AuthServices
                 new Claim(ClaimTypes.NameIdentifier,applicationUser.Id),
                 new Claim("hasChangedPassword",applicationUser.HasChangedPassword.ToString()),
                 new Claim(ClaimTypes.Name,$"{applicationUser.FirstName} {applicationUser.LastName}"),
-                new Claim("IsAdmin",isAdmin.ToString())
+                new Claim(ClaimTypes.Role,isAdmin? "GreatAdmin":"Student")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"] ?? ""));

@@ -52,10 +52,13 @@ public static class BuilderExtentions
          .AddJwtBearer(opt =>
          {
              opt.SaveToken = true;
+             opt.UseSecurityTokenValidators = true;
              opt.TokenValidationParameters = new TokenValidationParameters()
              {
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-                 ValidateLifetime = true,                 
+                 ValidateLifetime = true,      
+                 ValidateAudience=false,
+                 ValidateIssuer=false
              };
          });
 

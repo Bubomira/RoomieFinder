@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Dtos.UserDtos;
+using System.Security.Claims;
 
 namespace RoomieFinderAPI.Areas
 {
@@ -30,6 +32,7 @@ namespace RoomieFinderAPI.Areas
         }
 
         [HttpPost("register")]
+        [Authorize(Roles="GreatAdmin",AuthenticationSchemes ="Bearer")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400, Type = typeof(string))]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto registerUserDto)
@@ -59,5 +62,6 @@ namespace RoomieFinderAPI.Areas
             }
             return BadRequest("Could not change password");
         }
+
     }
 }
