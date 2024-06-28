@@ -22,6 +22,7 @@ namespace RoomieFinderCore.Services.AuthServices
             {
                 new Claim(ClaimTypes.Email,applicationUser.Email?? ""),
                 new Claim(ClaimTypes.NameIdentifier,applicationUser.Id),
+                new Claim("hasChangedPassword",applicationUser.HasChangedPassword.ToString()),
                 new Claim(ClaimTypes.Name,$"{applicationUser.FirstName} {applicationUser.LastName}"),
                 new Claim("IsAdmin",isAdmin.ToString())
             };

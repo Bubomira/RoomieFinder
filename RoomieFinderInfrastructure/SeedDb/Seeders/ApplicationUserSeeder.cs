@@ -15,7 +15,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             Email = "sofia_university_admin@gmail.com",
             NormalizedEmail="SOFIA_UNIVERSITY_ADMIN@GMAIL.COM",
             UserName = "Sofia University Admin",
-            NormalizedUserName="SOFIA UNIVERSITY ADMIN"
+            NormalizedUserName="SOFIA UNIVERSITY ADMIN",
+            HasChangedPassword=true
         };
 
         public static ApplicationUser ApplicationUserTwo { get; set; } = new ApplicationUser()
@@ -26,7 +27,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             Email = "medical_university_admin@gmail.com",
             NormalizedEmail="MEDICAL_UNIVERSITY_ADMIN@GMAIL.COM",
             UserName = "Medical University Admin",
-            NormalizedUserName = "MEDICAL UNIVERSITY ADMIN"
+            NormalizedUserName = "MEDICAL UNIVERSITY ADMIN",
+            HasChangedPassword = true
         };
 
         public static ApplicationUser ApplicationUserThree { get; set; } = new ApplicationUser()
@@ -37,7 +39,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             Email = "alisa_markova@gmail.com",
             NormalizedEmail="ALISA_MARKOVA@GMAIL.COM",
             UserName = "Alise_Marie",
-            NormalizedUserName = "ALISE_MARIE"
+            NormalizedUserName = "ALISE_MARIE",
+            HasChangedPassword = true
         };
         public static ApplicationUser ApplicationUserFour { get; set; } = new ApplicationUser()
         {
@@ -47,7 +50,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             Email = "niki_g@gmail.com",
             NormalizedEmail = "NIKI_G@GMAIL.COM",
             UserName = "Nikk",
-            NormalizedUserName = "NIKK"
+            NormalizedUserName = "NIKK",
+            HasChangedPassword = true
         };
 
         public static ApplicationUser ApplicationUserFive { get; set; } = new ApplicationUser()
@@ -58,7 +62,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             Email = "marina_nikolova.56@gmail.com",
             NormalizedEmail = "MARINA_NIKOLOVA@GMAIL.COM",
             UserName = "Marina_",
-            NormalizedUserName = "MARINA_"
+            NormalizedUserName = "MARINA_",
+            HasChangedPassword = true
         };
 
         public static ApplicationUser ApplicationUserSix { get; set; } = new ApplicationUser()
@@ -69,7 +74,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             Email = "pepi_p@gmail.com",
             NormalizedEmail = "PEPI_P@GMAIL.COM",
             UserName = "_Pepi",
-            NormalizedUserName = "_PEPI"
+            NormalizedUserName = "_PEPI",
+            HasChangedPassword = true
         };
 
         public static void HashPasswords()

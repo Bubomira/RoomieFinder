@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Dtos.UserDtos;
 using RoomieFinderInfrastructure.Models;
@@ -32,10 +31,13 @@ namespace RoomieFinderCore.Services.AuthServices
             if (user != null && (await _signInManager.CheckPasswordSignInAsync(user, changePasswordDto.InitialPassword, false)).Succeeded)
             {
                 await _userManager.ChangePasswordAsync(user, changePasswordDto.InitialPassword, changePasswordDto.NewPassword);
+
+                user.HasChangedPassword = true;
+                await _userManager.UpdateAsync(user);
             }
         }
 
-        public async Task<string?> LoginUserAsync(LoginUserDto loginUserDto)
+        public async Task<LoggedInUserDto?> LoginUserAsync(LoginUserDto loginUserDto)
         {
             var user = await _userManager.FindByEmailAsync(loginUserDto.Email);
             if (user != null)
@@ -43,7 +45,15 @@ namespace RoomieFinderCore.Services.AuthServices
                 var result = await _signInManager.CheckPasswordSignInAsync(user, loginUserDto.Password, false);
                 if (result.Succeeded)
                 {
-                    return await _jwtService.GenerateJWT(user, await _userManager.IsInRoleAsync(user, "GreatAdmin"));
+                    var isAdmin = await _userManager.IsInRoleAsync(user, "GreatAdmin");
+                    return new LoggedInUserDto()
+                    {
+                        FullName = $"{user.FirstName} {user.LastName}",
+                        HasChangedPassword = user.HasChangedPassword,
+                        Id = user.Id,
+                        IsAdmin = isAdmin,
+                        Token = await _jwtService.GenerateJWT(user, isAdmin)
+                    }
                 }
             }
             return null;
@@ -74,7 +84,8 @@ namespace RoomieFinderCore.Services.AuthServices
                     Email = registerUserDto.Email,
                     NormalizedEmail = registerUserDto.Email.ToUpper(),
                     UserName = registerUserDto.Username,
-                    NormalizedUserName = registerUserDto.Username.ToUpper()
+                    NormalizedUserName = registerUserDto.Username.ToUpper(),
+                    HasChangedPassword = false
                 };
 
                 await _userManager.CreateAsync(user, registerUserDto.SetUpPassword);

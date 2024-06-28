@@ -22,8 +22,8 @@ namespace RoomieFinderAPI.Areas
         {
             if (ModelState.IsValid)
             {
-                var token = await _authContract.LoginUserAsync(loginUserDto);
-                return Ok(new { Token = token });
+                var loggedUser = await _authContract.LoginUserAsync(loginUserDto);
+                return Ok(loggedUser);
             }
 
             return BadRequest("Wrong login credentials!");

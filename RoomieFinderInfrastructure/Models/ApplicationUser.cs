@@ -19,6 +19,9 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("The last name of a user")]
         public required string LastName { get; set; }
 
+        [Required]
+        public required bool HasChangedPassword { get; set; }
+
         public Student? Student { get; set; }
 
     }
