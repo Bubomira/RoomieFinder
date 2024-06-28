@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderInfrastructure.Models;
+using RoomieFinderInfrastructure.UnitOfWork;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,10 +13,12 @@ namespace RoomieFinderCore.Services.AuthServices
     public class JWTService : IJWTSContract
     {
         private readonly IConfiguration _configuration;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public JWTService(IConfiguration configuration)
+        public JWTService(IConfiguration configuration, IUnitOfWork unitOfWork)
         {
             _configuration = configuration;
+            _unitOfWork = unitOfWork;
         }
         public async Task<string> GenerateJWT(ApplicationUser applicationUser, bool isAdmin)
         {
@@ -37,5 +41,10 @@ namespace RoomieFinderCore.Services.AuthServices
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public Task<bool> CheckIfTokenIsBlacklisted(string token) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<BlacklistedToken>()
+            .AnyAsync(bl => bl.Value == token);
+
     }
 }

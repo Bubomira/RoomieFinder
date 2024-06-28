@@ -1,3 +1,5 @@
+using RoomieFinderAPI.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,6 +32,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseMiddleware<BlacklistedTokensMiddeware>();
 
 app.MapControllers();
 
