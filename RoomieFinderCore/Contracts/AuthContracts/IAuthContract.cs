@@ -9,6 +9,7 @@ namespace RoomieFinderCore.Contracts.AuthContracts
         public Task<string?> RegisterUserAsync(RegisterUserDto registerUserDto);
         public Task RegisterStudentAsync(string id, int yearAtUniversity);
         public Task<LoggedInUserDto?> LoginUserAsync(LoginUserDto loginUserDto);
+        public Task LogoutAsync(string token);
         public Task ChangeInitialPasswordAsync(ChangePasswordDto changePasswordDto);
 
     }

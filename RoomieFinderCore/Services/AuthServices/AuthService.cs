@@ -53,7 +53,7 @@ namespace RoomieFinderCore.Services.AuthServices
                         Id = user.Id,
                         IsAdmin = isAdmin,
                         Token = await _jwtService.GenerateJWT(user, isAdmin)
-                    }
+                    };
                 }
             }
             return null;
@@ -96,6 +96,16 @@ namespace RoomieFinderCore.Services.AuthServices
                 return user.Id;
             }
             return null;
+        }
+
+        public async Task LogoutAsync(string token)
+        {
+            BlacklistedToken blacklistedToken = new BlacklistedToken() { Value = token };
+
+            await _unitOfWork.AddEntityAsync(blacklistedToken);
+            await _unitOfWork.SaveChangesAsync();
+
+            await _signInManager.SignOutAsync();
         }
     }
 }

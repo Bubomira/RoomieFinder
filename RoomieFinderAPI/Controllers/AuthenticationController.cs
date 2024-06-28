@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Dtos.UserDtos;
-using System.Security.Claims;
 
 namespace RoomieFinderAPI.Areas
 {
@@ -18,7 +17,7 @@ namespace RoomieFinderAPI.Areas
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(200, Type = typeof(LoggedInUserDto))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
@@ -32,7 +31,7 @@ namespace RoomieFinderAPI.Areas
         }
 
         [HttpPost("register")]
-        [Authorize(Roles="GreatAdmin",AuthenticationSchemes ="Bearer")]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400, Type = typeof(string))]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto registerUserDto)
@@ -50,6 +49,7 @@ namespace RoomieFinderAPI.Areas
         }
 
         [HttpPost("password/change")]
+        [Authorize(Roles = "Student", AuthenticationSchemes = "Bearer")]
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(400, Type = typeof(string))]
         public async Task<IActionResult> ChangeInitialPassword([FromBody] ChangePasswordDto changePasswordDto)
@@ -63,5 +63,17 @@ namespace RoomieFinderAPI.Areas
             return BadRequest("Could not change password");
         }
 
+        [HttpGet("logout")]
+        [Authorize]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> Logout()
+        {
+            var token = Request.Headers.Authorization.ToString();
+            if (token != null)
+            {
+                await _authContract.LogoutAsync(token);
+            }
+            return NoContent();
+        }
     }
 }
