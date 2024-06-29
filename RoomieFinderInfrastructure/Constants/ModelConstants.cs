@@ -10,6 +10,12 @@ namespace RoomieFinderInfrastructure.Constants
 
             public const int LastNameMaxLength = 60;
             public const int LastNameMinLength = 2;
+
+            public const int UsernameMaxLength = 30;
+            public const int UsernameMinLength = 2;
+
+            public const int PasswordMaxLength = 20;
+            public const int PasswordMinLength = 8;
         }
 
         public static class UniversityConstants
