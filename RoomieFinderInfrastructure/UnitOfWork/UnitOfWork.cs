@@ -1,7 +1,6 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RoomieFinderInfrastructure.Data;
+
 
 namespace RoomieFinderInfrastructure.UnitOfWork
 {
@@ -24,11 +23,6 @@ namespace RoomieFinderInfrastructure.UnitOfWork
         public IQueryable<T> GetAllAsync<T>() where T : class =>
             GetDbSet<T>();
 
-
-        public async Task<T?> GetOneAsync<T>() where T : class =>
-           await GetDbSet<T>().FirstOrDefaultAsync();
-
-
         public void RemoveEntity<T>(T entity) where T : class =>
             _context.Remove(entity);
 
@@ -38,10 +32,16 @@ namespace RoomieFinderInfrastructure.UnitOfWork
 
         public async Task SaveChangesAsync() =>
             await _context.SaveChangesAsync();
-        
+
 
         private DbSet<T> GetDbSet<T>() where T : class =>
             _context.Set<T>();
-      
+
+        public async Task AddManyAsync<T>(List<T> entities) where T : class =>
+           await _context.AddRangeAsync(entities);
+
+        public async Task<T?> GetById<T>(object id) where T : class =>
+            await GetDbSet<T>().FindAsync(id);
+
     }
 }
