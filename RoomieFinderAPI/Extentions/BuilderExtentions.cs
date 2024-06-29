@@ -9,6 +9,8 @@ using System.Text;
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Services.AuthServices;
 
+using static RoomieFinderInfrastructure.Constants.ModelConstants.ApplicationUserConstants;
+
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -32,7 +34,13 @@ public static class BuilderExtentions
     public static IServiceCollection AttachIdentity(this IServiceCollection builder)
     {
 
-        builder.AddIdentity<ApplicationUser, IdentityRole>()
+        builder.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+        {
+            opt.SignIn.RequireConfirmedAccount = false;
+            opt.Password.RequireNonAlphanumeric = false;
+            opt.Password.RequireUppercase = false;
+            opt.Password.RequiredLength = PasswordMinLength;
+        })
             .AddEntityFrameworkStores<RoomieFinderDbContext>()
             .AddDefaultTokenProviders();
 
@@ -56,9 +64,9 @@ public static class BuilderExtentions
              opt.TokenValidationParameters = new TokenValidationParameters()
              {
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-                 ValidateLifetime = true,      
-                 ValidateAudience=false,
-                 ValidateIssuer=false
+                 ValidateLifetime = true,
+                 ValidateAudience = false,
+                 ValidateIssuer = false
              };
          });
 
