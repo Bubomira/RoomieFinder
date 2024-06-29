@@ -16,7 +16,7 @@ namespace RoomieFinderAPI.Middlewares
             var token = _context.Request.Headers.Authorization.ToString();
             var jwtContract = _context.RequestServices.GetService<IJWTSContract>();
 
-            if (token != null && jwtContract != null)
+            if (!string.IsNullOrEmpty(token) && jwtContract != null)
             {
                 if (await jwtContract.CheckIfTokenIsBlacklisted(token))
                 {
