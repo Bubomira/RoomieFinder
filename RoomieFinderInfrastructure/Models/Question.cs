@@ -23,13 +23,14 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("The type of a question, can be radio or checkbox")]
         public required bool IsSingleAnswer { get; set; }
 
-        public required Questionnaire Questionnaire { get; set; }
+        public  Questionnaire? Questionnaire { get; set; }
+
         [Required]
         [ForeignKey(nameof(Questionnaire))]
         public int QuestionnaireId { get; set; }
 
 
-        public IList<Answer> Answer { get; set; } = new List<Answer>();
+        public IList<Answer> Answers { get; set; } = new List<Answer>();
 
     }
 }

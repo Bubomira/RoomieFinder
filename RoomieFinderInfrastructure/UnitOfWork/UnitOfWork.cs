@@ -40,7 +40,7 @@ namespace RoomieFinderInfrastructure.UnitOfWork
         public async Task AddManyAsync<T>(List<T> entities) where T : class =>
            await _context.AddRangeAsync(entities);
 
-        public async Task<T?> GetById<T>(object id) where T : class =>
+        public async Task<T> GetById<T>(object id) where T : class =>
             await GetDbSet<T>().FindAsync(id);
 
     }

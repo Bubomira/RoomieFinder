@@ -17,8 +17,9 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("The content of the answer")]
         public required string Content { get; set; }
 
-        public required Question Question { get; set; }
+        public Question? Question { get; set; }
 
+        
         [ForeignKey(nameof(Question))]
         public int QuestionId { get; set; }
 

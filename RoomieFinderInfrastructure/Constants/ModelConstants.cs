@@ -33,13 +33,13 @@ namespace RoomieFinderInfrastructure.Constants
         public static class QuestionConstants
         {
             public const int TitleMaxLength = 200;
-            public const int TitleMinLength = 20;
+            public const int TitleMinLength = 7;
         }
 
         public static class AnswerConstants
         {
             public const int ContentMaxLength = 100;
-            public const int ContentMinLength = 5;
+            public const int ContentMinLength = 2;
         }
 
         public static class QuestionnaireConstants

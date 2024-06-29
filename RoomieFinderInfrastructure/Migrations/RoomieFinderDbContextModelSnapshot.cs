@@ -223,7 +223,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("RoomieFinderInfrastructure.Models.ApplicationUser", b =>
@@ -439,7 +439,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlacklistedTokens");
+                    b.ToTable("BlacklistedTokens", (string)null);
                 });
 
             modelBuilder.Entity("RoomieFinderInfrastructure.Models.Dormitory", b =>
@@ -459,7 +459,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dormitories", t =>
+                    b.ToTable("Dormitories", null, t =>
                         {
                             t.HasComment("Dormitory is the place where students live");
                         });
@@ -491,7 +491,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasIndex("QuestionnaireId");
 
-                    b.ToTable("Questions", t =>
+                    b.ToTable("Questions", null, t =>
                         {
                             t.HasComment("Question from the test");
                         });
@@ -520,7 +520,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questionnaires", t =>
+                    b.ToTable("Questionnaires", null, t =>
                         {
                             t.HasComment("The test which holds the roomate questions students need to fill out");
                         });
@@ -550,7 +550,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasIndex("DormitoryId");
 
-                    b.ToTable("Rooms", t =>
+                    b.ToTable("Rooms", null, t =>
                         {
                             t.HasComment("Room in dormitory");
                         });
@@ -587,7 +587,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
 
                     b.HasData(
                         new
@@ -634,7 +634,7 @@ namespace RoomieFinderInfrastructure.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentsAnswers", t =>
+                    b.ToTable("StudentsAnswers", null, t =>
                         {
                             t.HasComment("All of the student answers to the questionnaire");
                         });
