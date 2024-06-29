@@ -6,6 +6,10 @@ namespace RoomieFinderCore.Dtos.QuestionaireDtos
     public class QuestionaireUpdateDto
     {
         [Required]
+        public int Id { get; set; }
+
+
+        [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public required string Title { get; set; }
 

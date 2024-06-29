@@ -16,7 +16,7 @@ namespace RoomieFinderCore.Dtos.QuestionDtos
         public required string Content { get; set; }
 
         [Required]
-        public required bool IsSingleAnswer;
+        public required bool IsSingleAnswer { get; set; }
 
         public List<AnswerDetailsDto> Answers { get; set; }
           = new List<AnswerDetailsDto>();
