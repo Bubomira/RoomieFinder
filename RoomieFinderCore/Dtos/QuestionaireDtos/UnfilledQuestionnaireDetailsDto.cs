@@ -20,6 +20,9 @@ namespace RoomieFinderCore.Dtos.QuestionaireDtos
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public required string Description { get; set; }
 
+        [Required]
+        public required bool CanBeFilledOut { get; set; }
+
         public List<QuestionDetailsDto> Questions { get; set; }
         = new List<QuestionDetailsDto>();
     }

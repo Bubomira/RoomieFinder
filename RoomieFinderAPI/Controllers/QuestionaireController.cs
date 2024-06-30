@@ -71,12 +71,19 @@ namespace RoomieFinderAPI.Controllers
         [HttpGet("details/:questionaireId")]
         [ProducesResponseType(204, Type = typeof(UnfilledQuestionnaireDetailsDto))]
         [ProducesResponseType(404)]
+        [ProducesResponseType(403)]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetEmptyQuestionaireDetails(int questionaireId)
         {
             if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {
-                return Ok(await _questionaireContract.GetQuestionaireByIdAsync(questionaireId));
+                if ((User.IsInRole("Student") && await _questionaireContract.CheckIfQuestionaireCanBeFilledOut(questionaireId))
+                    || User.IsInRole("GreatAdmin"))
+                {
+                    return Ok(await _questionaireContract.GetQuestionaireByIdAsync(questionaireId));
+                }
+
+                return Unauthorized();
             }
 
             return NotFound();

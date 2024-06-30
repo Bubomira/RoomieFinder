@@ -17,17 +17,19 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             _unitOfWork = unitOfWork;
         }
 
+
         public async Task AddQuestionaireWithQuestionsAsync(QuestionairePostDto questionairePostDto)
         {
             Questionnaire questionaire = new Questionnaire()
             {
                 Description = questionairePostDto.Description,
+                IsReadyForFilling = false,
                 Title = questionairePostDto.Title,
                 Questions = questionairePostDto.Questions.Select(q => new Question()
                 {
                     Content = q.Content,
                     IsSingleAnswer = q.IsSingleAnswer,
-                    Answers= q.PossibleAnswers.Select(pa => new Answer()
+                    Answers = q.PossibleAnswers.Select(pa => new Answer()
                     {
                         Content = q.Content
                     }).ToList()
@@ -55,6 +57,7 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             {
                 Id = q.Id,
                 Description = q.Description,
+                CanBeFilledOut = q.IsReadyForFilling,
                 Title = q.Title,
                 Questions = q.Questions.Select(qu => new QuestionDetailsDto()
                 {
@@ -88,6 +91,10 @@ namespace RoomieFinderCore.Services.QuestionaireServices
         public Task<bool> CheckIfQuestionaireExistsByIdAsync(int questionaireId) =>
              _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
              .AnyAsync(q => q.Id == questionaireId);
+
+        public Task<bool> CheckIfQuestionaireCanBeFilledOut(int questionaireId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
+            .AnyAsync(q => q.Id == questionaireId && q.IsReadyForFilling);
 
     }
 }

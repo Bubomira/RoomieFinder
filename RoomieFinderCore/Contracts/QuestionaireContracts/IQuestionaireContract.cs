@@ -11,5 +11,6 @@ namespace RoomieFinderCore.Contracts.QuestionaireContracts
         public Task UpdateQuestionaireAsync(QuestionaireUpdateDto questionaireUpdateDto);
         public Task DeleteQuestionaireAsync(int questionaireId);
         public Task<bool> CheckIfQuestionaireExistsByIdAsync(int questionaireId);
+        public Task<bool> CheckIfQuestionaireCanBeFilledOut(int questionaireId);
     }
 }
