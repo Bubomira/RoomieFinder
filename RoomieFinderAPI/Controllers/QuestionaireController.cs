@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoomieFinderCore.Contracts.QuestionaireContracts;
 using RoomieFinderCore.Dtos.QuestionaireDtos;
-using RoomieFinderCore.Dtos.QuestionDtos;
 
 namespace RoomieFinderAPI.Controllers
 {
@@ -32,7 +31,7 @@ namespace RoomieFinderAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPut("update/:questionaireId")]
+        [HttpPut("update/{questionaireId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -54,7 +53,7 @@ namespace RoomieFinderAPI.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("delete/:questionaireId")]
+        [HttpDelete("delete/{questionaireId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
@@ -68,7 +67,7 @@ namespace RoomieFinderAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet("details/:questionaireId")]
+        [HttpGet("details/{questionaireId}")]
         [ProducesResponseType(204, Type = typeof(UnfilledQuestionnaireDetailsDto))]
         [ProducesResponseType(404)]
         [ProducesResponseType(403)]
@@ -87,6 +86,44 @@ namespace RoomieFinderAPI.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpGet("make/editable/{questionaireId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> MakeQuestionaireEditable(int questionaireId)
+        {
+            if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
+            {
+                await _questionaireContract.MakeQuestionaireFillableAsync(questionaireId);
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet("all")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200, Type = typeof(List<QuestionairePreviewDto>))]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
+        public async Task<IActionResult> GetAllQuestionairs([FromQuery] QuestionaireQueryInformationDto questionaireQueryInformationDto)
+        {
+            if (questionaireQueryInformationDto.PageNumber < 1)
+            {
+                return BadRequest();
+            }
+
+            await _questionaireContract.GetQuestionairsAsync(questionaireQueryInformationDto, User.IsInRole("GreatAdmin"));
+
+            if (questionaireQueryInformationDto.PageNumber * QuestionaireQueryInformationDto.ItemsPerPage >
+                questionaireQueryInformationDto.TotalResults)
+            {
+                return BadRequest();
+            }
+
+            return Ok(questionaireQueryInformationDto.QuestionairePreviewDtos);
         }
 
     }
