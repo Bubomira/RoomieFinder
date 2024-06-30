@@ -18,7 +18,8 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("The title of a questionaire")]
         public required string Title { get; set; }
 
-
+        [Required]
+        public required bool IsReadyForFilling { get; set; } = true;
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
