@@ -69,6 +69,8 @@ namespace RoomieFinderAPI.Controllers
         }
 
         [HttpGet("details/:questionaireId")]
+        [ProducesResponseType(204, Type = typeof(UnfilledQuestionnaireDetailsDto))]
+        [ProducesResponseType(404)]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetEmptyQuestionaireDetails(int questionaireId)
         {
@@ -79,5 +81,6 @@ namespace RoomieFinderAPI.Controllers
 
             return NotFound();
         }
+
     }
 }
