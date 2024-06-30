@@ -1,0 +1,41 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RoomieFinderCore.Contracts.QuestionaireContracts;
+using RoomieFinderCore.Dtos.QuestionDtos;
+
+namespace RoomieFinderAPI.Controllers
+{
+    [ApiController]
+    [Route("question")]
+    public class QuestionController : ControllerBase
+    {
+        private readonly IQuestionContract _questionContract;
+        private readonly IQuestionaireContract _questionaireContract;
+        public QuestionController(IQuestionContract questionContract,
+         IQuestionaireContract questionaireContract)
+        {
+            _questionContract = questionContract;
+            _questionaireContract = questionaireContract;
+        }
+
+        [HttpPost("add/question/{questionaireId}")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> AddQuestionToQuestionaire([FromBody] QuestionPostDto questionPostDto, int questionaireId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
+                {
+                    await _questionContract.AddQuestionToQuestionaireAsync(questionaireId, questionPostDto);
+                    return Created();
+                }
+                return NotFound();
+            }
+
+            return BadRequest();
+        }
+    }
+}
