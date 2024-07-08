@@ -42,12 +42,12 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task UpdateQuestionMetadataAsync(int questionId, QuestionPostDto questionPostDto)
+        public async Task UpdateQuestionMetadataAsync(int questionId, QuestionUpdateMetadataDto questionUpdateMetadataDto)
         {
             var question = await _unitOfWork.GetById<Question>(questionId);
 
-            question.IsSingleAnswer = questionPostDto.IsSingleAnswer;
-            question.Content = questionPostDto.Content;
+            question.IsSingleAnswer = questionUpdateMetadataDto.IsSingleAnswer;
+            question.Content = questionUpdateMetadataDto.Title;
 
             await _unitOfWork.SaveChangesAsync();
         }
