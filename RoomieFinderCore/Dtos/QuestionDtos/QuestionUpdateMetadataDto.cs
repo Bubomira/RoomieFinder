@@ -12,8 +12,10 @@ namespace RoomieFinderCore.Dtos.QuestionDtos
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public required string Title { get; set; }
 
-
         [Required]
         public required bool IsSingleAnswer { get; set; }
+
+        [Required]
+        public int QuestionaireId { get; set; }
     }
 }

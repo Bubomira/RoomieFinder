@@ -17,5 +17,8 @@ namespace RoomieFinderCore.Dtos.QuestionDtos
 
         public List<AnswerPostDto> PossibleAnswers { get; set; }
           = new List<AnswerPostDto>();
+
+        [Required]
+        public int QuestionaireId { get; set; }
     }
 }
