@@ -34,6 +34,8 @@ namespace RoomieFinderInfrastructure.Constants
         {
             public const int TitleMaxLength = 200;
             public const int TitleMinLength = 7;
+
+            public const int AnswerMinCount = 2;
         }
 
         public static class AnswerConstants
