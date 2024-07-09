@@ -18,7 +18,7 @@ namespace RoomieFinderCore.Contracts.QuestionaireContracts
         /// <param name="questionId"></param>
         /// <param name="questionPostDto"></param>
         /// <returns></returns>
-        public Task UpdateQuestionMetadataAsync(int questionId, QuestionUpdateMetadataDto questionUpdateMetadataDto);
+        public Task UpdateQuestionMetadataAsync(int questionId, QuestionUpdateMetadataDto questionPostDto);
 
         /// <summary>
         /// Removes an existing question alongside with its answers from a questionaire
