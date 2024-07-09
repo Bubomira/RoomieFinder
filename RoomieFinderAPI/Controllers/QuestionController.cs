@@ -76,23 +76,18 @@ namespace RoomieFinderAPI.Controllers
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> DeleteQuestion(int questionId, [FromQuery] int questionaireId)
         {
-            if (ModelState.IsValid)
+            if (await _questionContract.CheckIfQuestionExistsAsync(questionId) &&
+                await _questionContract.CheckIfQuestionIsAttachedToQuestionaireAsync(questionId, questionaireId))
             {
-                if (await _questionContract.CheckIfQuestionExistsAsync(questionId) &&
-                    await _questionContract.CheckIfQuestionIsAttachedToQuestionaireAsync(questionId, questionaireId))
+
+                if (await _questionaireContract.CheckIfQuestionaireCanBeFilledOut(questionaireId))
                 {
-
-                    if (await _questionaireContract.CheckIfQuestionaireCanBeFilledOut(questionaireId))
-                    {
-                        await _questionContract.DeleteQuestionFromQuestionaireAsync(questionId);
-                        return NoContent();
-                    }
-                    return Forbid();
+                    await _questionContract.DeleteQuestionFromQuestionaireAsync(questionId);
+                    return NoContent();
                 }
-                return NotFound();
+                return Forbid();
             }
-
-            return BadRequest();
+            return NotFound();
         }
     }
 }

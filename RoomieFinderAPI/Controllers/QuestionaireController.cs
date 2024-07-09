@@ -88,11 +88,11 @@ namespace RoomieFinderAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet("make/editable/{questionaireId}")]
+        [HttpGet("make/fillable/{questionaireId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> MakeQuestionaireEditable(int questionaireId)
+        public async Task<IActionResult> MakeQuestionaireFillable(int questionaireId)
         {
             if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {
