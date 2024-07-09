@@ -15,6 +15,7 @@ public static class ServicesExtention
 
         builder.AddScoped<IQuestionaireContract, QuestionaireService>();
         builder.AddScoped<IQuestionContract, QuestionService>();
+        builder.AddScoped<IAnswerContract, AnswerService>();
 
         return builder;
     }
