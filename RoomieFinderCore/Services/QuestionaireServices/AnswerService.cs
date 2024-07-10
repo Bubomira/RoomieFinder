@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using RoomieFinderCore.Contracts.QuestionaireContracts;
+using RoomieFinderCore.Dtos.AnswerDtos;
 using RoomieFinderInfrastructure.Models;
 using RoomieFinderInfrastructure.UnitOfWork;
 
@@ -35,6 +36,17 @@ namespace RoomieFinderCore.Services.QuestionaireServices
 
             await _unitOfWork.SaveChangesAsync();
         }
+        public async Task AtachAnswerToQuestionAsync(AnswerAttachDto answerAttachDto)
+        {
+            Answer answer = new Answer()
+            {
+                Content = answerAttachDto.Content,
+                QuestionId = answerAttachDto.QuestionId
+            };
+
+            await _unitOfWork.AddEntityAsync(answer);
+            await _unitOfWork.SaveChangesAsync();
+        }
         public Task<bool> CheckIfAnswerCouldBeDeletedFromQuestionAsync(int answerId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Answer>()
             .AnyAsync(a => a.Question.Answers.Count() > AnswerMinCount);
@@ -46,6 +58,12 @@ namespace RoomieFinderCore.Services.QuestionaireServices
         public Task<bool> CheckIfAnswerIsAttachedToEditableQuestionAsync(int answerId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Answer>()
             .AnyAsync(a => a.Id == answerId && a.Question.Questionnaire.IsReadyForFilling == true);
+
+        public Task<bool> CheckIfThereIsAnotherAnswerWithTheSameContentAsync(AnswerAttachDto answerAttachDto) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Question>()
+            .AnyAsync(q => q.Id == answerAttachDto.QuestionId
+            && q.Answers.All(a => a.Content != answerAttachDto.Content));
+
 
     }
 }
