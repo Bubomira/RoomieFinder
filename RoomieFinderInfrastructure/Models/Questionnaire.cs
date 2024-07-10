@@ -19,6 +19,7 @@ namespace RoomieFinderInfrastructure.Models
         public required string Title { get; set; }
 
         [Required]
+        [Comment("Describes if a questionaire can be filled out by students")]
         public required bool IsReadyForFilling { get; set; } = true;
 
         [Required]
