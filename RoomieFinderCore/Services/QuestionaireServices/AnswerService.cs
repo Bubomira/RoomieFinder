@@ -57,12 +57,12 @@ namespace RoomieFinderCore.Services.QuestionaireServices
 
         public Task<bool> CheckIfAnswerIsAttachedToEditableQuestionAsync(int answerId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Answer>()
-            .AnyAsync(a => a.Id == answerId && a.Question.Questionnaire.IsReadyForFilling == true);
+            .AnyAsync(a => a.Id == answerId && a.Question.Questionnaire.IsReadyForFilling == false);
 
-        public Task<bool> CheckIfThereIsAnotherAnswerWithTheSameContentAsync(AnswerAttachDto answerAttachDto) =>
+        public Task<bool> CheckIfThereIsAnotherAnswerWithTheSameContentAsync(int questionId,string content) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Question>()
-            .AnyAsync(q => q.Id == answerAttachDto.QuestionId
-            && q.Answers.All(a => a.Content != answerAttachDto.Content));
+            .AnyAsync(q => q.Id == questionId
+            && q.Answers.All(a => a.Content != content));
 
 
     }

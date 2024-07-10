@@ -61,5 +61,8 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             _unitOfWork.GetAllAsReadOnlyAsync<Question>()
             .AnyAsync(q => q.QuestionnaireId == questionaireId && q.Id == questionId);
 
+        public Task<bool> CheckIfQuestionaireIsAttachedToEditableQuestionaireAsync(int questionId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Question>()
+            .AnyAsync(q => q.Id == questionId && q.Questionnaire.IsReadyForFilling==false);
     }
 }

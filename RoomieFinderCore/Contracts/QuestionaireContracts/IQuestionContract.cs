@@ -41,5 +41,12 @@ namespace RoomieFinderCore.Contracts.QuestionaireContracts
         /// <param name="questionaireId"></param>
         /// <returns></returns>
         public Task<bool> CheckIfQuestionIsAttachedToQuestionaireAsync(int questionId, int questionaireId);
+
+        /// <summary>
+        /// Checks if a question is attached to an editable questionaire by its id
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <returns></returns>
+        public Task<bool> CheckIfQuestionaireIsAttachedToEditableQuestionaireAsync(int questionId);
     }
 }

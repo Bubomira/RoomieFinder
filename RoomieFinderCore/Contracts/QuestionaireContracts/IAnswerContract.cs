@@ -48,6 +48,6 @@ namespace RoomieFinderCore.Contracts.QuestionaireContracts
         /// </summary>
         /// <param name="answerAttachDto"></param>
         /// <returns></returns>
-        public Task<bool> CheckIfThereIsAnotherAnswerWithTheSameContentAsync(AnswerAttachDto answerAttachDto);
+        public Task<bool> CheckIfThereIsAnotherAnswerWithTheSameContentAsync(int questionId, string content);
     }
 }
