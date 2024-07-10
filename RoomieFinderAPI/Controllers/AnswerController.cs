@@ -57,5 +57,23 @@ namespace RoomieFinderAPI.Controllers
             }
             return BadRequest();
         }
+
+        [HttpDelete("delete/{answerId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteAnswer(int answerId)
+        {
+            if (await _answerContract.CheckIfAnswerExistsByIdAsync(answerId))
+            {
+                if (await _answerContract.CheckIfAnswerCouldBeDeletedFromQuestionAsync(answerId))
+                {
+                    await _answerContract.DeleteAnswerFromQuestionAsync(answerId);
+                    return NoContent();
+                }
+                return BadRequest();
+            }
+            return NotFound();
+        }
     }
 }
