@@ -5,7 +5,7 @@ using static RoomieFinderInfrastructure.Constants.ModelConstants.QuestionnaireCo
 
 namespace RoomieFinderCore.Dtos.QuestionaireDtos
 {
-    public class UnfilledQuestionnaireDetailsDto
+    public class QuestionaireDetailsDto
     {
         [Required]
         public int Id { get; set; }
