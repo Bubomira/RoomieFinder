@@ -11,9 +11,15 @@ namespace RoomieFinderAPI.Controllers
     public class QuestionaireController : ControllerBase
     {
         private readonly IQuestionaireContract _questionaireContract;
-        public QuestionaireController(IQuestionaireContract questionaireContract)
+        private readonly IQuestionaireCheckerContract _questionaireCheckerContract;
+        private readonly IQuestionaireGetContract _questionaireGetContract;
+        public QuestionaireController(IQuestionaireContract questionaireContract,
+            IQuestionaireCheckerContract questionaireCheckerContract,
+            IQuestionaireGetContract questionaireGetContract)
         {
             _questionaireContract = questionaireContract;
+            _questionaireCheckerContract = questionaireCheckerContract;
+            _questionaireGetContract = questionaireGetContract;
         }
 
         [HttpPost("create")]
@@ -41,7 +47,7 @@ namespace RoomieFinderAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
+                if (await _questionaireCheckerContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
                 {
                     await _questionaireContract.UpdateQuestionaireAsync(questionaireUpdateDto);
                     return NoContent();
@@ -59,7 +65,7 @@ namespace RoomieFinderAPI.Controllers
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> DeleteQuestionaire(int questionaireId)
         {
-            if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
+            if (await _questionaireCheckerContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {
                 await _questionaireContract.DeleteQuestionaireAsync(questionaireId);
                 return NoContent();
@@ -68,18 +74,18 @@ namespace RoomieFinderAPI.Controllers
         }
 
         [HttpGet("details/{questionaireId}")]
-        [ProducesResponseType(204, Type = typeof(UnfilledQuestionnaireDetailsDto))]
+        [ProducesResponseType(204, Type = typeof(FilledQuestionaireDto))]
         [ProducesResponseType(404)]
         [ProducesResponseType(403)]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetEmptyQuestionaireDetails(int questionaireId)
         {
-            if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
+            if (await _questionaireCheckerContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {
-                if ((User.IsInRole("Student") && await _questionaireContract.CheckIfQuestionaireCanBeFilledOut(questionaireId))
+                if ((User.IsInRole("Student") && await _questionaireCheckerContract.CheckIfQuestionaireCanBeFilledOutAsync(questionaireId))
                     || User.IsInRole("GreatAdmin"))
                 {
-                    return Ok(await _questionaireContract.GetQuestionaireByIdAsync(questionaireId));
+                    return Ok(await _questionaireGetContract.GetQuestionaireByIdAsync(questionaireId));
                 }
 
                 return Unauthorized();
@@ -94,7 +100,7 @@ namespace RoomieFinderAPI.Controllers
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> MakeQuestionaireFillable(int questionaireId)
         {
-            if (await _questionaireContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
+            if (await _questionaireCheckerContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {
                 await _questionaireContract.MakeQuestionaireFillableAsync(questionaireId);
                 return NoContent();
@@ -115,7 +121,7 @@ namespace RoomieFinderAPI.Controllers
                 return BadRequest();
             }
 
-            await _questionaireContract.GetQuestionairsAsync(questionaireQueryInformationDto, User.IsInRole("GreatAdmin"));
+            await _questionaireGetContract.GetQuestionairsAsync(questionaireQueryInformationDto, User.IsInRole("GreatAdmin"));
 
             if (questionaireQueryInformationDto.PageNumber * QuestionaireQueryInformationDto.ItemsPerPage >
                 questionaireQueryInformationDto.TotalResults)

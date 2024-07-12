@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RoomieFinderCore.Contracts.QuestionaireContracts;
+using RoomieFinderCore.Contracts.AnswerContracts;
+using RoomieFinderCore.Contracts.QuestionContracts;
 using RoomieFinderCore.Dtos.AnswerDtos;
 
 namespace RoomieFinderAPI.Controllers
@@ -12,12 +13,15 @@ namespace RoomieFinderAPI.Controllers
     public class AnswerController : ControllerBase
     {
         private readonly IAnswerContract _answerContract;
-        private readonly IQuestionContract _questionContract;
+        private readonly IAnswerCheckerContract _answerCheckerContract;
+        private readonly IQuestionCheckerContract _questionCheckerContract;
         public AnswerController(IAnswerContract answerContract,
-           IQuestionContract questionContract)
+           IAnswerCheckerContract answerCheckerContract,
+           IQuestionCheckerContract questionCheckerContract)
         {
             _answerContract = answerContract;
-            _questionContract = questionContract;
+            _answerCheckerContract = answerCheckerContract;
+            _questionCheckerContract = questionCheckerContract;
         }
 
         [HttpPost("attach")]
@@ -26,8 +30,8 @@ namespace RoomieFinderAPI.Controllers
         public async Task<IActionResult> AttachAnswerToQuestion([FromBody] AnswerAttachDto answerAttachDto)
         {
             if (ModelState.IsValid &&
-                !await _answerContract.CheckIfThereIsAnotherAnswerWithTheSameContentAsync(answerAttachDto.QuestionId, answerAttachDto.Content) &&
-                await _questionContract.CheckIfQuestionaireIsAttachedToEditableQuestionaireAsync(answerAttachDto.QuestionId))
+                !await _answerCheckerContract.CheckIfThereIsAnotherAnswerWithTheSameContentAsync(answerAttachDto.QuestionId, answerAttachDto.Content) &&
+                await _questionCheckerContract.CheckIfQuestionaireIsAttachedToEditableQuestionaireAsync(answerAttachDto.QuestionId))
             {
                 await _answerContract.AtachAnswerToQuestionAsync(answerAttachDto);
                 return Created();
@@ -43,10 +47,10 @@ namespace RoomieFinderAPI.Controllers
         {
             if (ModelState.IsValid || answerUpdateDto.Id != answerId)
             {
-                if (await _answerContract.CheckIfAnswerExistsByIdAsync(answerId) &&
-                    await _answerContract.CheckIfAnswerIsAttachedToEditableQuestionAsync(answerId))
+                if (await _answerCheckerContract.CheckIfAnswerExistsByIdAsync(answerId) &&
+                    await _answerCheckerContract.CheckIfAnswerIsAttachedToEditableQuestionAsync(answerId))
                 {
-                    if (!await _answerContract.CheckIfThereIsAnotherAnswerWithTheSameContentAsync(answerUpdateDto.QuestionId, answerUpdateDto.Content))
+                    if (!await _answerCheckerContract.CheckIfThereIsAnotherAnswerWithTheSameContentAsync(answerUpdateDto.QuestionId, answerUpdateDto.Content))
                     {
                         await _answerContract.UpdateAnswerAsync(answerId, answerUpdateDto.Content);
                         return NoContent();
@@ -64,9 +68,9 @@ namespace RoomieFinderAPI.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteAnswer(int answerId)
         {
-            if (await _answerContract.CheckIfAnswerExistsByIdAsync(answerId))
+            if (await _answerCheckerContract.CheckIfAnswerExistsByIdAsync(answerId))
             {
-                if (await _answerContract.CheckIfAnswerCouldBeDeletedFromQuestionAsync(answerId))
+                if (await _answerCheckerContract.CheckIfAnswerCouldBeDeletedFromQuestionAsync(answerId))
                 {
                     await _answerContract.DeleteAnswerFromQuestionAsync(answerId);
                     return NoContent();

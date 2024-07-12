@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RoomieFinderCore.Contracts.QuestionaireContracts;
+using RoomieFinderCore.Contracts.QuestionContracts;
 using RoomieFinderCore.Dtos.QuestionDtos;
 using RoomieFinderInfrastructure.Models;
 using RoomieFinderInfrastructure.UnitOfWork;
 
-namespace RoomieFinderCore.Services.QuestionaireServices
+namespace RoomieFinderCore.Services.QuestionService
 {
     public class QuestionService : IQuestionContract
     {
@@ -53,16 +53,5 @@ namespace RoomieFinderCore.Services.QuestionaireServices
         }
 
 
-        public Task<bool> CheckIfQuestionExistsAsync(int questionId) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Question>()
-            .AnyAsync(q => q.Id == questionId);
-
-        public Task<bool> CheckIfQuestionIsAttachedToQuestionaireAsync(int questionId, int questionaireId) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Question>()
-            .AnyAsync(q => q.QuestionnaireId == questionaireId && q.Id == questionId);
-
-        public Task<bool> CheckIfQuestionaireIsAttachedToEditableQuestionaireAsync(int questionId) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Question>()
-            .AnyAsync(q => q.Id == questionId && q.Questionnaire.IsReadyForFilling==false);
     }
 }
