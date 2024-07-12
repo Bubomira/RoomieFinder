@@ -14,11 +14,9 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("The student id who has picked the answer, part of composite key")]
         public required int StudentId { get; set; }
 
-        [Required]
-        public required Student Student { get; set; }
+        public Student Student { get; set; } = null!;
 
-        [Required]
-        public required Answer Answer { get; set; }
+        public Answer Answer { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(Answer))]
