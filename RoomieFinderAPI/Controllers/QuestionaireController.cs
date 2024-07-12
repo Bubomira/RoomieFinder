@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoomieFinderCore.Contracts.QuestionaireContracts;
 using RoomieFinderCore.Dtos.QuestionaireDtos;
+using RoomieFinderInfrastructure.Models;
+using System.Security.Claims;
 
 namespace RoomieFinderAPI.Controllers
 {
@@ -74,23 +76,39 @@ namespace RoomieFinderAPI.Controllers
         }
 
         [HttpGet("details/{questionaireId}")]
-        [ProducesResponseType(204, Type = typeof(FilledQuestionaireDto))]
+        [ProducesResponseType(204, Type = typeof(QuestionaireDetailsDto))]
         [ProducesResponseType(404)]
         [ProducesResponseType(403)]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetEmptyQuestionaireDetails(int questionaireId)
+        public async Task<IActionResult> GetEmptyQuestionaireDetails(int questionaireId, [FromQuery] string userId)
         {
             if (await _questionaireCheckerContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {
-                if ((User.IsInRole("Student") && await _questionaireCheckerContract.CheckIfQuestionaireCanBeFilledOutAsync(questionaireId))
-                    || User.IsInRole("GreatAdmin"))
+                if ((User.IsInRole("Student") &&
+                    await _questionaireCheckerContract.CheckIfQuestionaireCanBeFilledOutAsync(questionaireId) &&
+                    string.IsNullOrEmpty(userId)))
                 {
-                    return Ok(await _questionaireGetContract.GetQuestionaireByIdAsync(questionaireId));
+                    var applicationUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    return Ok(await _questionaireGetContract.GetQuestionaireByIdAsync(questionaireId,
+                              await _questionaireCheckerContract.CheckIfQuestionaireIsFilledOutByStudentAsync(questionaireId, applicationUserId),
+                              applicationUserId));
+                }
+                else if (User.IsInRole("GreatAdmin"))
+                {
+                    if (string.IsNullOrEmpty(userId))
+                    {
+                        return Ok(await _questionaireGetContract.GetQuestionaireByIdAsync(questionaireId, false, String.Empty));
+                    }
+                    else
+                    {
+                        return Ok(await _questionaireGetContract.GetQuestionaireByIdAsync(questionaireId,
+                                 await _questionaireCheckerContract.CheckIfQuestionaireIsFilledOutByStudentAsync(questionaireId, userId),
+                                 userId));
+                    }
                 }
 
                 return Unauthorized();
             }
-
             return NotFound();
         }
 
