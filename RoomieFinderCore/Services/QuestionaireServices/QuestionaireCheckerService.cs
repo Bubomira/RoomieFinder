@@ -29,5 +29,9 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
             .AnyAsync(q => q.Id == questionaireId && q.Questions.Count == submittedQuestionsCount);
 
+        public Task<bool> CheckIfQuestionaireIsFilledOutByStudentAsync(int questionaireId, string userId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()
+            .AnyAsync(sa => sa.Answer.Question.Questionnaire.Id == questionaireId && sa.Student.ApplicationUserId == userId);
+
     }
 }

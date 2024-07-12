@@ -9,7 +9,7 @@ using RoomieFinderInfrastructure.UnitOfWork;
 
 namespace RoomieFinderCore.Services.QuestionaireServices
 {
-    public class QuestionaireGetService:IQuestionaireGetContract
+    public class QuestionaireGetService : IQuestionaireGetContract
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -18,29 +18,28 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<FilledQuestionaireDto?> GetQuestionaireByIdAsync(int id) =>
-        await _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
-         .Where(q => q.Id == id)
-         .Select(q => new FilledQuestionaireDto()
-         {
-             Id = q.Id,
-             Description = q.Description,
-             CanBeFilledOut = q.IsReadyForFilling,
-             Title = q.Title,
-             Questions = q.Questions.Select(qu => new QuestionDetailsDto()
-             {
-                 Id = qu.Id,
-                 Content = qu.Content,
-                 IsSingleAnswer = qu.IsSingleAnswer,
-                 Answers = qu.Answers.Select(a => new AnswerDetailsDto()
-                 {
-                     Id = a.Id,
-                     IsPicked = false,
-                     Content = a.Content
-                 }).ToList()
-             }).ToList()
-         })
-         .FirstOrDefaultAsync();
+        public async Task<QuestionaireDetailsDto?> GetQuestionaireByIdAsync(int id, bool isFilledOut, string userId) => await _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
+              .Where(q => q.Id == id)
+              .Select(q => new QuestionaireDetailsDto()
+              {
+                  Id = q.Id,
+                  Description = q.Description,
+                  CanBeFilledOut = q.IsReadyForFilling,
+                  Title = q.Title,
+                  Questions = q.Questions.Select(qu => new QuestionDetailsDto()
+                  {
+                      Id = qu.Id,
+                      Content = qu.Content,
+                      IsSingleAnswer = qu.IsSingleAnswer,
+                      Answers = qu.Answers.Select(a => new AnswerDetailsDto()
+                      {
+                          Id = a.Id,
+                          IsPicked = isFilledOut ? false : a.StudentAnswers.Any(sa => sa.AnswerId == a.Id && sa.Student.ApplicationUserId == userId),
+                          Content = a.Content
+                      }).ToList()
+                  }).ToList()
+              })
+            .FirstOrDefaultAsync();
 
         public async Task GetQuestionairsAsync(QuestionaireQueryInformationDto questionaireQueryInformationDto, bool isAdmin)
         {
