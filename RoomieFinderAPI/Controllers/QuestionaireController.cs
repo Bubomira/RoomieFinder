@@ -88,7 +88,7 @@ namespace RoomieFinderAPI.Controllers
                     await _questionaireCheckerContract.CheckIfQuestionaireCanBeFilledOutAsync(questionaireId) &&
                     string.IsNullOrEmpty(userId)))
                 {
-                    var applicationUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var applicationUserId = User.Id();
                     return Ok(await _questionaireGetContract.GetQuestionaireByIdAsync(questionaireId,
                               await _questionaireCheckerContract.CheckIfQuestionaireIsFilledOutByStudentAsync(questionaireId, applicationUserId),
                               applicationUserId));
