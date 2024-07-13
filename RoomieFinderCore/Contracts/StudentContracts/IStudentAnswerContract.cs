@@ -11,7 +11,7 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         /// <param name="studentId"></param>
         /// <param name="answeredQuestionDto"></param>
         /// <returns></returns>
-        public Task UploadAnswersAsync(int studentId, List<AnsweredQuestionDto> answeredQuestionDto);
+        public Task UploadAnswersAsync(int studentId, List<int> selectedIds);
 
         /// <summary>
         /// Deletes all answers for a questionaire by student id
@@ -20,6 +20,6 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         /// <returns></returns>
         public Task ResetStudentAnswersForAStudentAsync(int studentId);
 
-       
+
     }
 }
