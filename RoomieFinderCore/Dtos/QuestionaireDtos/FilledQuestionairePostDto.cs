@@ -9,9 +9,9 @@ namespace RoomieFinderCore.Dtos.QuestionaireDtos
         public int QuestionaireId { get; set; }
 
         [Required]
-        public required string UserId { get; set; }
+        public bool IsCompletelyFilled { get; set; }
 
-        public List<AnsweredQuestionDto> AnsweredQuestions { get; set; }
-         = new List<AnsweredQuestionDto>();
+        public List<int> ChosenAnswersIds { get; set; }
+        = new List<int>();
     }
 }

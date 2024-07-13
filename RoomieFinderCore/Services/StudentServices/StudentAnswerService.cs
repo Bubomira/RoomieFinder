@@ -16,18 +16,15 @@ namespace RoomieFinderCore.Services.StudentServices
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task UploadAnswersAsync(int studentId, List<AnsweredQuestionDto> answeredQuestionsDto)
+        public async Task UploadAnswersAsync(int studentId, List<int> selectedIds)
         {
             List<StudentAnswer> studentAnswers = new List<StudentAnswer>();
-            answeredQuestionsDto.ForEach(aqd =>
+            selectedIds.ForEach(si =>
             {
-                aqd.ChosenAnswersDto.ForEach(cad =>
+                studentAnswers.Add(new StudentAnswer()
                 {
-                    studentAnswers.Add(new StudentAnswer()
-                    {
-                        AnswerId = cad,
-                        StudentId = studentId
-                    });
+                    AnswerId = si,
+                    StudentId = studentId
                 });
             });
 
