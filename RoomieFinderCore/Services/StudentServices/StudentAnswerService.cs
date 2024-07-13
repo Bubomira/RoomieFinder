@@ -33,10 +33,10 @@ namespace RoomieFinderCore.Services.StudentServices
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task ResetStudentAnswersForAStudentAsync(int studentId)
+        public async Task ResetStudentAnswersForAStudentAsync(int studentId, int questionaireId)
         {
             var studentAnswers = await _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()
-                 .Where(sa => sa.StudentId == studentId)
+                 .Where(sa => sa.StudentId == studentId && sa.Answer.Question.QuestionnaireId == questionaireId)
                   .ToListAsync();
 
             _unitOfWork.RemoveAll(studentAnswers);

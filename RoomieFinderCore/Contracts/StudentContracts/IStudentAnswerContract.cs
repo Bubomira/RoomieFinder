@@ -18,7 +18,7 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         /// </summary>
         /// <param name="studentId"></param>
         /// <returns></returns>
-        public Task ResetStudentAnswersForAStudentAsync(int studentId);
+        public Task ResetStudentAnswersForAStudentAsync(int studentId,int questionaireId);
 
 
     }
