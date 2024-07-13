@@ -25,9 +25,10 @@ namespace RoomieFinderCore.Services.QuestionaireServices
             _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
             .AnyAsync(q => q.Id == questionaireId && q.IsReadyForFilling);
 
-        public Task<bool> CheckIfAllAnswersHaveBeenAnsweredAsync(int questionaireId, int submittedQuestionsCount) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Questionnaire>()
-            .AnyAsync(q => q.Id == questionaireId && q.Questions.Count == submittedQuestionsCount);
+        public Task<bool> CheckIfAllAnswersBelongToTheQuestionaire(int questionaireId, List<int> submittedIds) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()
+            .Where(sa => sa.Answer.Question.QuestionnaireId == questionaireId)
+            .AllAsync(sa => submittedIds.Contains(sa.AnswerId));
 
         public Task<bool> CheckIfQuestionaireIsFilledOutByStudentAsync(int questionaireId, string userId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()

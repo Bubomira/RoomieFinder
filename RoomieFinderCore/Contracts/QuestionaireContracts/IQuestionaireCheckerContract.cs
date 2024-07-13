@@ -22,11 +22,11 @@ namespace RoomieFinderCore.Contracts.QuestionaireContracts
 
 
         /// <summary>
-        /// Checks if all of the questionaire's answers have been answered by their submitted count
+        /// Checks if all of the submitted id's belong to the provided questionaire
         /// </summary>
         /// <param name="submittedQuestionsCount"></param>
         /// <returns></returns>
-        public Task<bool> CheckIfAllAnswersHaveBeenAnsweredAsync(int questionaireId, int submittedQuestionsCount);
+        public Task<bool> CheckIfAllAnswersBelongToTheQuestionaire(int questionaireId, List<int> expectedIds);
 
         /// <summary>
         /// Checks if a questionaire is filled out by a student
