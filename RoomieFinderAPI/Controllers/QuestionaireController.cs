@@ -80,7 +80,7 @@ namespace RoomieFinderAPI.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(403)]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetEmptyQuestionaireDetails(int questionaireId, [FromQuery] string userId)
+        public async Task<IActionResult> GetQuestionaireDetails(int questionaireId, [FromQuery] string userId)
         {
             if (await _questionaireCheckerContract.CheckIfQuestionaireExistsByIdAsync(questionaireId))
             {

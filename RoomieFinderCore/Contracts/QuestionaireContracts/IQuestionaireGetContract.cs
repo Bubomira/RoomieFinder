@@ -11,7 +11,7 @@ namespace RoomieFinderCore.Contracts.QuestionaireContracts
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<QuestionaireDetailsDto?> GetQuestionaireByIdAsync(int id, bool isFilledOut, string userId)
+        public Task<QuestionaireDetailsDto?> GetQuestionaireByIdAsync(int id, bool isFilledOut, string userId);
         /// <summary>
         /// Gets all available questionairs with sorting and search functionality
         /// Students can only see the questionairs they can fill out
