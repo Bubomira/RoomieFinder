@@ -16,10 +16,14 @@ namespace RoomieFinderInfrastructure.Models
         public int YearAtUniversity { get; set; }
 
         [Required]
+        [Comment("An indicator to the gender of a student")]
+        public required bool IsMale { get; set; }
+
+        [Required]
         [Comment("Shows if a student has graduated, graduated students cannot use the application")]
-        public bool HasGraduated { get; set; }     
-       
-        public  Room? Room { get; set; }
+        public bool HasGraduated { get; set; }
+
+        public Room? Room { get; set; }
 
         [ForeignKey(nameof(Room))]
         public int? RoomId { get; set; }

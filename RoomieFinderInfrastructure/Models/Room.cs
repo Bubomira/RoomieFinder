@@ -21,6 +21,9 @@ namespace RoomieFinderInfrastructure.Models
         [Comment("The room number is its identifyer in the dormitory")]
         public int RoomNumber { get; set; }
 
+        [Required]
+        [Comment("Shows the remaining empty spots for a room, set to 0 when the room is full")]
+        public int RemainingCapacity { get; set; }
 
         [ForeignKey(nameof(Dormitory))]
         public int DormitoryId { get; set; }

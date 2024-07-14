@@ -41,7 +41,7 @@ namespace RoomieFinderAPI.Areas
                 var userId = await _authContract.RegisterUserAsync(registerUserDto);
                 if (userId != null)
                 {
-                    await _authContract.RegisterStudentAsync(userId, registerUserDto.YearAtUniversity);
+                    await _authContract.RegisterStudentAsync(userId, registerUserDto.YearAtUniversity,registerUserDto.IsMale);
                     return Ok($"Successfully registered {registerUserDto.FirstName} {registerUserDto.LastName}");
                 }
             }

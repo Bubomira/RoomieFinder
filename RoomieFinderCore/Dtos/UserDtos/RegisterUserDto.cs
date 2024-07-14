@@ -28,5 +28,8 @@ namespace RoomieFinderCore.Dtos.UserDtos
         [Required]
         [Range(1, 5)]
         public required int YearAtUniversity { get; set; }
+
+        [Required]
+        public required bool IsMale { get; set; }
     }
 }

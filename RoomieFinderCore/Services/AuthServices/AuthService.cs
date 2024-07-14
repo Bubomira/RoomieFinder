@@ -59,12 +59,13 @@ namespace RoomieFinderCore.Services.AuthServices
             return null;
         }
 
-        public async Task RegisterStudentAsync(string id, int yearAtUniversity)
+        public async Task RegisterStudentAsync(string id, int yearAtUniversity,bool isMale)
         {
             Student student = new Student()
             {
                 ApplicationUserId = id,
                 HasGraduated = false,
+                IsMale = isMale,
                 YearAtUniversity = yearAtUniversity
             };
 
