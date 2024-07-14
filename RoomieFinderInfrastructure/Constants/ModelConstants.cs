@@ -20,7 +20,7 @@ namespace RoomieFinderInfrastructure.Constants
 
         public static class UniversityConstants
         {
-            public const int NameMaxLength= 100;
+            public const int NameMaxLength = 100;
             public const int NameMinLength = 5;
         }
 
@@ -29,6 +29,17 @@ namespace RoomieFinderInfrastructure.Constants
             public const int NameMaxLength = 30;
             public const int NameMinLength = 4;
         }
+
+        public static class RoomConstants
+        {
+            public const int NoCapacityLeft = 0;
+        }
+
+        public static class StudentConstants
+        {
+            public const int TopYearAtUniversity = 4;
+        }
+
 
         public static class QuestionConstants
         {
