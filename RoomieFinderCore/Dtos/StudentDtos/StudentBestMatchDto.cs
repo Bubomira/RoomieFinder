@@ -11,6 +11,9 @@ namespace RoomieFinderCore.Dtos.StudentDtos
         [Required]
         public required int YearAtUniversity { get; set; }
         public bool HasAssignedRoom { get; set; }
-        public int? AssignedRoomId { get;set; }
+        public int? AssignedRoomId { get; set; }
+        public int? AssignedRoomNumber { get; set; }
+        public string? AssignedDormitoryName { get; set; }
+        public int? RoomCapacityLeft { get; set; }
     }
 }

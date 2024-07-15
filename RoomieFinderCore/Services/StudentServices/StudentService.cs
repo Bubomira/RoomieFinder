@@ -54,7 +54,10 @@ namespace RoomieFinderCore.Services.StudentServices
                 FullName = $"{s.ApplicationUser.FirstName} {s.ApplicationUser.LastName}",
                 YearAtUniversity = s.YearAtUniversity,
                 AssignedRoomId = s.RoomId,
-                HasAssignedRoom = s.Room != null
+                HasAssignedRoom = s.Room != null,
+                AssignedRoomNumber = s.Room.RoomNumber,
+                RoomCapacityLeft = s.Room.RemainingCapacity,
+                AssignedDormitoryName = s.Room.Dormitory.Name
             })
             .ToListAsync();
         }
