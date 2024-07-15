@@ -2,11 +2,13 @@
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Contracts.QuestionaireContracts;
 using RoomieFinderCore.Contracts.QuestionContracts;
+using RoomieFinderCore.Contracts.RoomContracts;
 using RoomieFinderCore.Contracts.StudentContracts;
 using RoomieFinderCore.Services.AnswerService;
 using RoomieFinderCore.Services.AuthServices;
 using RoomieFinderCore.Services.QuestionaireServices;
 using RoomieFinderCore.Services.QuestionService;
+using RoomieFinderCore.Services.RoomServices;
 using RoomieFinderCore.Services.StudentServices;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -31,6 +33,9 @@ public static class ServicesExtention
 
         builder.AddScoped<IStudentAnswerContract, StudentAnswerService>();
         builder.AddScoped<IStudentContract, StudentService>();
+
+        builder.AddScoped<IRoomContract, RoomService>();
+        builder.AddScoped<IRoomCheckerContract, RoomCheckerService>();
 
         return builder;
     }
