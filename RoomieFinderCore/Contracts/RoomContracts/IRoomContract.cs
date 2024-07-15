@@ -23,7 +23,7 @@ namespace RoomieFinderCore.Contracts.RoomContracts
         /// Gets all of the students who need to be assigned to a room
         /// </summary>
         /// <returns></returns>
-        public Task<List<StudentWithoutARoomDto>> GetAllStudentsWithoutARoomAsync(int pageNumber);
+        public Task GetAllStudentsWithoutARoomAsync(RoomlessStudentsListDto roomlessStudentsListDto);
     }
 
 }

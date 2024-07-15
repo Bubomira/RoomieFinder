@@ -20,7 +20,7 @@ namespace RoomieFinderCore.Dtos.StudentDtos
 
         public int TotalCount { get; set; }
 
-        public List<StudentWithoutARoomDto> studentsWithoutARoom { get; set; }
+        public List<StudentWithoutARoomDto> StudentsWithoutARoom { get; set; }
            = new List<StudentWithoutARoomDto>();
 
     }

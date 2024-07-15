@@ -26,10 +26,15 @@ namespace RoomieFinderCore.Services.RoomServices
                 .ExecuteUpdateAsync(setter => setter.SetProperty(r => r.RemainingCapacity, r => r.RemainingCapacity - 1));
         }
 
-        public Task<List<StudentWithoutARoomDto>> GetAllStudentsWithoutARoomAsync(int pageNumber) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Student>()
-            .Where(s => s.RoomId == null)
-            .Skip((pageNumber - 1) * RoomlessStudentsListDto.StudentsOnPage)
+        public async Task GetAllStudentsWithoutARoomAsync(RoomlessStudentsListDto roomlessStudentsListDto)
+        {
+            var students = _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+             .Where(s => s.RoomId == null);
+
+            roomlessStudentsListDto.TotalCount = await students.CountAsync();
+
+            roomlessStudentsListDto.StudentsWithoutARoom = await students
+            .Skip((roomlessStudentsListDto.PageNumber - 1) * RoomlessStudentsListDto.StudentsOnPage)
             .Take(RoomlessStudentsListDto.StudentsOnPage)
             .Select(s => new StudentWithoutARoomDto
             {
@@ -37,6 +42,8 @@ namespace RoomieFinderCore.Services.RoomServices
                 YearAtUniversity = s.YearAtUniversity
             })
             .ToListAsync();
+
+        }
 
 
 
