@@ -27,7 +27,7 @@ namespace RoomieFinderInfrastructure.Models
 
         [ForeignKey(nameof(Dormitory))]
         public int DormitoryId { get; set; }
-        public required Dormitory Dormitory { get; set; }
+        public Dormitory Dormitory { get; set; } = null!;
 
         public IList<Student> Students { get; set; } = new List<Student>();
     }
