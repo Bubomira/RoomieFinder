@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using RoomieFinderCore.Contracts.DormitotyContracts;
 using RoomieFinderCore.Dtos.DormitoryDtos;
+using RoomieFinderCore.Dtos.RoomDtos;
 using RoomieFinderInfrastructure.Models;
 using RoomieFinderInfrastructure.UnitOfWork;
 
@@ -22,6 +23,18 @@ namespace RoomieFinderCore.Services.DormitoryServices
             {
                 Id = d.Id,
                 Name = d.Name
+            })
+            .ToListAsync();
+
+        public Task<List<RoomDetailsDto>> GetAllRoomsFromADormitoryByIdAsync(int dormitoryId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+            .Where(r => r.DormitoryId == dormitoryId)
+            .Select(r => new RoomDetailsDto()
+            {
+                Id = r.Id,
+                RoomNumber = r.RoomNumber,
+                RemainingCapacity = r.RemainingCapacity,
+                RoomType = r.RoomType
             })
             .ToListAsync();
 

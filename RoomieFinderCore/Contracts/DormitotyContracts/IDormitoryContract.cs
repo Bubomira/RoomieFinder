@@ -1,6 +1,7 @@
 ﻿
 
 using RoomieFinderCore.Dtos.DormitoryDtos;
+using RoomieFinderCore.Dtos.RoomDtos;
 
 namespace RoomieFinderCore.Contracts.DormitotyContracts
 {
@@ -17,5 +18,12 @@ namespace RoomieFinderCore.Contracts.DormitotyContracts
         /// <param name="dormitoryId"></param>
         /// <returns></returns>
         public Task<bool> CheckIfDormitoryExistsByIdAsync(int dormitoryId);
+
+        /// <summary>
+        /// Gets all of the rooms from a dormitory by its id
+        /// </summary>
+        /// <param name="dormitoryId"></param>
+        /// <returns></returns>
+        public Task<List<RoomDetailsDto>> GetAllRoomsFromADormitoryByIdAsync(int dormitoryId);
     }
 }
