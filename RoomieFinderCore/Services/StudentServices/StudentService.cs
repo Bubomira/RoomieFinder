@@ -67,14 +67,14 @@ namespace RoomieFinderCore.Services.StudentServices
 
         public async Task MoveUngraduatedStudentsToNextYearAsync()
         {
-            await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+            await _unitOfWork.GetAllAsync<Student>()
                  .Where(s => s.YearAtUniversity < TopYearAtUniversity)
                  .ExecuteUpdateAsync(setters => setters.SetProperty(s => s.YearAtUniversity, s => s.YearAtUniversity + 1));
         }
 
         public async Task GraduateStudentsAsync()
         {
-            await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+            await _unitOfWork.GetAllAsync<Student>()
                  .Where(s => s.YearAtUniversity == TopYearAtUniversity)
                  .ExecuteUpdateAsync(setters => setters.SetProperty(s => s.HasGraduated, true));
         }

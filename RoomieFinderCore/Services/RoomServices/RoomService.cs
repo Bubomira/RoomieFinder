@@ -17,11 +17,11 @@ namespace RoomieFinderCore.Services.RoomServices
         }
         public async Task AsignRoomToStudentAsync(string userId, int roomId)
         {
-            await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+            await _unitOfWork.GetAllAsync<Student>()
                 .Where(s => s.ApplicationUserId == userId)
                 .ExecuteUpdateAsync(setter => setter.SetProperty(s => s.RoomId, roomId));
 
-            await _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+            await _unitOfWork.GetAllAsync<Room>()
                 .Where(r => r.Id == roomId)
                 .ExecuteUpdateAsync(setter => setter.SetProperty(r => r.RemainingCapacity, r => r.RemainingCapacity - 1));
         }
@@ -45,10 +45,8 @@ namespace RoomieFinderCore.Services.RoomServices
 
         }
 
-
-
         public async Task RemoveRecentlyGraduatedStudentsFromRoomsAsync() =>
-            await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+            await _unitOfWork.GetAllAsync<Student>()
                  .Where(s => s.HasGraduated)
                  .ExecuteUpdateAsync(setter => setter.SetProperty(r => r.RoomId, (int?)null));
 
