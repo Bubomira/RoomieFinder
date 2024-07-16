@@ -29,11 +29,13 @@ namespace RoomieFinderInfrastructure.Models
         public int? RoomId { get; set; }
 
         public IList<StudentAnswer> StudentAnswers { get; set; } = new List<StudentAnswer>();
+        public IList<Request> Requests { get; set; } = new List<Request>();
 
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
         public required string ApplicationUserId { get; set; }
+
     }
 }

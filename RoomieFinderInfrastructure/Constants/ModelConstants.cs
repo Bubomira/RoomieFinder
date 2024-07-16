@@ -35,6 +35,11 @@ namespace RoomieFinderInfrastructure.Constants
             public const int NoCapacityLeft = 0;
         }
 
+        public static class RequestConstants
+        {
+            public const int CommentMaxLength = 100;
+        }
+
         public static class StudentConstants
         {
             public const int TopYearAtUniversity = 4;

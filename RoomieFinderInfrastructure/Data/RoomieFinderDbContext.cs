@@ -21,6 +21,7 @@ namespace RoomieFinderInfrastructure.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<StudentAnswer> StudentsAnswers { get; set; }
+        public DbSet<Request> Requests { get; set; }
         public DbSet<BlacklistedToken> BlacklistedTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
