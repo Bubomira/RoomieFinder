@@ -6,6 +6,7 @@ namespace RoomieFinderInfrastructure.Enums
     {
         SingleRoom = 1,
         ChangeRoom = 2,
-        SpecificRoomate = 3
+        SpecificRoomate = 3,
+        DoesntMatter = 4
     }
 }
