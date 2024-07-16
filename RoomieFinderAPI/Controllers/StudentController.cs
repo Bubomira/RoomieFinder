@@ -21,6 +21,7 @@ namespace RoomieFinderAPI.Controllers
         }
 
         [HttpGet("without/rooms")]
+        [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(RoomlessStudentsListDto))]
         public async Task<IActionResult> GetAllStudentsWithoutARoom([FromQuery] int pageNumber)
         {
@@ -30,10 +31,25 @@ namespace RoomieFinderAPI.Controllers
 
             if (roomlessStudentsListDto.StudentsWithoutARoom.Count == 0)
             {
-                return RedirectToAction(nameof(GetAllStudentsWithoutARoom), new { pageNumber = 1 });
+                return BadRequest();
             }
 
             return Ok(roomlessStudentsListDto);
+        }
+
+        [HttpGet("{userId}/matches")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200, Type = typeof(List<StudentBestMatchDto>))]
+        public async Task<IActionResult> GetTopThreeBestMatches(string userId)
+        {
+            if (await _studentContract.CheckIfStudentExistsByUserIdAsync(userId))
+            {
+                bool isMale = await _studentContract.CheckIfStudentIsMaleAsync(userId);
+                var list = await _studentContract.GetTopThreeRoomateMatchesForAStudentAsync(userId, isMale);
+
+                return Ok(list);
+            }
+            return NotFound();
         }
     }
 }
