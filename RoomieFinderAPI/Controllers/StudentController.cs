@@ -12,11 +12,14 @@ namespace RoomieFinderAPI.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IStudentContract _studentContract;
+        private readonly IStudentCheckerContract _studentCheckerContract;
         private readonly IRoomContract _roomContract;
         public StudentController(IStudentContract studentContract,
+            IStudentCheckerContract studentCheckerContract,
             IRoomContract roomContract)
         {
             _studentContract = studentContract;
+            _studentCheckerContract = studentCheckerContract;
             _roomContract = roomContract;
         }
 
@@ -42,9 +45,9 @@ namespace RoomieFinderAPI.Controllers
         [ProducesResponseType(200, Type = typeof(List<StudentBestMatchDto>))]
         public async Task<IActionResult> GetTopThreeBestMatches(string userId)
         {
-            if (await _studentContract.CheckIfStudentExistsByUserIdAsync(userId))
+            if (await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
             {
-                bool isMale = await _studentContract.CheckIfStudentIsMaleAsync(userId);
+                bool isMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
                 var list = await _studentContract.GetTopThreeRoomateMatchesForAStudentAsync(userId, isMale);
 
                 return Ok(list);

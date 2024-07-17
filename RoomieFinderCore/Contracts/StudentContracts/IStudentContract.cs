@@ -14,20 +14,6 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         public Task<int> GetStudentIdAsync(string userId);
 
         /// <summary>
-        /// Checks if the student's gender is male
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public Task<bool> CheckIfStudentIsMaleAsync(string userId);
-
-        /// <summary>
-        /// Checks if the student exists by their user id
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public Task<bool> CheckIfStudentExistsByUserIdAsync(string userId);
-
-        /// <summary>
         /// Gets the top three best mathes for a student based on initial reuirements and the answers the student has provided
         /// </summary>
         /// <param name="studentId"></param>

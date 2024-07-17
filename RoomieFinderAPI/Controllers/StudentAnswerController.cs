@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RoomieFinderCore.Contracts.QuestionaireContracts;
 using RoomieFinderCore.Contracts.StudentContracts;
 using RoomieFinderCore.Dtos.QuestionaireDtos;

@@ -25,15 +25,6 @@ namespace RoomieFinderCore.Services.StudentServices
             .Select(s => s.StudentId)
             .FirstOrDefaultAsync();
 
-        public Task<bool> CheckIfStudentIsMaleAsync(string userId) =>
-           _unitOfWork.GetAllAsReadOnlyAsync<Student>()
-           .Where(s => s.ApplicationUserId == userId)
-           .Select(s => s.IsMale)
-           .FirstOrDefaultAsync();
-        public Task<bool> CheckIfStudentExistsByUserIdAsync(string userId) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Student>()
-            .AnyAsync(s => s.ApplicationUserId == userId);
-
         public async Task<List<StudentBestMatchDto>> GetTopThreeRoomateMatchesForAStudentAsync(string userId, bool isMale)
         {
             var studentAnswersIds = await _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()

@@ -36,6 +36,7 @@ public static class ServicesExtention
         builder.AddScoped<IAnswerCheckerContract, AnswerCheckerService>();
 
         builder.AddScoped<IStudentAnswerContract, StudentAnswerService>();
+        builder.AddScoped<IStudentCheckerContract, StudentCheckerService>();
         builder.AddScoped<IStudentContract, StudentService>();
 
         builder.AddScoped<IRoomContract, RoomService>();
