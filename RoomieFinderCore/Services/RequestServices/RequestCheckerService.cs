@@ -20,12 +20,16 @@ namespace RoomieFinderCore.Services.RequestServices
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()
             .AnyAsync(r => r.Id == requestId);
 
-        public Task<bool> ChecksIfAPendingRequestIsSubmittedByUserAsync(int requestId, string userId) =>
+        public Task<bool> ChecksIfRequestIsSubmittedByUserAsync(int requestId, string userId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()
-            .AnyAsync(r => r.Id == requestId && r.Student.ApplicationUserId == userId && r.RequestStatus == RequestStatus.Pending);
+            .AnyAsync(r => r.Id == requestId && r.Student.ApplicationUserId == userId);
 
-        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestOfTheSameTypeAsync(string userId, RequestType requestType) =>
+        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestForUserAsync(string userId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()
-            .AnyAsync(r => r.Student.ApplicationUserId == userId && r.RequestType == requestType && r.RequestStatus != RequestStatus.Archived);
+            .AnyAsync(r => r.Student.ApplicationUserId == userId);
+
+        public Task<bool> ChecksIfTheRequestIsSubmittedByUserAndPendingAsync(int requestId, string userId) =>
+              _unitOfWork.GetAllAsReadOnlyAsync<Request>()
+              .AnyAsync(r => r.Id == requestId && r.Student.ApplicationUserId == userId && r.RequestStatus == RequestStatus.Pending);
     }
 }

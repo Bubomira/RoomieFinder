@@ -18,7 +18,15 @@ namespace RoomieFinderCore.Contracts.RequestContracts
         /// </summary>
         /// <param name="requestId"></param>
         /// <returns></returns>
-        public Task<bool> ChecksIfAPendingRequestIsSubmittedByUserAsync(int requestId, string userId);
+        public Task<bool> ChecksIfRequestIsSubmittedByUserAsync(int requestId, string userId);
+
+
+        /// <summary>
+        /// Checks if the wanted request is submitted by the user and is pending
+        /// </summary>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        public Task<bool> ChecksIfTheRequestIsSubmittedByUserAndPendingAsync(int requestId, string userId);
 
         /// <summary>
         /// Checks if there is another request of the same type by a student
@@ -26,6 +34,6 @@ namespace RoomieFinderCore.Contracts.RequestContracts
         /// <param name="userId"></param>
         /// <param name="requestType"></param>
         /// <returns></returns>
-        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestOfTheSameTypeAsync(string userId, RequestType requestType);
+        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestForUserAsyncAsync(string userId);
     }
 }
