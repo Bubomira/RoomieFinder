@@ -69,8 +69,17 @@ namespace RoomieFinderAPI.Controllers
             return NotFound();
         }
 
+
+        [HttpGet("possible/types")]
+        [ProducesResponseType(200, Type = typeof(List<RequestType>))]
+        [Authorize(Roles = "Student", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetPossibleRequestTypeForStudent() =>
+             Ok(await _requestStatusContract.GetPossibleRequestTypesAsync(User.Id() ?? ""));
+
+
         [HttpPost("submit")]
         [ProducesResponseType(400)]
+        [ProducesResponseType(201)]
         [Authorize(Roles = "Student", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> SubmitRequest([FromBody] RequestPostDto requestPostDto)
         {
