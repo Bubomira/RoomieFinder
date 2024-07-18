@@ -104,5 +104,36 @@ namespace RoomieFinderAPI.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("accept/{requestId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> AcceptRequest(int requestId)
+        {
+            if (await _requestCheckerContract.CheckIfRequestExistsByIdAsync(requestId))
+            {
+                await _requestStatusContract.ChangeRequestStatusAsync(requestId, RequestStatus.Accepted);
+                return NoContent();
+            }
+
+            return BadRequest();
+        }
+
+
+        [HttpGet("decline/{requestId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> DeclineRequest(int requestId)
+        {
+            if (await _requestCheckerContract.CheckIfRequestExistsByIdAsync(requestId))
+            {
+                await _requestStatusContract.ChangeRequestStatusAsync(requestId, RequestStatus.Declined);
+                return NoContent();
+            }
+
+            return BadRequest();
+        }
     }
 }
