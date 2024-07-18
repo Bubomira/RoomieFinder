@@ -17,6 +17,15 @@
 
         public Task<bool> CheckIfRoomHasCapacityAsync(int roomId);
 
+
+        /// <summary>
+        /// Checks if there are any free spaces in othe rooms
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+
+        public Task<bool> CheckIfThereIsACapacityInOtherRoomsAsync(int roomId);
+
         /// <summary>
         /// Checks whether a student has been asigned to a particular room
         /// </summary>

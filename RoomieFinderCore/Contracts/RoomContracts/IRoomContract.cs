@@ -13,6 +13,15 @@ namespace RoomieFinderCore.Contracts.RoomContracts
         /// <returns></returns>
         public Task AsignRoomToStudentAsync(string userId, int roomId);
 
+
+        /// <summary>
+        /// Removes a student from a given room
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        public Task RemoveStudentFromARoomAsync(string userId);
+
         /// <summary>
         /// removes all of the recently graduated students from the rooms
         /// </summary>

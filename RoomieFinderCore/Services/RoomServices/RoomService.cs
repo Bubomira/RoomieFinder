@@ -50,5 +50,11 @@ namespace RoomieFinderCore.Services.RoomServices
                  .Where(s => s.HasGraduated)
                  .ExecuteUpdateAsync(setter => setter.SetProperty(r => r.RoomId, (int?)null));
 
+        public async Task RemoveStudentFromARoomAsync(string userId) =>
+            await _unitOfWork.GetAllAsync<Student>()
+            .Where(s => s.ApplicationUserId == userId)
+            .ExecuteUpdateAsync(setter => setter.SetProperty(r => r.RoomId, (int?)null));
+
+
     }
 }

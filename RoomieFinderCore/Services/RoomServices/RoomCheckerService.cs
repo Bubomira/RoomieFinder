@@ -24,12 +24,16 @@ namespace RoomieFinderCore.Services.RoomServices
 
         public Task<bool> CheckIfRoomHasCapacityAsync(int roomId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Room>()
-            .AnyAsync(r => r.Id == roomId && r.RemainingCapacity < NoCapacityLeft);
+            .AnyAsync(r => r.Id == roomId && r.RemainingCapacity > NoCapacityLeft);
 
 
         public Task<bool> CheckIfStudentIsAlreadyAsignedToTheSpecifiedRoomAsync(string userId, int roomId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Student>()
             .AnyAsync(s => s.ApplicationUserId == userId && s.RoomId == roomId);
+
+        public Task<bool> CheckIfThereIsACapacityInOtherRoomsAsync(int roomId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+            .AnyAsync(r => r.Id != roomId && r.RemainingCapacity > NoCapacityLeft);
 
     }
 }
