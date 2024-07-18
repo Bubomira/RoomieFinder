@@ -35,5 +35,16 @@ namespace RoomieFinderAPI.Controllers
             return NotFound();
         }
 
+        [HttpGet("{dormitoryId}/rooms/single")]
+        [ProducesResponseType(200, Type = typeof(List<RoomDetailsDto>))]
+        public async Task<IActionResult> GetAllSingleRoomsFromADormitory(int dormitoryId)
+        {
+            if (await _dormitoryContract.CheckIfDormitoryExistsByIdAsync(dormitoryId))
+            {
+                return Ok(await _dormitoryContract.GetAllSingleRoomsFromADormitoryByIdAsync(dormitoryId));
+            }
+            return NotFound();
+        }
+
     }
 }
