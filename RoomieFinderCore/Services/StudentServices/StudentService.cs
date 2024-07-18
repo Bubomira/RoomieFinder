@@ -25,6 +25,12 @@ namespace RoomieFinderCore.Services.StudentServices
             .Select(s => s.StudentId)
             .FirstOrDefaultAsync();
 
+        public Task<string?> GetUserIdByEmailAsync(string email) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<ApplicationUser>()
+            .Where(au => au.Email == email)
+            .Select(au => au.Id)
+            .FirstOrDefaultAsync();
+
         public async Task<List<StudentBestMatchDto>> GetTopThreeRoomateMatchesForAStudentAsync(string userId, bool isMale)
         {
             var studentAnswersIds = await _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()

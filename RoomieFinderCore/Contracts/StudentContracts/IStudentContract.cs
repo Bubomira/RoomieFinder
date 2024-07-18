@@ -14,6 +14,13 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         public Task<int> GetStudentIdAsync(string userId);
 
         /// <summary>
+        /// Gets a student's userid by their email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Task<string?> GetUserIdByEmailAsync(string email);
+
+        /// <summary>
         /// Gets the top three best mathes for a student based on initial reuirements and the answers the student has provided
         /// </summary>
         /// <param name="studentId"></param>
