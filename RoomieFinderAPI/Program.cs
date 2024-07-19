@@ -33,6 +33,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<BlacklistedTokensMiddeware>();
 
 app.MapControllers();
