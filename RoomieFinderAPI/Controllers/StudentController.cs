@@ -23,6 +23,22 @@ namespace RoomieFinderAPI.Controllers
             _roomContract = roomContract;
         }
 
+        [HttpGet("all")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200, Type = typeof(StudentListDto))]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetAllStudents([FromQuery] StudentSeachListDto studentSeachListDto)
+        {
+            await _studentContract.GetAllStudents(studentSeachListDto);
+
+            if (studentSeachListDto.Students.Count == 0)
+            {
+                return BadRequest();
+            }
+
+            return Ok(studentSeachListDto);
+        }
+
         [HttpGet("without/rooms")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(StudentListDto))]
@@ -33,7 +49,7 @@ namespace RoomieFinderAPI.Controllers
 
             await _roomContract.GetAllStudentsWithoutARoomAsync(roomlessStudentsListDto);
 
-            if (roomlessStudentsListDto.StudentsWithoutARoom.Count == 0)
+            if (roomlessStudentsListDto.Students.Count == 0)
             {
                 return BadRequest();
             }
