@@ -33,7 +33,7 @@ namespace RoomieFinderCore.Services.RoomServices
 
             roomlessStudentsListDto.TotalCount = await students.CountAsync();
 
-            roomlessStudentsListDto.StudentsWithoutARoom = await students
+            roomlessStudentsListDto.Students = await students
             .Skip((roomlessStudentsListDto.PageNumber - 1) * StudentListDto.StudentsOnPage)
             .Take(StudentListDto.StudentsOnPage)
             .Select(s => new StudentPreviewDto
