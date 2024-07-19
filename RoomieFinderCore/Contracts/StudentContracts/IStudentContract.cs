@@ -20,6 +20,8 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         /// <returns></returns>
         public Task<string?> GetUserIdByEmailAsync(string email);
 
+        public Task<StudentProfileDto> GetStudentProfile(string userId);
+
         /// <summary>
         /// Gets the top three best mathes for a student based on initial reuirements and the answers the student has provided
         /// </summary>

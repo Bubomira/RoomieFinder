@@ -9,6 +9,8 @@ using RoomieFinderInfrastructure.UnitOfWork;
 using static RoomieFinderInfrastructure.Constants.ModelConstants.StudentConstants;
 
 using static RoomieFinderInfrastructure.Constants.ModelConstants.RoomConstants;
+using RoomieFinderInfrastructure.Enums;
+using RoomieFinderCore.Dtos.RequestDtos;
 
 namespace RoomieFinderCore.Services.StudentServices
 {
@@ -61,6 +63,37 @@ namespace RoomieFinderCore.Services.StudentServices
             })
             .ToListAsync();
         }
+        public Task<StudentProfileDto> GetStudentProfile(string userId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<ApplicationUser>()
+            .Where(au => au.Id == userId)
+            .Select(au => new StudentProfileDto()
+            {
+                Id = au.Id,
+                Fullname = $"{au.FirstName} {au.LastName}",
+                Email = au.Email,
+                UserName = au.UserName,
+                YearAtUiversity = au.Student.YearAtUniversity,
+                IsMale = au.Student.IsMale,
+                Roomates = au.Student.Room.Students
+                .Where(s => s.ApplicationUserId != userId)
+                .Select(s => new RoomateDto()
+                {
+                    Id = s.ApplicationUserId,
+                    FullName = $"{s.ApplicationUser.FirstName} {s.ApplicationUser.LastName}",
+                    YearAtUniversity = s.YearAtUniversity
+                })
+                .ToList(),
+                Requests = au.Student.Requests
+                .Where(r => r.Student.ApplicationUserId == userId && r.RequestStatus != RequestStatus.Archived)
+                .Select(r => new RequestPreviewDto()
+                {
+                    Id = r.Id,
+                    RequestStatus = r.RequestStatus,
+                    RequestType = r.RequestType
+                })
+                .ToList()
+            })
+            .FirstAsync();
 
         public async Task MoveUngraduatedStudentsToNextYearAsync()
         {
@@ -75,6 +108,7 @@ namespace RoomieFinderCore.Services.StudentServices
                  .Where(s => s.YearAtUniversity == TopYearAtUniversity)
                  .ExecuteUpdateAsync(setters => setters.SetProperty(s => s.HasGraduated, true));
         }
+
 
     }
 }

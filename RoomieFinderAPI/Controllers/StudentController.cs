@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using RoomieFinderCore.Contracts.RoomContracts;
 using RoomieFinderCore.Contracts.StudentContracts;
 using RoomieFinderCore.Dtos.StudentDtos;
+using System.Security.Claims;
 
 namespace RoomieFinderAPI.Controllers
 {
     [ApiController]
     [Route("student")]
-    [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
     public class StudentController : ControllerBase
     {
         private readonly IStudentContract _studentContract;
@@ -26,6 +26,7 @@ namespace RoomieFinderAPI.Controllers
         [HttpGet("without/rooms")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(RoomlessStudentsListDto))]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetAllStudentsWithoutARoom([FromQuery] int pageNumber)
         {
             RoomlessStudentsListDto roomlessStudentsListDto = new RoomlessStudentsListDto() { PageNumber = pageNumber };
@@ -43,6 +44,7 @@ namespace RoomieFinderAPI.Controllers
         [HttpGet("{userId}/matches")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(List<StudentBestMatchDto>))]
+        [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetTopThreeBestMatches(string userId)
         {
             if (await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
@@ -51,6 +53,24 @@ namespace RoomieFinderAPI.Controllers
                 var list = await _studentContract.GetTopThreeRoomateMatchesForAStudentAsync(userId, isMale);
 
                 return Ok(list);
+            }
+            return NotFound();
+        }
+
+        [HttpGet("profile/{userId}")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200, Type = typeof(StudentProfileDto))]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetStudentProfile(string userId)
+        {
+            if (User.IsInRole("Student") && userId != User.Id())
+            {
+                return BadRequest();
+            }
+            if (await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
+            {
+                return Ok(await _studentContract.GetStudentProfile(userId));
             }
             return NotFound();
         }
