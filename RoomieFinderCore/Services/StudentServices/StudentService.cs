@@ -95,6 +95,53 @@ namespace RoomieFinderCore.Services.StudentServices
             })
             .FirstAsync();
 
+        public async Task GetAllStudents(StudentSeachListDto studentListDto)
+        {
+            var students = _unitOfWork.GetAllAsReadOnlyAsync<Student>();
+
+            switch (studentListDto.AreGraduated)
+            {
+                case AreGraduated.Yes:
+                    students = students.Where(s => s.HasGraduated);
+                    break;
+                case AreGraduated.No:
+                    students = students.Where(s => !s.HasGraduated);
+                    break;
+            }
+
+            switch (studentListDto.GenderPreference)
+            {
+                case GenderPreference.Male:
+                    students = students.Where(s => s.IsMale);
+                    break;
+                case GenderPreference.Female:
+                    students = students.Where(s => !s.IsMale);
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(studentListDto.SearchTerm))
+            {
+                var searchTerm = studentListDto.SearchTerm.ToLower();
+
+                students = students.Where(s =>
+                $"{s.ApplicationUser.FirstName} {s.ApplicationUser.LastName}".ToLower().Contains(searchTerm));
+            }
+
+            studentListDto.TotalCount = await students.CountAsync();
+
+            studentListDto.Students = await students
+                .Skip((studentListDto.PageNumber - 1) * StudentListDto.StudentsOnPage)
+                .Take(StudentListDto.StudentsOnPage)
+                .Select(s => new StudentPreviewDto()
+                {
+                    Id = s.ApplicationUserId,
+                    FullName = $"{s.ApplicationUser.FirstName} {s.ApplicationUser.LastName}",
+                    YearAtUniversity = s.YearAtUniversity,
+                })
+                .ToListAsync();
+        }
+
+
         public async Task MoveUngraduatedStudentsToNextYearAsync()
         {
             await _unitOfWork.GetAllAsync<Student>()

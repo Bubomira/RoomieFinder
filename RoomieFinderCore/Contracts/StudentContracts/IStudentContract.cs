@@ -20,7 +20,20 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         /// <returns></returns>
         public Task<string?> GetUserIdByEmailAsync(string email);
 
+
+        /// <summary>
+        /// Gets detailed data about a student - their metadata, roomates and unarchived requests
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public Task<StudentProfileDto> GetStudentProfile(string userId);
+
+        /// <summary>
+        /// Gets all students with pagination
+        /// </summary>
+        /// <param name="studentListDto"></param>
+        /// <returns></returns>
+        public Task GetAllStudents(StudentSeachListDto studentListDto);
 
         /// <summary>
         /// Gets the top three best mathes for a student based on initial reuirements and the answers the student has provided
