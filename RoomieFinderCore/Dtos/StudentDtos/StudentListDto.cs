@@ -1,7 +1,7 @@
 ﻿
 namespace RoomieFinderCore.Dtos.StudentDtos
 {
-    public class RoomlessStudentsListDto
+    public class StudentListDto
     {
         private int pageNumber;
         public const int StudentsOnPage = 12;
@@ -20,8 +20,8 @@ namespace RoomieFinderCore.Dtos.StudentDtos
 
         public int TotalCount { get; set; }
 
-        public List<StudentWithoutARoomDto> StudentsWithoutARoom { get; set; }
-           = new List<StudentWithoutARoomDto>();
+        public List<StudentPreviewDto> Students { get; set; }
+           = new List<StudentPreviewDto>();
 
     }
 }

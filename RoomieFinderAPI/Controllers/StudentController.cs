@@ -25,11 +25,11 @@ namespace RoomieFinderAPI.Controllers
 
         [HttpGet("without/rooms")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(200, Type = typeof(RoomlessStudentsListDto))]
+        [ProducesResponseType(200, Type = typeof(StudentListDto))]
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetAllStudentsWithoutARoom([FromQuery] int pageNumber)
         {
-            RoomlessStudentsListDto roomlessStudentsListDto = new RoomlessStudentsListDto() { PageNumber = pageNumber };
+            StudentListDto roomlessStudentsListDto = new StudentListDto() { PageNumber = pageNumber };
 
             await _roomContract.GetAllStudentsWithoutARoomAsync(roomlessStudentsListDto);
 
