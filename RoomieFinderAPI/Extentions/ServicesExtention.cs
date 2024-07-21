@@ -1,10 +1,12 @@
 ﻿using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Contracts.DormitotyContracts;
+using RoomieFinderCore.Contracts.QualityContracts;
 using RoomieFinderCore.Contracts.RequestContracts;
 using RoomieFinderCore.Contracts.RoomContracts;
 using RoomieFinderCore.Contracts.StudentContracts;
 using RoomieFinderCore.Services.AuthServices;
 using RoomieFinderCore.Services.DormitoryServices;
+using RoomieFinderCore.Services.QualityServices;
 using RoomieFinderCore.Services.RequestServices;
 using RoomieFinderCore.Services.RoomServices;
 using RoomieFinderCore.Services.StudentServices;
@@ -18,7 +20,8 @@ public static class ServicesExtention
     {
         builder.AddScoped<IAuthContract, AuthService>();
 
-      
+        builder.AddScoped<IQualityContract, QualityService>();
+
         builder.AddScoped<IStudentCheckerContract, StudentCheckerService>();
         builder.AddScoped<IStudentContract, StudentService>();
 
