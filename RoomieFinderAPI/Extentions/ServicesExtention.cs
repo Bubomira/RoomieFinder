@@ -1,9 +1,11 @@
-﻿using RoomieFinderCore.Contracts.AuthContracts;
+﻿using RoomieFinderCore.Contracts.AnswerSheetContracts;
+using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Contracts.DormitotyContracts;
 using RoomieFinderCore.Contracts.QualityContracts;
 using RoomieFinderCore.Contracts.RequestContracts;
 using RoomieFinderCore.Contracts.RoomContracts;
 using RoomieFinderCore.Contracts.StudentContracts;
+using RoomieFinderCore.Services.AnswerSheetServices;
 using RoomieFinderCore.Services.AuthServices;
 using RoomieFinderCore.Services.DormitoryServices;
 using RoomieFinderCore.Services.QualityServices;
@@ -21,6 +23,8 @@ public static class ServicesExtention
         builder.AddScoped<IAuthContract, AuthService>();
 
         builder.AddScoped<IQualityContract, QualityService>();
+
+        builder.AddScoped<IAnswerSheetContract, AnswerSheetService>();
 
         builder.AddScoped<IStudentCheckerContract, StudentCheckerService>();
         builder.AddScoped<IStudentContract, StudentService>();
