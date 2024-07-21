@@ -37,6 +37,8 @@ namespace RoomieFinderInfrastructure.Data
             builder.ApplyConfiguration(new DormitoryConfiguration());
             builder.ApplyConfiguration(new RoomConfiguration());
 
+            builder.ApplyConfiguration(new QualityConfiguration());
+
             base.OnModelCreating(builder);
         }
 
