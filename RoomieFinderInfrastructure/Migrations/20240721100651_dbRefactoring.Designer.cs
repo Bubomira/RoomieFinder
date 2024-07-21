@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoomieFinderInfrastructure.Data;
 
@@ -11,9 +12,11 @@ using RoomieFinderInfrastructure.Data;
 namespace RoomieFinderInfrastructure.Migrations
 {
     [DbContext(typeof(RoomieFinderDbContext))]
-    partial class RoomieFinderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240721100651_dbRefactoring")]
+    partial class dbRefactoring
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

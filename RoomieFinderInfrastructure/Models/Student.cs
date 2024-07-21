@@ -28,14 +28,22 @@ namespace RoomieFinderInfrastructure.Models
         [ForeignKey(nameof(Room))]
         public int? RoomId { get; set; }
 
-        public IList<StudentAnswer> StudentAnswers { get; set; } = new List<StudentAnswer>();
-        public IList<Request> Requests { get; set; } = new List<Request>();
+        public IList<StudentQualities> StudentQualities { get; set; }
+            = new List<StudentQualities>();
+
+        public IList<Request> Requests { get; set; }
+            = new List<Request>();
 
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
         public required string ApplicationUserId { get; set; }
+
+        public AnswerSheet? AnswerSheet { get; set; }
+
+        [Comment("The unique identifyer leading to the student's answers")]
+        public int? AnswerSheetId { get; set; }
 
     }
 }

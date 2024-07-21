@@ -12,7 +12,8 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             YearAtUniversity = 1,
             HasGraduated = false,
             IsMale = false,
-            ApplicationUserId = ApplicationUserSeeder.ApplicationUserThree.Id
+            ApplicationUserId = ApplicationUserSeeder.ApplicationUserThree.Id,
+
         };
 
         public static Student StudentTwo { get; set; } = new Student()
@@ -21,7 +22,7 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             YearAtUniversity = 1,
             HasGraduated = false,
             IsMale = true,
-            ApplicationUserId = ApplicationUserSeeder.ApplicationUserFour.Id
+            ApplicationUserId = ApplicationUserSeeder.ApplicationUserFour.Id,
         };
 
         public static Student StudentThree { get; set; } = new Student()
@@ -30,7 +31,7 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             YearAtUniversity = 2,
             HasGraduated = false,
             IsMale = false,
-            ApplicationUserId = ApplicationUserSeeder.ApplicationUserFive.Id
+            ApplicationUserId = ApplicationUserSeeder.ApplicationUserFive.Id,
         };
 
         public static Student StudentFour { get; set; } = new Student()
@@ -39,7 +40,7 @@ namespace RoomieFinderInfrastructure.SeedDb.Seeders
             YearAtUniversity = 3,
             HasGraduated = false,
             IsMale = true,
-            ApplicationUserId = ApplicationUserSeeder.ApplicationUserSix.Id
+            ApplicationUserId = ApplicationUserSeeder.ApplicationUserSix.Id,
         };
     }
 }

@@ -17,20 +17,22 @@ namespace RoomieFinderInfrastructure.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Dormitory> Dormitories { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Questionnaire> Questionnaires { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answers { get; set; }
-        public DbSet<StudentAnswer> StudentsAnswers { get; set; }
+        public DbSet<AnswerSheet> AnswerSheets { get; set; }
+        public DbSet<Quality> Interests { get; set; }
+        public DbSet<StudentQualities> StudentsQualities { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<BlacklistedToken> BlacklistedTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new StudentAnswerConfiguration());
+            builder.ApplyConfiguration(new StudentQualityConfiguration());
+
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
+
             builder.ApplyConfiguration(new StudentConfiguration());
+            builder.ApplyConfiguration(new AnswerSheetConfiguration());
 
             builder.ApplyConfiguration(new DormitoryConfiguration());
             builder.ApplyConfiguration(new RoomConfiguration());
