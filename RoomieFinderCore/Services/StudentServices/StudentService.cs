@@ -35,10 +35,7 @@ namespace RoomieFinderCore.Services.StudentServices
 
         public async Task<List<StudentBestMatchDto>> GetTopThreeRoomateMatchesForAStudentAsync(string userId, bool isMale)
         {
-            var studentAnswersIds = await _unitOfWork.GetAllAsReadOnlyAsync<StudentAnswer>()
-                .Where(sa => sa.Student.ApplicationUserId == userId)
-                .Select(sa => sa.AnswerId)
-                .ToListAsync();
+
 
             // Initial requirement are that the room a student is asiigned in still has capacity and that the gender matches
             var studentsWhoMatchInitialRequirements = _unitOfWork.GetAllAsReadOnlyAsync<Student>()
@@ -47,9 +44,7 @@ namespace RoomieFinderCore.Services.StudentServices
                 && s.IsMale == isMale
                 && s.ApplicationUserId != userId);
 
-            var topThreeBestMathches = studentsWhoMatchInitialRequirements
-                .OrderByDescending(s => s.StudentAnswers.Count(sa => studentAnswersIds.Contains(sa.AnswerId)))
-                .Take(3);
+            var topThreeBestMathches = studentsWhoMatchInitialRequirements;
 
             return await topThreeBestMathches.Select(s => new StudentBestMatchDto
             {

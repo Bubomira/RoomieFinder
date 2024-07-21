@@ -1,16 +1,10 @@
-﻿using RoomieFinderCore.Contracts.AnswerContracts;
-using RoomieFinderCore.Contracts.AuthContracts;
+﻿using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Contracts.DormitotyContracts;
-using RoomieFinderCore.Contracts.QuestionaireContracts;
-using RoomieFinderCore.Contracts.QuestionContracts;
 using RoomieFinderCore.Contracts.RequestContracts;
 using RoomieFinderCore.Contracts.RoomContracts;
 using RoomieFinderCore.Contracts.StudentContracts;
-using RoomieFinderCore.Services.AnswerService;
 using RoomieFinderCore.Services.AuthServices;
 using RoomieFinderCore.Services.DormitoryServices;
-using RoomieFinderCore.Services.QuestionaireServices;
-using RoomieFinderCore.Services.QuestionService;
 using RoomieFinderCore.Services.RequestServices;
 using RoomieFinderCore.Services.RoomServices;
 using RoomieFinderCore.Services.StudentServices;
@@ -24,18 +18,7 @@ public static class ServicesExtention
     {
         builder.AddScoped<IAuthContract, AuthService>();
 
-        builder.AddScoped<IQuestionaireContract, QuestionaireService>();
-        builder.AddScoped<IQuestionaireGetContract, QuestionaireGetService>();
-        builder.AddScoped<IQuestionaireCheckerContract, QuestionaireCheckerService>();
-
-        builder.AddScoped<IQuestionContract, QuestionService>();
-        builder.AddScoped<IQuestionaireCheckerContract, QuestionaireCheckerService>();
-
-
-        builder.AddScoped<IAnswerContract, AnswerService>();
-        builder.AddScoped<IAnswerCheckerContract, AnswerCheckerService>();
-
-        builder.AddScoped<IStudentAnswerContract, StudentAnswerService>();
+      
         builder.AddScoped<IStudentCheckerContract, StudentCheckerService>();
         builder.AddScoped<IStudentContract, StudentService>();
 
