@@ -31,6 +31,7 @@ public static class ServicesExtention
 
         builder.AddScoped<IRoomContract, RoomService>();
         builder.AddScoped<IRoomCheckerContract, RoomCheckerService>();
+        builder.AddScoped<IRoomateMatchingContract, RoomateMatchingService>();
 
         builder.AddScoped<IDormitoryContract, DormitoryService>();
 

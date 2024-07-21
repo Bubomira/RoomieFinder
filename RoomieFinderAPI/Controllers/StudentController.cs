@@ -13,13 +13,16 @@ namespace RoomieFinderAPI.Controllers
     {
         private readonly IStudentContract _studentContract;
         private readonly IStudentCheckerContract _studentCheckerContract;
+        private readonly IRoomateMatchingContract _roommateMatchingContract;
         private readonly IRoomContract _roomContract;
         public StudentController(IStudentContract studentContract,
             IStudentCheckerContract studentCheckerContract,
+            IRoomateMatchingContract roomateMatchingContract,
             IRoomContract roomContract)
         {
             _studentContract = studentContract;
             _studentCheckerContract = studentCheckerContract;
+            _roommateMatchingContract = roomateMatchingContract;
             _roomContract = roomContract;
         }
 
@@ -59,16 +62,23 @@ namespace RoomieFinderAPI.Controllers
 
         [HttpGet("{userId}/matches")]
         [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = typeof(List<StudentBestMatchDto>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200, Type = typeof(RoomateMatchesListDto))]
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetTopThreeBestMatches(string userId)
+        public async Task<IActionResult> GetRoomateMatches([FromQuery] int pageNumber, string userId)
         {
+            RoomateMatchesListDto roomateMatchesListDto = new RoomateMatchesListDto(pageNumber);
             if (await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
             {
-                bool isMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
-                var list = await _studentContract.GetTopThreeRoomateMatchesForAStudentAsync(userId, isMale);
+                roomateMatchesListDto.IsMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
+                await _roommateMatchingContract.GetRoomateMatchesForAStudentAsync(userId, roomateMatchesListDto);
 
-                return Ok(list);
+                if (roomateMatchesListDto.BestMatches.Count == 0)
+                {
+                    return BadRequest();
+                }
+
+                return Ok(roomateMatchesListDto);
             }
             return NotFound();
         }

@@ -36,13 +36,6 @@ namespace RoomieFinderCore.Contracts.StudentContracts
         public Task GetAllStudents(StudentSeachListDto studentListDto);
 
         /// <summary>
-        /// Gets the top three best mathes for a student based on initial reuirements and the answers the student has provided
-        /// </summary>
-        /// <param name="studentId"></param>
-        /// <returns></returns>
-        public Task<List<StudentBestMatchDto>> GetTopThreeRoomateMatchesForAStudentAsync(string userId, bool isMale);
-
-        /// <summary>
         /// Moves undergraduate students to next year
         /// </summary>
         /// <returns></returns>

@@ -5,12 +5,11 @@ using RoomieFinderCore.Contracts.StudentContracts;
 using RoomieFinderCore.Dtos.StudentDtos;
 using RoomieFinderInfrastructure.Models;
 using RoomieFinderInfrastructure.UnitOfWork;
-
-using static RoomieFinderInfrastructure.Constants.ModelConstants.StudentConstants;
-
-using static RoomieFinderInfrastructure.Constants.ModelConstants.RoomConstants;
 using RoomieFinderInfrastructure.Enums;
 using RoomieFinderCore.Dtos.RequestDtos;
+using RoomieFinderCore.Dtos.AnswerSheetDtos;
+
+using static RoomieFinderInfrastructure.Constants.ModelConstants.StudentConstants;
 
 namespace RoomieFinderCore.Services.StudentServices
 {
@@ -33,31 +32,6 @@ namespace RoomieFinderCore.Services.StudentServices
             .Select(au => au.Id)
             .FirstOrDefaultAsync();
 
-        public async Task<List<StudentBestMatchDto>> GetTopThreeRoomateMatchesForAStudentAsync(string userId, bool isMale)
-        {
-
-
-            // Initial requirement are that the room a student is asiigned in still has capacity and that the gender matches
-            var studentsWhoMatchInitialRequirements = _unitOfWork.GetAllAsReadOnlyAsync<Student>()
-                .Where(s =>
-                (s.Room == null || s.Room.RemainingCapacity != NoCapacityLeft)
-                && s.IsMale == isMale
-                && s.ApplicationUserId != userId);
-
-            var topThreeBestMathches = studentsWhoMatchInitialRequirements;
-
-            return await topThreeBestMathches.Select(s => new StudentBestMatchDto
-            {
-                FullName = $"{s.ApplicationUser.FirstName} {s.ApplicationUser.LastName}",
-                YearAtUniversity = s.YearAtUniversity,
-                AssignedRoomId = s.RoomId,
-                HasAssignedRoom = s.Room != null,
-                AssignedRoomNumber = s.Room.RoomNumber,
-                RoomCapacityLeft = s.Room.RemainingCapacity,
-                AssignedDormitoryName = s.Room.Dormitory.Name
-            })
-            .ToListAsync();
-        }
         public Task<StudentProfileDto> GetStudentProfile(string userId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<ApplicationUser>()
             .Where(au => au.Id == userId)
@@ -69,6 +43,14 @@ namespace RoomieFinderCore.Services.StudentServices
                 UserName = au.UserName,
                 YearAtUiversity = au.Student.YearAtUniversity,
                 IsMale = au.Student.IsMale,
+                GeneralAnswers = new AnswerSheetMetadataDto()
+                {
+                    GoesToSleepEarly = au.Student.AnswerSheet.GoesToSleepEarly,
+                    IsIntrovert = au.Student.AnswerSheet.IsIntrovert,
+                    IsMessy = au.Student.AnswerSheet.IsMessy,
+                    LikesQuietness = au.Student.AnswerSheet.LikesQuietness,
+                    WakesUpEarly = au.Student.AnswerSheet.WakesUpEarly
+                },
                 Roomates = au.Student.Room.Students
                 .Where(s => s.ApplicationUserId != userId)
                 .Select(s => new RoomateDto()
