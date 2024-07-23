@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { provideHttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,9 +17,9 @@ import { LoginComponent } from './components/auth/login/login.component';
     imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
