@@ -52,6 +52,7 @@ namespace RoomieFinderCore.Services.AuthServices
                         HasChangedPassword = user.HasChangedPassword,
                         Id = user.Id,
                         IsAdmin = isAdmin,
+                        HasFilledOutAnswerhseet = user.Student?.AnswerSheet!=null,
                         Token = await _jwtService.GenerateJWT(user, isAdmin)
                     };
                 }

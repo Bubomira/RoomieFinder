@@ -8,7 +8,8 @@ export interface LoggedInUser{
    token:string,
    fullName:string,
    hasChangedPassword:boolean,
-   isAdmin:boolean
+   isAdmin:boolean,
+   hasFilledOutAnswerhseet:boolean
 }
 
 export interface RegisterUser{

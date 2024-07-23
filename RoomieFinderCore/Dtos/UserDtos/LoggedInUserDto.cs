@@ -9,5 +9,6 @@ namespace RoomieFinderCore.Dtos.UserDtos
         public required string FullName { get; set; }
         public required bool HasChangedPassword { get; set; }
         public required bool IsAdmin { get; set; }
+        public required bool HasFilledOutAnswerhseet { get; set; }
     }
 }
