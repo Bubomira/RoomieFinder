@@ -51,7 +51,7 @@ namespace RoomieFinderCore.Services.RoomServices
             matches = matches.OrderByDescending(m =>
                     m.StudentQualities.Count(sq => studentQualityIds.Contains(sq.QualityId)));
 
-            roomateMatchesListDto.TotalCount == await matches.CountAsync();
+            roomateMatchesListDto.TotalCount = await matches.CountAsync();
 
             roomateMatchesListDto.BestMatches = await matches
                   .Skip((roomateMatchesListDto.PageNumber - 1) * RoomateMatchesListDto.MaxItemsOnRoomatePage)
