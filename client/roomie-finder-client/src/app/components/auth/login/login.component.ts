@@ -45,13 +45,13 @@ export class LoginComponent {
      this.authService.loginUserAsync(user).subscribe({
       next:(user:LoggedInUser)=>{
          this.jwtService.saveToken(user);
-         if(!user.hasChangedPassword){
-          this.router.navigate(['/change-password'])
-         }
-         this.router.navigate(['/']);
+           if(!user.hasChangedPassword){
+            return this.router.navigateByUrl('/change-password')
+           }
+           return this.router.navigateByUrl('');
       },
       error:(error:HttpErrorResponse)=>{
-        //  this.router.navigate(['/']);
+        alert('Unable to log in');
       }      
      })   
    }
