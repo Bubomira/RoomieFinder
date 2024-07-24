@@ -40,6 +40,20 @@ export class JwtService {
     var user= this.getUser();
     return user? JSON.parse(user).hasFilledOutAnswerhseet :false;
   }
+
+  changeHasSetPassword(){
+    var user = this.getUser();
+    if(user!=null){
+      var parsedUser = JSON.parse(user);
+      parsedUser.hasChangedPassword=true;
+      this.removeUser();
+      this.saveToken(parsedUser);
+    }
+  }
+
+   removeUser(){
+    localStorage.removeItem('user');
+   }
   
   constructor() { }
 }
