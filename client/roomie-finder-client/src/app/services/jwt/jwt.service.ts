@@ -9,6 +9,32 @@ export class JwtService {
   saveToken(user:LoggedInUser){
     localStorage.setItem('user',JSON.stringify(user))
   }
+
+  getUser(){
+    return localStorage.getItem('user');
+  }
+
+  getUserToken(){
+    var user = this.getUser();
+    if(user){
+      return JSON.parse(user).token;
+    }
+  }
+
+  checkIfUserIsAuthenticated(){
+    var user= this.getUser();
+    return user!=null;
+  }
+
+  checkIfUserIsAdmin(){
+    var user= this.getUser();
+    return user? JSON.parse(user).isAdmin:false;
+  }
+
+  checkIfStudentHasFilledOutTheAnswerSheet(){
+    var user= this.getUser();
+    return user? JSON.parse(user).hasFilledOutAnswerhseet :false;
+  }
   
   constructor() { }
 }
