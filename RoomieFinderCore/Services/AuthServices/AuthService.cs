@@ -30,11 +30,17 @@ namespace RoomieFinderCore.Services.AuthServices
             var user = await _userManager.FindByEmailAsync(changePasswordDto.Email);
             if (user != null && (await _signInManager.CheckPasswordSignInAsync(user, changePasswordDto.InitialPassword, false)).Succeeded)
             {
-                await _userManager.ChangePasswordAsync(user, changePasswordDto.InitialPassword, changePasswordDto.NewPassword);
+                var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.InitialPassword, changePasswordDto.NewPassword);
 
-                user.HasChangedPassword = true;
-                await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    user.HasChangedPassword = true;
+                    await _userManager.UpdateAsync(user);
+                    return;
+                }
             }
+            throw new InvalidDataException("Incorrect credentials");
+
         }
 
         public async Task<LoggedInUserDto?> LoginUserAsync(LoginUserDto loginUserDto)
@@ -52,7 +58,7 @@ namespace RoomieFinderCore.Services.AuthServices
                         HasChangedPassword = user.HasChangedPassword,
                         Id = user.Id,
                         IsAdmin = isAdmin,
-                        HasFilledOutAnswerhseet = user.Student?.AnswerSheet!=null,
+                        HasFilledOutAnswerhseet = user.Student?.AnswerSheet != null,
                         Token = await _jwtService.GenerateJWT(user, isAdmin)
                     };
                 }
@@ -60,7 +66,7 @@ namespace RoomieFinderCore.Services.AuthServices
             return null;
         }
 
-        public async Task RegisterStudentAsync(string id, int yearAtUniversity,bool isMale)
+        public async Task RegisterStudentAsync(string id, int yearAtUniversity, bool isMale)
         {
             Student student = new Student()
             {

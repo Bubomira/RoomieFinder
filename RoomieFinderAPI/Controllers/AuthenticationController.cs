@@ -24,7 +24,10 @@ namespace RoomieFinderAPI.Areas
             if (ModelState.IsValid)
             {
                 var loggedUser = await _authContract.LoginUserAsync(loginUserDto);
-                return Ok(loggedUser);
+                if (loggedUser != null)
+                {
+                    return Ok(loggedUser);
+                }
             }
 
             return BadRequest("Wrong login credentials!");
@@ -41,7 +44,7 @@ namespace RoomieFinderAPI.Areas
                 var userId = await _authContract.RegisterUserAsync(registerUserDto);
                 if (userId != null)
                 {
-                    await _authContract.RegisterStudentAsync(userId, registerUserDto.YearAtUniversity,registerUserDto.IsMale);
+                    await _authContract.RegisterStudentAsync(userId, registerUserDto.YearAtUniversity, registerUserDto.IsMale);
                     return Ok($"Successfully registered {registerUserDto.FirstName} {registerUserDto.LastName}");
                 }
             }
