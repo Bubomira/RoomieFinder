@@ -10,14 +10,16 @@ export class NavigationComponent {
  protected jwt = inject(JwtService);
   isLoggedIn:boolean;
   isAdmin:boolean;
+  hasChangedPassword:boolean;
   constructor() {
     this.isLoggedIn=false;
     this.isAdmin = false;  
-
+    this.hasChangedPassword=false;
   afterRender({
     read:()=>{
       this.isLoggedIn = this.jwt.checkIfUserIsAuthenticated();
       this.isAdmin = this.jwt.checkIfUserIsAdmin();
+      this.hasChangedPassword = this.jwt.checkIfUserHasChangedHisPassword();
     }
    })
   }

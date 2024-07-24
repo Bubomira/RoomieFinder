@@ -45,6 +45,9 @@ export class LoginComponent {
      this.authService.loginUserAsync(user).subscribe({
       next:(user:LoggedInUser)=>{
          this.jwtService.saveToken(user);
+         if(!user.hasChangedPassword){
+          this.router.navigate(['/change-password'])
+         }
          this.router.navigate(['/']);
       },
       error:(error:HttpErrorResponse)=>{

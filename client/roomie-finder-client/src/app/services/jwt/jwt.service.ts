@@ -31,6 +31,11 @@ export class JwtService {
     return user? JSON.parse(user).isAdmin:false;
   }
 
+  checkIfUserHasChangedHisPassword(){
+    var user= this.getUser();
+    return user? JSON.parse(user).hasChangedPassword:false;
+  }
+
   checkIfStudentHasFilledOutTheAnswerSheet(){
     var user= this.getUser();
     return user? JSON.parse(user).hasFilledOutAnswerhseet :false;
