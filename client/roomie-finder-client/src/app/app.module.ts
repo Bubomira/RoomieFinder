@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { provideHttpClient } from '@angular/common/http';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    NavigationComponent,
 ],
     imports: [
     BrowserModule,
