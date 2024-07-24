@@ -1,4 +1,4 @@
-import { Component,inject,afterRender } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
@@ -13,14 +13,13 @@ export class NavigationComponent {
   hasChangedPassword:boolean;
   constructor() {
     this.isLoggedIn=false;
-    this.isAdmin = false;  
+    this.isAdmin = false;
     this.hasChangedPassword=false;
-  afterRender({
-    read:()=>{
-      this.isLoggedIn = this.jwt.checkIfUserIsAuthenticated();
-      this.isAdmin = this.jwt.checkIfUserIsAdmin();
-      this.hasChangedPassword = this.jwt.checkIfUserHasChangedHisPassword();
-    }
-   })
+  }
+
+  ngDoCheck(){
+    this.isLoggedIn = this.jwt.checkIfUserIsAuthenticated();
+    this.isAdmin = this.jwt.checkIfUserIsAdmin();
+    this.hasChangedPassword = this.jwt.checkIfUserHasChangedHisPassword();
   }
 }
