@@ -18,6 +18,14 @@ export class AuthenticationService {
     return this.http.post<LoggedInUser>(`${authenticationEndpoint}/login`,user);
   }
 
+  logoutAsync(){
+    this.http.get(`${authenticationEndpoint}/logout`,{
+      headers:{
+         'Authorization':`Bearer ${this.jwt.getUserToken()}`
+      }
+    })
+  }
+
   changePasswordAsync(user:PasswordChange){
     return this.http.post(`${authenticationEndpoint}/password/change`,user,{
       headers:{
