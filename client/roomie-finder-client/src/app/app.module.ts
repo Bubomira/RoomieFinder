@@ -9,6 +9,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { provideHttpClient } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
+import { LogoutComponent } from './components/auth/logout/logout.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
     LoginComponent,
     NavigationComponent,
     ChangePasswordComponent,
+    LogoutComponent,
 ],
     imports: [
     BrowserModule,
