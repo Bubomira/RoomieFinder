@@ -14,9 +14,16 @@ export class LogoutComponent implements OnInit {
    private router = inject(Router);
  
    ngOnInit(){
-     this.authService.logoutAsync();
-     this.jwt.removeUser();
-     return this.router.navigateByUrl('/')
+     this.authService.logoutAsync().subscribe({
+      next:()=>{
+        this.jwt.removeUser();
+        return this.router.navigateByUrl('/')
+      },
+      error:()=>{
+        alert('Unable to log out!')
+      }
+
+     })
    }
 
 }

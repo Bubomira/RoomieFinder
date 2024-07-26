@@ -19,10 +19,11 @@ export class AuthenticationService {
   }
 
   logoutAsync(){
-    this.http.get(`${authenticationEndpoint}/logout`,{
+   return this.http.get(`${authenticationEndpoint}/logout`,{
       headers:{
          'Authorization':`Bearer ${this.jwt.getUserToken()}`
-      }
+      },
+      observe:'response'
     })
   }
 
