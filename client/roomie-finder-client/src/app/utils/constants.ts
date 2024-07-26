@@ -12,3 +12,7 @@ export const userConstants ={
          passwordMinLength:8
     }
 
+export const studentConstants={
+     minYearAtUniversity:1,
+     maxYearAtUniversity:4,
+}    
