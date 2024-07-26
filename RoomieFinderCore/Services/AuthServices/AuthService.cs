@@ -98,7 +98,6 @@ namespace RoomieFinderCore.Services.AuthServices
 
                 await _userManager.CreateAsync(user, registerUserDto.SetUpPassword);
 
-                await _unitOfWork.AddEntityAsync(user);
                 await _unitOfWork.SaveChangesAsync();
 
                 return user.Id;
