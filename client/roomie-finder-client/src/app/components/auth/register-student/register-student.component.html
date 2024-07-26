@@ -4,7 +4,7 @@
     </div>
   
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form [formGroup]="registerForm" class="space-y-6">
+      <form [formGroup]="registerForm" class="space-y-6" (submit)="onSubmit($event)">
         <section class="flex gap-3">
             <div class="grow-1 basis-6/12">
                <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
@@ -46,11 +46,11 @@
             <div class="flex basis-3/12 flex-col justify-items-end">
                 <div class="flex gap-2 basis-6/12 items-end">
                     <label for="male" class="block text-sm font-medium text-gray-900">Male</label>
-                    <input id="male" formControlName="isMale" name="gender" type="radio" value="true" >
+                    <input  id="male" formControlName="isMale" name="isMale" type="radio"  value="true" >
                 </div>
                 <div class="flex gap-2 basis-6/12 items-end">
                     <label for="female" class="block  text-sm font-medium text-gray-900">Female</label>
-                    <input id="female" formControlName="isMale" name="gender" type="radio" value="false"  >
+                    <input  id="female" formControlName="isMale" name="isMale" type="radio" value="false"  >
                 </div>
                 <p class="text-red-600" *ngIf="c.isMale.hasError('required')">Please, select a gender</p>
            </div>
@@ -88,6 +88,7 @@
                <p *ngIf="c.setUpPassword.hasError('required')">This field is required</p>
                <p *ngIf="c.setUpPassword.hasError('minlength')">Password should be at least 8 symbols</p>
                <p *ngIf="c.setUpPassword.hasError('maxlength')">Password should be 20 symbols max</p>
+               <p *ngIf="c.setUpPassword.hasError('pattern')">Password should contain digits and lowercase letters</p>
             </div>
         </section>
 

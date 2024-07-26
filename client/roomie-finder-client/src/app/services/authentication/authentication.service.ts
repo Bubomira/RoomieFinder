@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoggedInUser, LoginUser,PasswordChange} from '../../models/userModels';
+import { LoggedInUser, LoginUser,PasswordChange, RegisterUser} from '../../models/userModels';
 import { Observable } from 'rxjs';
 
 import { authenticationEndpoint } from '../../utils/endpoints';
@@ -16,6 +16,15 @@ export class AuthenticationService {
 
   loginUserAsync(user:LoginUser):Observable<LoggedInUser>{
     return this.http.post<LoggedInUser>(`${authenticationEndpoint}/login`,user);
+  }
+
+  registerUser(user:RegisterUser){
+    return this.http.post(`${authenticationEndpoint}/register`,user,{
+      headers:{
+        'Authorization':`Bearer ${this.jwt.getUserToken()}`
+     },
+     responseType:'text'
+    })
   }
 
   logoutAsync(){
