@@ -10,6 +10,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
+import { RegisterStudentComponent } from './components/auth/register-student/register-student.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { LogoutComponent } from './components/auth/logout/logout.component';
     NavigationComponent,
     ChangePasswordComponent,
     LogoutComponent,
+    RegisterStudentComponent,
 ],
     imports: [
     BrowserModule,

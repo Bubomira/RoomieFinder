@@ -1,0 +1,100 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-2 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register new student</h2>
+    </div>
+  
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form [formGroup]="registerForm" class="space-y-6">
+        <section class="flex gap-3">
+            <div class="grow-1 basis-6/12">
+               <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
+                <div class="mt-2">
+                  <input formControlName="firstName" id="firstName" name="firstName" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+                <div class="text-red-600" *ngIf="c.firstName.invalid && (c.firstName.dirty || c.firstName.touched)">
+                    <p *ngIf="c.firstName.hasError('required')">This field is required</p>
+                    <p *ngIf="c.firstName.hasError('minlength')">First name should be at least 2 symbols</p>
+                    <p *ngIf="c.firstName.hasError('maxlength')">First name should be 50 symbols max</p>
+                </div>
+            </div>
+
+            <div class="grow-1 basis-6/12">
+                <label for="lastName" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+                <div class="mt-2">
+                   <input formControlName="lastName" id="lastName" name="lastName" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                 </div>
+                 <div class="text-red-600" *ngIf="c.lastName.invalid && (c.lastName.dirty || c.lastName.touched)">
+                    <p *ngIf="c.lastName.hasError('required')">This field is required</p>
+                    <p *ngIf="c.lastName.hasError('minlength')">Last name should be at least 2 symbols</p>
+                    <p *ngIf="c.lastName.hasError('maxlength')">Last name should be 60 symbols max</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex gap-4 basis-6/12 ">
+            <div class="basis-9/12">
+                <label for="year" class="block text-sm font-medium leading-6 text-gray-900">Year at university</label>
+                <div class="mt-2">
+                    <input formControlName="yearAtUniversity"  id="year" name="year" type="number" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+                <div class="text-red-600" *ngIf="c.yearAtUniversity.invalid && (c.yearAtUniversity.dirty || c.yearAtUniversity.touched)">
+                    <p *ngIf="c.yearAtUniversity.hasError('required')">This field is required</p>
+                    <p *ngIf="c.yearAtUniversity.hasError('min')">Year at university should be at least 1</p>
+                    <p *ngIf="c.yearAtUniversity.hasError('max')">Year at university should be 4 max</p>
+                </div>
+            </div>
+            <div class="flex basis-3/12 flex-col justify-items-end">
+                <div class="flex gap-2 basis-6/12 items-end">
+                    <label for="male" class="block text-sm font-medium text-gray-900">Male</label>
+                    <input id="male" formControlName="isMale" name="gender" type="radio" value="true" >
+                </div>
+                <div class="flex gap-2 basis-6/12 items-end">
+                    <label for="female" class="block  text-sm font-medium text-gray-900">Female</label>
+                    <input id="female" formControlName="isMale" name="gender" type="radio" value="false"  >
+                </div>
+                <p class="text-red-600" *ngIf="c.isMale.hasError('required')">Please, select a gender</p>
+           </div>
+        </section>
+
+        <section >
+           <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+            <div class="mt-2">
+                <input id="username" formControlName="username" name="username" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+            <div class="text-red-600" *ngIf="c.username.invalid && (c.username.dirty || c.username.touched)">
+                <p *ngIf="c.username.hasError('required')">This field is required</p>
+                <p *ngIf="c.username.hasError('minlength')">Username should be at least 2 symbols</p>
+                <p *ngIf="c.username.hasError('maxlength')">Username should be 30 symbols max</p>
+            </div>
+        </section> 
+
+        <section>
+           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+           <div class="mt-2">
+             <input id="email" formControlName="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+           </div>
+           <div class="text-red-600" *ngIf="c.email.invalid && (c.email.dirty || c.email.touched)">
+            <p *ngIf="c.email.hasError('required')">This field is required</p>
+            <p *ngIf="c.email.hasError('email')">Please enter a valid email</p>
+        </div>
+        </section>
+
+        <section>
+           <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Initial password</label>
+           <div class="mt-2">
+             <input id="password" formControlName="setUpPassword" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+           </div>
+           <div class="text-red-600" *ngIf="c.setUpPassword.invalid && (c.setUpPassword.dirty || c.setUpPassword.touched)">
+               <p *ngIf="c.setUpPassword.hasError('required')">This field is required</p>
+               <p *ngIf="c.setUpPassword.hasError('minlength')">Password should be at least 8 symbols</p>
+               <p *ngIf="c.setUpPassword.hasError('maxlength')">Password should be 20 symbols max</p>
+            </div>
+        </section>
+
+        <div>
+          <button [disabled]="registerForm.invalid" type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
+        </div>
+      </form>
+  
+    </div>
+  </div>
