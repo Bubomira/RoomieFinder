@@ -67,7 +67,7 @@ namespace RoomieFinderAPI.Areas
         }
 
         [HttpGet("logout")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes ="Bearer")]
         [ProducesResponseType(204)]
         public async Task<IActionResult> Logout()
         {
