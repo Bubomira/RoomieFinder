@@ -43,8 +43,9 @@ namespace RoomieFinderCore.Services.QualityServices
 
             await _unitOfWork.SaveChangesAsync();
         }
-        public Task<bool> CheckIfAllQaulitiyIdsAreValidAsync(List<int> qualityIds) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Quality>()
-            .AllAsync(q => qualityIds.Contains(q.Id));
+        public async Task<bool> CheckIfAllQaulitiyIdsAreValidAsync(List<int> qualityIds)=>
+             await _unitOfWork.GetAllAsReadOnlyAsync<Quality>()
+            .CountAsync(q=>qualityIds.Contains(q.Id))==qualityIds.Count;
+            
     }
 }
