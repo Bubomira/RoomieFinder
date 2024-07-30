@@ -3,6 +3,8 @@ import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AnswerSheetService } from '../../services/answer-sheet/answer-sheet.service';
+import { JwtService } from '../../services/jwt/jwt.service';
+
 import { QualityPreview,AnswerSheetPost } from '../../models/answerSheetModels';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -14,7 +16,9 @@ export class AnswerSheetComponent implements OnInit {
   
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
+
   private answerSheetService = inject(AnswerSheetService);
+  private jwtService = inject(JwtService);
 
   protected qualities:QualityPreview[]=[];
   protected answerSheetForm:FormGroup=this.formBuilder.group({
@@ -70,6 +74,7 @@ export class AnswerSheetComponent implements OnInit {
 
     this.answerSheetService.submitAnswerSheet(answerSheetPost).subscribe({
       next:()=>{
+        this.jwtService.changeHasFlledOutAnswerSheet();
         alert('Successfully submitted the answer sheet')
         return this.router.navigate(['/'])
       },

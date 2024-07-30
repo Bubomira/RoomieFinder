@@ -42,18 +42,24 @@ export class JwtService {
   }
 
   changeHasSetPassword(){
-    var user = this.getUser();
-    if(user!=null){
-      var parsedUser = JSON.parse(user);
-      parsedUser.hasChangedPassword=true;
-      this.removeUser();
-      this.saveToken(parsedUser);
-    }
+    this.setField('hasChangedPassword',true)
+  }   
+
+  changeHasFlledOutAnswerSheet(){
+    this.setField('hasFilledOutAnswerhseet',true)
   }
 
    removeUser(){
     localStorage.removeItem('user');
    }
-  
-  constructor() { }
+   
+   private setField(fieldName:string,value:boolean){
+      var user = this.getUser();
+      if(user!=null){
+        var parsedUser = JSON.parse(user);
+        parsedUser[`${fieldName}`]=value;
+        this.removeUser();
+        this.saveToken(parsedUser);
+      }
+   }
 }
