@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RoomieFinderInfrastructure.Models;
+using RoomieFinderInfrastructure.SeedDb.Seeders;
 
 
 namespace RoomieFinderInfrastructure.SeedDb.Configurations
@@ -23,6 +24,21 @@ namespace RoomieFinderInfrastructure.SeedDb.Configurations
 
             //configuring key for many-to-many student answer table
             builder.HasKey(sa => new { sa.QualityId, sa.StudentId });
+
+            builder.HasData([
+                StudentQualitySeeder.StudentQualityOne,
+                StudentQualitySeeder.StudentQualityTwo,
+                StudentQualitySeeder.StudentQualityThree,
+                StudentQualitySeeder.StudentQualityFour,
+                StudentQualitySeeder.StudentQualityFive,
+                StudentQualitySeeder.StudentQualitySix,
+                StudentQualitySeeder.StudentQualitySeven,
+                StudentQualitySeeder.StudentQualityEigth,
+                StudentQualitySeeder.StudentQualityNine,
+                StudentQualitySeeder.StudentQualityTen,
+                StudentQualitySeeder.StudentQualityEleven,
+                StudentQualitySeeder.StudentQualityTwlevle
+                ]);
         }
     }
 }

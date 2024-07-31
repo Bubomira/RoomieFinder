@@ -25,7 +25,6 @@ namespace RoomieFinderInfrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new StudentQualityConfiguration());
 
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
@@ -38,6 +37,7 @@ namespace RoomieFinderInfrastructure.Data
             builder.ApplyConfiguration(new RoomConfiguration());
 
             builder.ApplyConfiguration(new QualityConfiguration());
+            builder.ApplyConfiguration(new StudentQualityConfiguration());
 
             base.OnModelCreating(builder);
         }
