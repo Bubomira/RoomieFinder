@@ -12,6 +12,7 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { RegisterStudentComponent } from './components/auth/register-student/register-student.component';
 import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.com
     LogoutComponent,
     RegisterStudentComponent,
     AnswerSheetComponent,
+    StudentListComponent,
 ],
     imports: [
     BrowserModule,
