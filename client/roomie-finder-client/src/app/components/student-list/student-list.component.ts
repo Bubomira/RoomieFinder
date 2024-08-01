@@ -17,6 +17,7 @@ export class StudentListComponent {
   protected genderPreference = genderPreference;
   protected pageNumber=0;
   protected studentList:any;
+  protected isSearched = false;
 
   protected searchForm = this.formBuilder.group({
     graduated:[areGraduated.doesntMatter],
@@ -27,25 +28,29 @@ export class StudentListComponent {
    constructor(private activatedRoute:ActivatedRoute,private studentService:StudentService) {
        activatedRoute.queryParamMap.subscribe(params=>{
          this.pageNumber= Number(params.get('pageNumber')||1);
-       })
-       
-       this.studentService.getAllStudents(this.pageNumber,'',areGraduated.doesntMatter,genderPreference.doesntMatter)
-       .subscribe({
-         next:(studentSearchList:StudentSearchList)=>{
-            this.studentList=studentSearchList;
-            console.log(studentSearchList);
-         },
-         error(err:HttpErrorResponse) {
-           console.log(err);
-         },
-         
-       })      
+       })         
    }
 
    onSubmit(e:Event){
       e.preventDefault();
-      console.log(this.searchForm)
-   }
+      this.isSearched = true;
 
-    
+      this.studentService.getAllStudents(this.pageNumber,
+        this.c.searchTerm.value? this.c.searchTerm.value:'',
+        this.c.graduated.value? this.c.graduated.value:areGraduated.doesntMatter,
+        this.c.gender.value?this.c.gender.value:genderPreference.doesntMatter)
+      .subscribe({
+        next:(studentSearchList:StudentSearchList)=>{
+           this.studentList=studentSearchList;
+           console.log(this.studentList);
+        },
+        error(err:HttpErrorResponse) {
+          console.log(err);
+        },
+        
+      })   
+   }
+   
+   protected c =this.searchForm.controls;
+  
 }
