@@ -13,6 +13,7 @@ import { LogoutComponent } from './components/auth/logout/logout.component';
 import { RegisterStudentComponent } from './components/auth/register-student/register-student.component';
 import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
+import { StudentPreviewCardComponent } from './components/student-cards/student-preview-card/student-preview-card/student-preview-card.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { StudentListComponent } from './components/student-list/student-list.com
     RegisterStudentComponent,
     AnswerSheetComponent,
     StudentListComponent,
+    StudentPreviewCardComponent,
 ],
     imports: [
     BrowserModule,
