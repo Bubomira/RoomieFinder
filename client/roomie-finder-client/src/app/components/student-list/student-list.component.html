@@ -1,1 +1,16 @@
-<p>student-list works! page: {{pageNumber}}</p>
+<section class="py-4">
+    <form [formGroup]="searchForm" class="flex items-center justify-center gap-2" (submit)="onSubmit($event)">
+        <select formControlName="gender" class=" basis-1/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <option [value]="genderPreference.male">Male</option>
+            <option [value]="genderPreference.female">Female</option>
+            <option [value]="genderPreference.doesntMatter">All</option>
+        </select>
+        <input formControlName="searchTerm" placeholder="Search..." class=" basis-6/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text"/>
+        <select formControlName="graduated" class=" basis-1/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <option [value]="areGraduated.no">In university</option>
+            <option [value]="areGraduated.yes">Graduated</option>
+            <option [value]="areGraduated.doesntMatter">All</option>
+        </select>
+        <input class="basis-1/12 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" type="submit" value="Submit"/>
+    </form>
+</section>
