@@ -34,7 +34,8 @@ namespace RoomieFinderAPI.Controllers
         {
             await _studentContract.GetAllStudents(studentSeachListDto);
 
-            if (studentSeachListDto.Students.Count == 0)
+            if (studentSeachListDto.Students.Count == 0 && studentSeachListDto.PageNumber!=1
+                && studentSeachListDto.PageNumber*StudentListDto.StudentsOnPage>studentSeachListDto.TotalCount)
             {
                 return BadRequest();
             }
