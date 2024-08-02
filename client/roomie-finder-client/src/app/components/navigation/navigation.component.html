@@ -7,7 +7,7 @@
       @if(isLoggedIn && hasChangedPassword){
           <div class="hidden lg:flex lg:gap-x-12">
           @if(isAdmin){
-            <a routerLink="/student-list" [queryParams]="{pageNumber:1}" class="font-semibold leading-6 ">Student list</a>
+            <a routerLink="/student-list" class="font-semibold leading-6 ">Student list</a>
             <a routerLink="/request-list" class="font-semibold leading-6 ">Requests</a>
             <a routerLink="/register-student" class="font-semibold leading-6 ">Register student</a>
           }
