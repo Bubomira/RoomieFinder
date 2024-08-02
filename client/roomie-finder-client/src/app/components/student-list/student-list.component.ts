@@ -13,11 +13,14 @@ import { StudentSearchList } from '../../models/studentModels';
 })
 export class StudentListComponent {
   private formBuilder = inject(FormBuilder);
+  protected studentService = inject(StudentService);
+
   protected areGraduated = areGraduated;
   protected genderPreference = genderPreference;
-  protected pageNumber=0;
+
   protected studentList:any;
   protected isSearched = false;
+  protected pageNumber=1;
 
   protected searchForm = this.formBuilder.group({
     graduated:[areGraduated.doesntMatter],
@@ -25,24 +28,27 @@ export class StudentListComponent {
     gender:[genderPreference.doesntMatter]
   })
 
-   constructor(private activatedRoute:ActivatedRoute,private studentService:StudentService) {
-       activatedRoute.queryParamMap.subscribe(params=>{
-         this.pageNumber= Number(params.get('pageNumber')||1);
-       })         
-   }
-
    onSubmit(e:Event){
       e.preventDefault();
       this.isSearched = true;
+      this.getStudents(1);
+   }
 
-      this.studentService.getAllStudents(this.pageNumber,
-        this.c.searchTerm.value? this.c.searchTerm.value:'',
-        this.c.graduated.value? this.c.graduated.value:areGraduated.doesntMatter,
-        this.c.gender.value?this.c.gender.value:genderPreference.doesntMatter)
+   onLink=(e:Event,pageNumber:number)=>{
+     e.preventDefault();
+     this.pageNumber=pageNumber;
+     this.getStudents(pageNumber);
+   }
+   
+   protected c =this.searchForm.controls;
+
+   private getStudents=(pageNumber:number)=>{
+    this.studentService.getAllStudents(pageNumber,this.c.searchTerm.value? this.c.searchTerm.value:'',
+      this.c.graduated.value? this.c.graduated.value:areGraduated.doesntMatter,
+      this.c.gender.value?this.c.gender.value:genderPreference.doesntMatter)
       .subscribe({
         next:(studentSearchList:StudentSearchList)=>{
            this.studentList=studentSearchList;
-           console.log(this.studentList);
         },
         error(err:HttpErrorResponse) {
           console.log(err);
@@ -50,7 +56,5 @@ export class StudentListComponent {
         
       })   
    }
-   
-   protected c =this.searchForm.controls;
   
 }

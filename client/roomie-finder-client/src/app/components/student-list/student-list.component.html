@@ -14,20 +14,40 @@
         <input class="basis-1/12 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" type="submit" value="Submit"/>
     </form>
 </section>
-<section class="py-5 flex justify-center items-center">
+<section class="py-5 flex flex-col justify-center items-center">
     @if(isSearched){
         @if(studentList?.students.length==0){
-            <p class="text-indigo-600 text-2xl text-center py-4">There are no results matching the criteria</p>
+            <p class="text-indigo-600 text-2xl py-4">There are no results matching the criteria</p>
         }
         @else{
-            <section>
                 <p class="text-indigo-600 text-5xl text-center py-4">All results: {{studentList?.totalCount}}</p>
                 <section class="flex flex-wrap gap-4 justify-center">
                  @for(student of studentList?.students; track student.id){
                      <app-student-preview-card class="basis-3/12" [student]="student"/>
                  }
                 </section>
-            </section>
+                @if(studentList?.students){
+                    <section class="flex py-5 justify-center gap-2">
+                        @if(pageNumber!=1){
+                            <button
+                               routerLink="/student-list" 
+                               [queryParams]="{pageNumber:studentList?.pageNumber-1}"
+                               (click)="onLink($event,studentList?.pageNumber-1)"
+                               class="text-4xl py-0 px-5 rounded-2xl text-slate-200 bg-indigo-600">
+                               &larr;
+                            </button>
+                        }
+                        @if(studentList?.totalCount>12*pageNumber){
+                            <button
+                               routerLink="/student-list" 
+                               [queryParams]="{pageNumber:studentList?.pageNumber+1}"
+                               (click)="onLink($event,studentList?.pageNumber+1)"
+                               class="text-4xl py-0 rounded-2xl px-5 text-slate-200 bg-indigo-600">
+                               &rarr;
+                            </button>
+                        }
+                    </section>
+                }
         }
     }
 </section>
