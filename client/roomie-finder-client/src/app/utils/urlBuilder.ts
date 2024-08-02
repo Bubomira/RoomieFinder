@@ -13,4 +13,12 @@ export const buildStudentListUrl=
              areGraduated:graduated?graduated:areGraduated.doesntMatter,
              genderPreference:gender?gender:genderPreference.doesntMatter
          }
-       })
+})
+
+export const paginatorUrlBuilder=(pageNumber:number,link:string)=>
+    buildUrl('localhost:4200',{
+        path:link,
+        queryParams:{
+            pageNumber:pageNumber
+        }
+    })
