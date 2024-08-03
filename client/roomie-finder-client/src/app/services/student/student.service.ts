@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { StudentSearchList } from '../../models/studentModels';
+import { StudentProfile, StudentSearchList } from '../../models/studentModels';
 
 import { studentEndpoint } from '../../utils/endpoints';
 
@@ -27,4 +27,13 @@ export class StudentService {
          }
        })
      }
+
+     getStudentProfile(id:string):Observable<StudentProfile>{
+      return this.http.get<StudentProfile>(`${studentEndpoint}/profile/${id}`,{
+        headers:{
+          'Authorization':`Bearer ${this.jwt.getUserToken()}`
+        }
+      })
+     }
+      
 }
