@@ -3,11 +3,14 @@ export interface QualityPreview{
     name:string
 }
 
-export interface AnswerSheetPost{
+export interface AnswerSheetPost extends AnswerSheetMetadata{
+    qualityIds:Number[]
+}
+
+export interface AnswerSheetMetadata{
     isMessy:boolean,
     isIntrovert:boolean,
     goesToSleepEarly:boolean,
     likesQuietness:boolean,
-    wakesUpEarly:boolean,
-    qualityIds:Number[]
+    wakesUpEarly:boolean
 }
