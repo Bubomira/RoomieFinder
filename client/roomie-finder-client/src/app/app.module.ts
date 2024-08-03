@@ -14,6 +14,7 @@ import { RegisterStudentComponent } from './components/auth/register-student/reg
 import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentPreviewCardComponent } from './components/student-cards/student-preview-card/student-preview-card/student-preview-card.component';
+import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { StudentPreviewCardComponent } from './components/student-cards/student-
     AnswerSheetComponent,
     StudentListComponent,
     StudentPreviewCardComponent,
+    StudentProfileComponent,
 ],
     imports: [
     BrowserModule,
