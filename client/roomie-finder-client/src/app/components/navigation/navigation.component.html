@@ -13,7 +13,7 @@
           }
           @else{
               <a routerLink="/request-submit" class="font-semibold leading-6 ">Submit request</a>
-              <a routerLink="/profile" class="font-semibold leading-6 ">My profile</a>
+              <a [routerLink]="['student',userId]" class="font-semibold leading-6 ">My profile</a>
           }
           </div>
       }

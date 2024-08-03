@@ -21,6 +21,13 @@ export class JwtService {
     }
   }
 
+  getUserId(){
+    var user = this.getUser();
+    if(user){
+      return JSON.parse(user).id;
+    }
+  }
+
   checkIfUserIsAuthenticated(){
     var user= this.getUser();
     return user!=null;
