@@ -4,7 +4,7 @@ namespace RoomieFinderCore.Dtos.StudentDtos
     public class StudentListDto
     {
         private int pageNumber;
-        public const int StudentsOnPage = 12;
+        public const int StudentsOnPage = 6;
 
         public int PageNumber
         {
