@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { StudentService } from '../../services/student/student.service';
@@ -20,7 +19,6 @@ export class StudentListComponent {
 
   protected studentList:any;
   protected isSearched = false;
-  protected pageNumber=1;
 
   protected searchForm = this.formBuilder.group({
     graduated:[areGraduated.doesntMatter],
@@ -36,7 +34,6 @@ export class StudentListComponent {
 
    onLink=(e:Event,pageNumber:number)=>{
      e.preventDefault();
-     this.pageNumber=pageNumber;
      this.getStudents(pageNumber);
    }
    
