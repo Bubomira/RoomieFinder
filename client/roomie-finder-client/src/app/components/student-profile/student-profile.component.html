@@ -1,1 +1,73 @@
-<p>student-profile works!</p>
+<section class="flex">
+    <section class="basis-5/12 shadow-md gap-4 shadow-indigo-600 py-10 px-2 m-4 flex flex-col items-center">
+        <img class="w-40"  src="{{student?.isMale?'maleAvatar.png':'femaleAvatar.png'}}"/> 
+        <section class="text-sm ">
+            <p class="text-xl text-indigo-600 font-semibold">Personal data:</p>
+            <p>Full name: {{student?.fullname}}</p>
+            <p>Email: {{student?.email}}</p>
+            <p>Username: {{student?.userName}}</p>
+            <p>Year at university: {{student?.yearAtUiversity}}</p>
+            <p>Gender: {{student?.isMale? 'Male':'Female'}}</p>
+        </section>  
+        <section class="text-sm">
+            <p class="text-xl text-indigo-600 font-semibold">Answersheet answers:</p>
+             @if(student?.generalAnswers?.isFilledOut){
+                 <section>
+                    <p>Introverted: {{student?.generalAnswers?.isIntrovert}}</p>
+                    <p>Likes quietness: {{student?.generalAnswers?.likesQuietness}}</p>
+                    <p>Is messy: {{student?.generalAnswers?.isMessy}}</p>
+                    <p>Wakes up early: {{student?.generalAnswers?.wakesEarly}}</p>
+                    <p>Goes to sleep early: {{student?.generalAnswers?.goesToSleepEarly}}</p>
+                </section>  
+             }
+             @else{
+                <p>(No answers available)</p>
+             }
+        </section>
+    </section>
+    <section class="basis-3/12 text-sm gap-3 shadow-md shadow-indigo-600 py-10 px-2 m-4 flex flex-col items-center">
+        <section>
+            <p class="text-xl text-indigo-600 font-semibold">Room details:</p>
+            @if(student?.room.id==null){
+                <p>(No room yet...)</p>
+            }
+            @else{
+                <p>Room number: {{student?.room.roomNumber}}</p>
+                <p>Room type: {{student?.room.roomType}}</p>
+                <p>Remaining capacity: {{student?.room.remainingCapacity}}</p>
+            }
+        </section>
+        <section class="flex flex-col gap-3">
+            <article>
+                <p class="text-xl text-indigo-600 font-semibold">Roomates:</p>
+               @if(student?.roomates?.length==0){
+                 <p>(No roomates yet...)</p>
+                }
+                @else{
+                    <!-- to be done -->
+                }
+            </article>
+            <a 
+             *ngIf="isAdmin && student?.room.remainingCapacity!=0"
+              routerLink="/find-matches"
+              class="rounded-md bg-indigo-600 px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              Find roomates
+            </a>
+        </section>
+    </section>
+    <section class="basis-3/12 shadow-md shadow-indigo-600 py-10 px-2 m-4 flex flex-col items-center">
+        <p class="text-xl text-indigo-600 font-semibold">Current requests:</p>
+        @if(student?.requests?.length==0){
+          <p>(No requests yet...)</p>
+          <a 
+            *ngIf="!isAdmin"
+             routerLink="/request-submit"
+             class="rounded-md bg-indigo-600 px-3 py-1.5 mt-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+             Submit request
+          </a>
+        }
+        @else{
+             <!-- to be done -->
+        }
+     </section>
+</section>

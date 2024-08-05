@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StudentProfile } from '../../models/studentModels';
 import { StudentService } from '../../services/student/student.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { JwtService } from '../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-student-profile',
@@ -11,9 +12,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class StudentProfileComponent {
   private id:string|null='';
   protected student:any={};
+  protected isAdmin:boolean=false;
 
   constructor(private activatedRoute:ActivatedRoute,
     private studentSevice:StudentService,
+    private jwtService:JwtService,
     private router:Router) 
     {
       activatedRoute.paramMap.subscribe(param=>{
@@ -22,6 +25,8 @@ export class StudentProfileComponent {
        this.studentSevice.getStudentProfile(this.id?this.id:'').subscribe({
         next:(studentProfile:StudentProfile)=>{
           this.student=studentProfile;
+          this.isAdmin=this.jwtService.checkIfUserIsAdmin();
+          console.log(this.student)
         },
         error:(error:HttpErrorResponse)=>{
            this.router.navigate(['404'])
