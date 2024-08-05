@@ -1,6 +1,7 @@
 import { areGraduated, genderPreference } from "../utils/enums"
 import { AnswerSheetMetadata } from "./answerSheetModels"
 import { RequestPreview } from "./requestModels"
+import { RoomDetails } from "./roomModels"
 
 export interface StudentPreview{
     id:string,
@@ -31,6 +32,7 @@ export interface StudentProfile{
     yearAtUniversity:number,
     isMale:boolean,
     generalAnswers:AnswerSheetMetadata,
+    room:RoomDetails,
     roomates:Roomate[],
     requests:RequestPreview[]
 }

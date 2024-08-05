@@ -10,6 +10,7 @@ using RoomieFinderCore.Dtos.RequestDtos;
 using RoomieFinderCore.Dtos.AnswerSheetDtos;
 
 using static RoomieFinderInfrastructure.Constants.ModelConstants.StudentConstants;
+using RoomieFinderCore.Dtos.RoomDtos;
 
 namespace RoomieFinderCore.Services.StudentServices
 {
@@ -51,6 +52,13 @@ namespace RoomieFinderCore.Services.StudentServices
                     IsMessy = au.Student.AnswerSheet.IsMessy ? au.Student.AnswerSheet.IsMessy : false,
                     LikesQuietness = au.Student.AnswerSheet.LikesQuietness ? au.Student.AnswerSheet.LikesQuietness : false,
                     WakesUpEarly = au.Student.AnswerSheet.WakesUpEarly ? au.Student.AnswerSheet.WakesUpEarly : false
+                },
+                Room= new RoomDetailsDto()
+                {
+                    Id=au.Student.Room.Id,
+                    RemainingCapacity=au.Student.Room.RemainingCapacity,
+                    RoomNumber=au.Student.Room.RoomNumber,
+                    RoomType=au.Student.Room.RoomType
                 },
                 Roomates = au.Student.Room.Students
                 .Where(s => s.ApplicationUserId != userId)

@@ -24,3 +24,9 @@ export enum requestStatus{
     archived = 4,
     doesntMatter = 5
 }
+
+export enum roomType{
+    single = 1,
+    duplex=2,
+    apartament =3,
+}

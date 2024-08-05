@@ -1,5 +1,6 @@
 ﻿using RoomieFinderCore.Dtos.AnswerSheetDtos;
 using RoomieFinderCore.Dtos.RequestDtos;
+using RoomieFinderCore.Dtos.RoomDtos;
 using System.ComponentModel.DataAnnotations;
 
 namespace RoomieFinderCore.Dtos.StudentDtos
@@ -22,6 +23,7 @@ namespace RoomieFinderCore.Dtos.StudentDtos
         public bool IsMale { get; set; }
 
         public AnswerSheetMetadataDto GeneralAnswers { get; set; }
+        public RoomDetailsDto Room { get; set; }
 
         public IList<RoomateDto> Roomates { get; set; } =
             new List<RoomateDto>();
