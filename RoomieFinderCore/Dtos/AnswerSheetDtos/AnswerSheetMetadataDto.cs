@@ -6,19 +6,16 @@ namespace RoomieFinderCore.Dtos.AnswerSheetDtos
 {
     public class AnswerSheetMetadataDto
     {
-        [Required]
-        public required bool IsMessy { get; set; }
+        public bool IsMessy { get; set; }
+
+        public bool IsIntrovert { get; set; }
+
+        public bool GoesToSleepEarly { get; set; }
+        public bool LikesQuietness { get; set; }
+
+        public bool WakesUpEarly { get; set; }
 
         [Required]
-        public required bool IsIntrovert { get; set; }
-
-        [Required]
-        public required bool GoesToSleepEarly { get; set; }
-
-        [Required]
-        public required bool LikesQuietness { get; set; }
-
-        [Required]
-        public required bool WakesUpEarly { get; set; }
+        public required bool IsFilledOut { get; set; }
     }
 }

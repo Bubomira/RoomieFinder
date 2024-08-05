@@ -21,8 +21,7 @@ namespace RoomieFinderCore.Dtos.StudentDtos
         public int YearAtUiversity { get; set; }
         public bool IsMale { get; set; }
 
-        [Required]
-        public AnswerSheetMetadataDto GeneralAnswers { get; set; } = null!;
+        public AnswerSheetMetadataDto GeneralAnswers { get; set; }
 
         public IList<RoomateDto> Roomates { get; set; } =
             new List<RoomateDto>();

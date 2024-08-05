@@ -45,11 +45,12 @@ namespace RoomieFinderCore.Services.StudentServices
                 IsMale = au.Student.IsMale,
                 GeneralAnswers = new AnswerSheetMetadataDto()
                 {
-                    GoesToSleepEarly = au.Student.AnswerSheet.GoesToSleepEarly,
-                    IsIntrovert = au.Student.AnswerSheet.IsIntrovert,
-                    IsMessy = au.Student.AnswerSheet.IsMessy,
-                    LikesQuietness = au.Student.AnswerSheet.LikesQuietness,
-                    WakesUpEarly = au.Student.AnswerSheet.WakesUpEarly
+                    IsFilledOut=au.Student.AnswerSheet!=null,
+                    GoesToSleepEarly = au.Student.AnswerSheet.GoesToSleepEarly? au.Student.AnswerSheet.GoesToSleepEarly:false,
+                    IsIntrovert = au.Student.AnswerSheet.IsIntrovert? au.Student.AnswerSheet.IsIntrovert:false,
+                    IsMessy = au.Student.AnswerSheet.IsMessy ? au.Student.AnswerSheet.IsMessy : false,
+                    LikesQuietness = au.Student.AnswerSheet.LikesQuietness ? au.Student.AnswerSheet.LikesQuietness : false,
+                    WakesUpEarly = au.Student.AnswerSheet.WakesUpEarly ? au.Student.AnswerSheet.WakesUpEarly : false
                 },
                 Roomates = au.Student.Room.Students
                 .Where(s => s.ApplicationUserId != userId)

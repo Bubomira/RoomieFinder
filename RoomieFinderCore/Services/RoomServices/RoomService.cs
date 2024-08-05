@@ -29,7 +29,8 @@ namespace RoomieFinderCore.Services.RoomServices
         public async Task GetAllStudentsWithoutARoomAsync(StudentListDto roomlessStudentsListDto)
         {
             var students = _unitOfWork.GetAllAsReadOnlyAsync<Student>()
-             .Where(s => s.RoomId == null);
+             .Where(s => s.RoomId == null
+             && s.AnswerSheet != null);
 
             roomlessStudentsListDto.TotalCount = await students.CountAsync();
 

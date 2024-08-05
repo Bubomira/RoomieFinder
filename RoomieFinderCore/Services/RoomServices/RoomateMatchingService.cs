@@ -67,6 +67,7 @@ namespace RoomieFinderCore.Services.RoomServices
                       AssignedDormitoryName = s.Room.Dormitory.Name,
                       AnswerSheetMetadataDto = new AnswerSheetMetadataDto()
                       {
+                          IsFilledOut=s.AnswerSheet!=null,
                           GoesToSleepEarly = s.AnswerSheet.GoesToSleepEarly,
                           LikesQuietness = s.AnswerSheet.LikesQuietness,
                           IsIntrovert = s.AnswerSheet.IsIntrovert,
