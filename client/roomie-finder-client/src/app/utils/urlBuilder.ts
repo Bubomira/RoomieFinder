@@ -15,10 +15,10 @@ export const buildStudentListUrl=
          }
 })
 
-export const paginatorUrlBuilder=(pageNumber:number,link:string)=>
-    buildUrl('localhost:4200',{
-        path:link,
+export const buildStudentWithouARoomUrl=(pageNumber:number)=>
+    buildUrl(endpoints.studentEndpoint,{
+        path:'without/rooms',
         queryParams:{
-            pageNumber:pageNumber
+            pageNumber:pageNumber,
         }
-    })
+})

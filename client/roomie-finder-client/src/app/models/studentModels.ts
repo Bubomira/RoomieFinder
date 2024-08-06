@@ -9,10 +9,13 @@ export interface StudentPreview{
     yearAtUniversity:number
 }
 
-export interface StudentSearchList{
+export interface StudentList{
     pageNumber:number,
     totalCount:number,
     students:StudentPreview[],
+}
+
+export interface StudentSearchList extends StudentList{
     searchTerm:string | null,
     areGraduated:areGraduated,
     genderPreference:genderPreference
