@@ -12,4 +12,6 @@ export class StudentPreviewCardComponent {
          yearAtUniversity:1
      };
 
+     @Input({required:true}) fromProfile:boolean=true;
+
 }

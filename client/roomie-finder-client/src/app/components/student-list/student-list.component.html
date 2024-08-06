@@ -23,7 +23,7 @@
         
            <section class="flex flex-wrap gap-4 items-center justify-center w-9/12">
                 @for(student of studentList?.students; track student.id){
-                    <app-student-preview-card class="basis-3/12" [student]="student"/>
+                    <app-student-preview-card class="basis-3/12" [fromProfile]="true" [student]="student"/>
                 }
            </section>
 
