@@ -15,6 +15,7 @@ import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.com
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentPreviewCardComponent } from './components/student-cards/student-preview-card/student-preview-card/student-preview-card.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
+import { StudentsWithoutRoomComponent } from './components/students-without-room/students-without-room.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { StudentProfileComponent } from './components/student-profile/student-pr
     StudentListComponent,
     StudentPreviewCardComponent,
     StudentProfileComponent,
+    StudentsWithoutRoomComponent,
 ],
     imports: [
     BrowserModule,

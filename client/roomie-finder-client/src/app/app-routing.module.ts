@@ -15,6 +15,7 @@ import { RegisterStudentComponent } from './components/auth/register-student/reg
 import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.component';
 import { StudentListComponent } from './components/student-list/student-list.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
+import { StudentsWithoutRoomComponent } from './components/students-without-room/students-without-room.component';
 
 const routes: Routes = [
      {path:'login', component:LoginComponent,canActivate:[guestGuard]},
@@ -23,7 +24,8 @@ const routes: Routes = [
      {path:'register-student',component:RegisterStudentComponent,canActivate:[authGuard,adminGuard]},
      {path:'answer-sheet',component:AnswerSheetComponent,canActivate:[authGuard,answerSheetGuard,studentGuard]},
      {path:'student-list',component:StudentListComponent, canActivate:[authGuard,adminGuard]},
-     {path:'student/:id',component:StudentProfileComponent,canActivate:[authGuard]}
+     {path:'student/:id',component:StudentProfileComponent,canActivate:[authGuard]},
+     {path:'students-without-room',component:StudentsWithoutRoomComponent,canActivate:[adminGuard]}
 ];
 
 @NgModule({
