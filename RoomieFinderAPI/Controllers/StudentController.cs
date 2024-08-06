@@ -53,7 +53,8 @@ namespace RoomieFinderAPI.Controllers
 
             await _roomContract.GetAllStudentsWithoutARoomAsync(roomlessStudentsListDto);
 
-            if (roomlessStudentsListDto.Students.Count == 0)
+            if (roomlessStudentsListDto.Students.Count == 0 && roomlessStudentsListDto.PageNumber != 1
+                && roomlessStudentsListDto.PageNumber * StudentListDto.StudentsOnPage > roomlessStudentsListDto.TotalCount)
             {
                 return BadRequest();
             }
