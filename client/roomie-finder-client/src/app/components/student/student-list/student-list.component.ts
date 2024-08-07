@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { StudentService } from '../../services/student/student.service';
-import { areGraduated, genderPreference } from '../../utils/enums';
-import { StudentSearchList } from '../../models/studentModels';
+import { StudentService } from '../../../services/student/student.service';
+import { areGraduated, genderPreference } from '../../../utils/enums';
+import { StudentSearchList } from '../../../models/studentModels';
 
 @Component({
   selector: 'app-student-list',

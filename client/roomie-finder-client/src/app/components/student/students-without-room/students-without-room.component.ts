@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { StudentService } from '../../services/student/student.service';
-import { StudentList } from '../../models/studentModels';
+import { StudentService } from '../../../services/student/student.service';
+import { StudentList } from '../../../models/studentModels';
 
 @Component({
   selector: 'app-students-without-room',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StudentPreview } from '../../../../models/studentModels';
+import { StudentPreview } from '../../../../../models/studentModels';
 
 @Component({
   selector: 'app-student-preview-card',

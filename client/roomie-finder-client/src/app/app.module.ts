@@ -12,10 +12,10 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { RegisterStudentComponent } from './components/auth/register-student/register-student.component';
 import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.component';
-import { StudentListComponent } from './components/student-list/student-list.component';
-import { StudentPreviewCardComponent } from './components/student-cards/student-preview-card/student-preview-card/student-preview-card.component';
-import { StudentProfileComponent } from './components/student-profile/student-profile.component';
-import { StudentsWithoutRoomComponent } from './components/students-without-room/students-without-room.component';
+import { StudentListComponent } from './components/student/student-list/student-list.component';
+import { StudentPreviewCardComponent } from './components/student/student-cards/student-preview-card/student-preview-card/student-preview-card.component';
+import { StudentProfileComponent } from './components/student/student-profile/student-profile.component';
+import { StudentsWithoutRoomComponent } from './components/student/students-without-room/students-without-room.component';
 
 
 @NgModule({

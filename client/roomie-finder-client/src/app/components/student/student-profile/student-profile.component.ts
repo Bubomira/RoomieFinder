@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StudentProfile } from '../../models/studentModels';
-import { StudentService } from '../../services/student/student.service';
+import { StudentProfile } from '../../../models/studentModels';
+import { StudentService } from '../../../services/student/student.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { JwtService } from '../../services/jwt/jwt.service';
+import { JwtService } from '../../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-student-profile',
