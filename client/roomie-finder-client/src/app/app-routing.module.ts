@@ -16,6 +16,7 @@ import { AnswerSheetComponent } from './components/answer-sheet/answer-sheet.com
 import { StudentListComponent } from './components/student/student-list/student-list.component';
 import { StudentProfileComponent } from './components/student/student-profile/student-profile.component';
 import { StudentsWithoutRoomComponent } from './components/student/students-without-room/students-without-room.component';
+import { StudentRoomateMatchesComponent } from './components/student/student-roomate-matches/student-roomate-matches.component';
 
 const routes: Routes = [
      {path:'login', component:LoginComponent,canActivate:[guestGuard]},
@@ -23,9 +24,11 @@ const routes: Routes = [
      {path:'change-password',component:ChangePasswordComponent,canActivate:[authGuard,changePasswordGuard,studentGuard]},
      {path:'register-student',component:RegisterStudentComponent,canActivate:[authGuard,adminGuard]},
      {path:'answer-sheet',component:AnswerSheetComponent,canActivate:[authGuard,answerSheetGuard,studentGuard]},
+
      {path:'student-list',component:StudentListComponent, canActivate:[authGuard,adminGuard]},
      {path:'student/:id',component:StudentProfileComponent,canActivate:[authGuard]},
-     {path:'students-without-room',component:StudentsWithoutRoomComponent,canActivate:[adminGuard]}
+     {path:'students-without-room',component:StudentsWithoutRoomComponent,canActivate:[authGuard,adminGuard]},
+     {path:'find-matches',component:StudentRoomateMatchesComponent,canActivate:[authGuard,adminGuard]}
 ];
 
 @NgModule({

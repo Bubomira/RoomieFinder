@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { StudentList, StudentProfile, StudentSearchList } from '../../models/studentModels';
+import { BestRoomateList, StudentList, StudentProfile, StudentSearchList } from '../../models/studentModels';
 
 import { studentEndpoint } from '../../utils/endpoints';
 
@@ -25,6 +25,14 @@ export class StudentService {
          headers:{
            'Authorization':`Bearer ${this.jwt.getUserToken()}`
          }
+       })
+     }
+
+     getStudentMatches(pageNumber:number,userId:string):Observable<BestRoomateList>{
+       return this.http.get<BestRoomateList>(`${studentEndpoint}/${userId}/matches?pageNumber=${pageNumber}`,{
+        headers:{
+          'Authorization':`Bearer ${this.jwt.getUserToken()}`
+        }
        })
      }
 

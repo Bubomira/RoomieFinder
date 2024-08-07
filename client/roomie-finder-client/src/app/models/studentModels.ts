@@ -9,9 +9,12 @@ export interface StudentPreview{
     yearAtUniversity:number
 }
 
-export interface StudentList{
+export interface BaseStudentList{
     pageNumber:number,
-    totalCount:number,
+    totalCount:number
+}
+
+export interface StudentList extends BaseStudentList{
     students:StudentPreview[],
 }
 
@@ -19,6 +22,21 @@ export interface StudentSearchList extends StudentList{
     searchTerm:string | null,
     areGraduated:areGraduated,
     genderPreference:genderPreference
+}
+
+export interface BestRoomateList extends BaseStudentList{
+    isMale:boolean,
+    bestMatches:StudentBestMatch[]
+}
+
+export interface StudentBestMatch extends Roomate{
+    AnswersAsUser:AnswerSheetMetadata,
+    hasAssignedRoom:boolean,
+    assignedRoomId:number|null,
+    assignedRoomNumber:number|null,
+    assignedDormitoryName:string|null,
+    roomCapacityLeft:number|null,
+    qualities:string[]
 }
 
 export interface Roomate{
