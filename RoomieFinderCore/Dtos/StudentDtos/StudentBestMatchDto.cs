@@ -5,14 +5,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RoomieFinderCore.Dtos.StudentDtos
 {
-    public class StudentBestMatchDto
+    public class StudentBestMatchDto:RoomateDto
     {
-        [Required]
-        public required string FullName { get; set; }
-        [Required]
-        public required int YearAtUniversity { get; set; }
 
-        public required AnswerSheetMetadataDto AnswerSheetMetadataDto { get; set; }
+        public required AnswerSheetMetadataDto AnswersAsUser { get; set; }
         public bool HasAssignedRoom { get; set; }
         public int? AssignedRoomId { get; set; }
         public int? AssignedRoomNumber { get; set; }

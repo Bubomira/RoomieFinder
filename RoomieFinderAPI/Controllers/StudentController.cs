@@ -69,13 +69,13 @@ namespace RoomieFinderAPI.Controllers
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> GetRoomateMatches([FromQuery] int pageNumber, string userId)
         {
-            RoomateMatchesListDto roomateMatchesListDto = new RoomateMatchesListDto(pageNumber);
+            RoomateMatchesListDto roomateMatchesListDto = new RoomateMatchesListDto(pageNumber,userId);
             if (await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
             {
                 roomateMatchesListDto.IsMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
                 await _roommateMatchingContract.GetRoomateMatchesForAStudentAsync(userId, roomateMatchesListDto);
 
-                if (roomateMatchesListDto.BestMatches.Count == 0)
+                if (roomateMatchesListDto.BestMatches.Count == 0 && pageNumber!=1)
                 {
                     return BadRequest();
                 }

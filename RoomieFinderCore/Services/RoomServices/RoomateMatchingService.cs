@@ -58,6 +58,7 @@ namespace RoomieFinderCore.Services.RoomServices
                   .Take(RoomateMatchesListDto.MaxItemsOnRoomatePage)
                   .Select(s => new StudentBestMatchDto
                   {
+                      Id=s.ApplicationUserId,
                       FullName = $"{s.ApplicationUser.FirstName} {s.ApplicationUser.LastName}",
                       YearAtUniversity = s.YearAtUniversity,
                       AssignedRoomId = s.RoomId,
@@ -65,14 +66,14 @@ namespace RoomieFinderCore.Services.RoomServices
                       AssignedRoomNumber = s.Room.RoomNumber,
                       RoomCapacityLeft = s.Room.RemainingCapacity,
                       AssignedDormitoryName = s.Room.Dormitory.Name,
-                      AnswerSheetMetadataDto = new AnswerSheetMetadataDto()
+                      AnswersAsUser = new AnswerSheetMetadataDto()
                       {
                           IsFilledOut=s.AnswerSheet!=null,
-                          GoesToSleepEarly = s.AnswerSheet.GoesToSleepEarly,
-                          LikesQuietness = s.AnswerSheet.LikesQuietness,
-                          IsIntrovert = s.AnswerSheet.IsIntrovert,
-                          IsMessy = s.AnswerSheet.IsMessy,
-                          WakesUpEarly = s.AnswerSheet.WakesUpEarly
+                          GoesToSleepEarly = s.AnswerSheet.GoesToSleepEarly==studentGeneralAnswers.GoesToSleepEarly,
+                          LikesQuietness = s.AnswerSheet.LikesQuietness== studentGeneralAnswers.LikesQuietness,
+                          IsIntrovert = s.AnswerSheet.IsIntrovert == studentGeneralAnswers.IsIntrovert,
+                          IsMessy = s.AnswerSheet.IsMessy == studentGeneralAnswers.IsMessy,
+                          WakesUpEarly = s.AnswerSheet.WakesUpEarly == studentGeneralAnswers.WakesUpEarly
                       },
                       Qualities = s.StudentQualities.Select(sq => sq.Quality.Name)
                       .ToList()

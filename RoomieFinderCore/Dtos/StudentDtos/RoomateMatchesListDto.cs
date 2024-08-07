@@ -1,5 +1,7 @@
 ﻿
 
+using RoomieFinderCore.Dtos.AnswerSheetDtos;
+
 namespace RoomieFinderCore.Dtos.StudentDtos
 {
     public class RoomateMatchesListDto
@@ -7,9 +9,10 @@ namespace RoomieFinderCore.Dtos.StudentDtos
         private int pageNumber;
 
         public const int MaxItemsOnRoomatePage = 6;
-        public RoomateMatchesListDto(int _pageNumber)
+        public RoomateMatchesListDto(int _pageNumber,string userId)
         {
             PageNumber = _pageNumber;
+            UserId=userId;
         }
 
         public int PageNumber
@@ -24,6 +27,7 @@ namespace RoomieFinderCore.Dtos.StudentDtos
             }
         }
         public bool IsMale { get; set; }
+        public string UserId { get; set; }
 
         public int TotalCount { get; set; }
         public List<StudentBestMatchDto> BestMatches { get; set; }
