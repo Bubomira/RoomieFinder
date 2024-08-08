@@ -69,7 +69,8 @@ export class AnswerSheetComponent implements OnInit {
        wakesUpEarly:this.c['wakesEarly'].value,
        likesQuietness:this.c['isQuiet'].value,
        goesToSleepEarly:this.c['bedEarly'].value,
-       qualityIds:qualityIds
+       qualityIds:qualityIds,
+       isFilledOut:false
     }
 
     this.answerSheetService.submitAnswerSheet(answerSheetPost).subscribe({

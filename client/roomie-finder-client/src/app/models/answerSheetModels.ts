@@ -4,7 +4,8 @@ export interface QualityPreview{
 }
 
 export interface AnswerSheetPost extends AnswerSheetMetadata{
-    qualityIds:Number[]
+    qualityIds:Number[],
+    isFilledOut:boolean
 }
 
 export interface AnswerSheetMetadata{
