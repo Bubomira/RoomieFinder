@@ -30,7 +30,7 @@ export interface BestRoomateList extends BaseStudentList{
 }
 
 export interface StudentBestMatch extends Roomate{
-    AnswersAsUser:AnswerSheetMetadata,
+    answersAsUser:AnswerSheetMetadata,
     hasAssignedRoom:boolean,
     assignedRoomId:number|null,
     assignedRoomNumber:number|null,
