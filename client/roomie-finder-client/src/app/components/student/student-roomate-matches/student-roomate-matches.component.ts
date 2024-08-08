@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class StudentRoomateMatchesComponent {
    private pageNumber:number=1;
-   private userId:string|null='';
+   protected userId:string|null='';
 
    protected bestMatchesList:any;
 
