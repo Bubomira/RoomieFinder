@@ -1,7 +1,7 @@
 <section class="flex flex-col gap-10 justify-center items-center mt-10">
-    <section class="flex flex-wrap gap-3 w-4/5">
+    <section class="grid gap-3 mt-10 w-4/5 grid-cols-3 w-4/5">
         @for(student of studentList?.students;track student.id){
-            <app-student-preview-card class="grow basis-3/12" [fromProfile]="false" [student]="student"/>
+            <app-student-preview-card [fromProfile]="false" [student]="student"/>
         }
     </section>
     <section class="flex w-full items-center justify-between border-t border-gray-200 bg-white px-4 py-3">

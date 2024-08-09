@@ -11,7 +11,7 @@
     }
 @else{
     <section class="mt-5 flex flex-col items-center gap-4">
-        <section class="flex w-4/5 flex-wrap justify-center gap-4">
+        <section class="grid gap-3 w-4/5 grid-cols-3 gap-4">
             @for(student of bestMatchesList?.bestMatches; track student.id){
                 <app-student-match-card [id]="userId" [student]="student"/>
             }
