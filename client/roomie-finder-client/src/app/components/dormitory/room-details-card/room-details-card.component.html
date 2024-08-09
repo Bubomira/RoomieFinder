@@ -1,0 +1,27 @@
+<article class="flex flex-col py-2 gap-2 rounded-xl shadow-2xl text-gray-900">
+   <section class="p-2 border-b-2 border-indigo-400">
+      <p class="text-indigo-600 text-xl text-center">{{room.roomNumber}}</p>
+    </section>
+    <section class="p-2">
+        <p>Remaining capacity:
+            <span class="font-semibold"> 
+              {{room.remainingCapacity}} {{room.remainingCapacity==1? 'person':'people'}}
+           </span>
+        </p>
+        <p>Room type: 
+            <span class="font-semibold">
+                {{roomTypes[room.roomType]}}
+            </span>
+        </p>
+    </section>
+    @if(personCount>room.remainingCapacity){
+       <p class="text-center py-2 font-semibold text-base text-indigo-600">Not enough capacity left!</p>
+    }
+    @else{
+        <button 
+         [disabled]="personCount>room.remainingCapacity"
+         class="rounded-md self-center bg-indigo-600 px-3 py-2 text-base font-semibold leading-6 text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+         Assign room
+        </button>
+    }
+</article>
