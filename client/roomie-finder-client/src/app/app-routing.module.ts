@@ -17,6 +17,7 @@ import { StudentListComponent } from './components/student/student-list/student-
 import { StudentProfileComponent } from './components/student/student-profile/student-profile.component';
 import { StudentsWithoutRoomComponent } from './components/student/students-without-room/students-without-room.component';
 import { StudentRoomateMatchesComponent } from './components/student/student-roomate-matches/student-roomate-matches.component';
+import { DormitoryRoomsComponent } from './components/dormitory/dormitory-rooms/dormitory-rooms.component';
 
 const routes: Routes = [
      {path:'login', component:LoginComponent,canActivate:[guestGuard]},
@@ -28,7 +29,9 @@ const routes: Routes = [
      {path:'student-list',component:StudentListComponent, canActivate:[authGuard,adminGuard]},
      {path:'student/:id',component:StudentProfileComponent,canActivate:[authGuard]},
      {path:'students-without-room',component:StudentsWithoutRoomComponent,canActivate:[authGuard,adminGuard]},
-     {path:'find-matches',component:StudentRoomateMatchesComponent,canActivate:[authGuard,adminGuard]}
+     {path:'find-matches',component:StudentRoomateMatchesComponent,canActivate:[authGuard,adminGuard]},
+
+     {path:'match-in-a-room',component:DormitoryRoomsComponent,canActivate:[authGuard,adminGuard]}
 ];
 
 @NgModule({

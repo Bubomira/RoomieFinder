@@ -1,0 +1,27 @@
+<section class="flex gap-4 mt-5">
+   @for(dormitory of dormitories; track dormitory.id){
+     <button 
+        (click)="getRoomsByDormitoryId(dormitory.id)"
+        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        {{dormitory.name}}
+    </button>
+   }
+</section>
+@if(!isSearched)
+{
+    <p class="text-center text-indigo-600 text-2xl mt-5">Choose a dormitory to search for available rooms...</p>
+}
+@else{
+    <section class="flex justify-center">
+      <section class="grid mt-10 w-4/5 grid-cols-4 gap-4">
+        @if(rooms.length==0){
+            <p class="text-center text-indigo-600 text-2xl mt-5">There are no rooms...</p>
+        }
+        @else{
+            @for(room of rooms;track room.id){
+                <app-room-details-card [personCount]="userCount" [room]="room"/>
+            }
+        }
+      </section>
+    </section>
+}

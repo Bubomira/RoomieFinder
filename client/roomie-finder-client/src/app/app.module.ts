@@ -18,6 +18,8 @@ import { StudentProfileComponent } from './components/student/student-profile/st
 import { StudentsWithoutRoomComponent } from './components/student/students-without-room/students-without-room.component';
 import { StudentRoomateMatchesComponent } from './components/student/student-roomate-matches/student-roomate-matches.component';
 import { StudentMatchCardComponent } from './components/student/student-cards/student-match-card/student-match-card.component';
+import { DormitoryRoomsComponent } from './components/dormitory/dormitory-rooms/dormitory-rooms.component';
+import { RoomDetailsCardComponent } from './components/dormitory/room-details-card/room-details-card.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { StudentMatchCardComponent } from './components/student/student-cards/st
     StudentsWithoutRoomComponent,
     StudentRoomateMatchesComponent,
     StudentMatchCardComponent,
+    DormitoryRoomsComponent,
+    RoomDetailsCardComponent,
 ],
     imports: [
     BrowserModule,
