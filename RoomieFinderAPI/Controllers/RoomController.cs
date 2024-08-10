@@ -10,15 +10,18 @@ namespace RoomieFinderAPI.Controllers
     [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
     public class RoomController : ControllerBase
     {
+        private readonly IStudentCheckerContract _studentCheckerContract;
         private readonly IRoomCheckerContract _roomCheckerContract;
         private readonly IStudentContract _studentContract;
         private readonly IRoomContract _roomContract;
 
         public RoomController(IRoomCheckerContract roomCheckerContract,
             IStudentContract studentContract,
-            IRoomContract roomContract)
+            IRoomContract roomContract,
+            IStudentCheckerContract studentCheckerContract)
         {
             _roomCheckerContract = roomCheckerContract;
+            _studentCheckerContract = studentCheckerContract;
             _studentContract = studentContract;
             _roomContract = roomContract;
         }
@@ -29,7 +32,7 @@ namespace RoomieFinderAPI.Controllers
         [ProducesResponseType(404)]
         public async Task<IActionResult> AddStudentToRoom(int roomId, string userId)
         {
-            if (await _roomCheckerContract.CheckIfRoomExistsByIdAsync(roomId))
+            if (await _roomCheckerContract.CheckIfRoomExistsByIdAsync(roomId) && await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
             {
                 if (!await _roomCheckerContract.CheckIfStudentIsAlreadyAsignedToTheSpecifiedRoomAsync(userId, roomId)
                     && await _roomCheckerContract.CheckIfRoomHasCapacityAsync(roomId))
