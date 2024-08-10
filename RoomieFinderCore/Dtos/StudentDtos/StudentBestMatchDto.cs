@@ -15,7 +15,5 @@ namespace RoomieFinderCore.Dtos.StudentDtos
         public string? AssignedDormitoryName { get; set; }
         public int? RoomCapacityLeft { get; set; }
 
-        public IList<string> Qualities
-            = new List<string>();
     }
 }

@@ -36,7 +36,6 @@ export interface StudentBestMatch extends Roomate{
     assignedRoomNumber:number|null,
     assignedDormitoryName:string|null,
     roomCapacityLeft:number|null,
-    qualities:string[]
 }
 
 export interface Roomate{

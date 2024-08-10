@@ -20,7 +20,6 @@ export class StudentMatchCardComponent {
     assignedRoomId:null,
     assignedDormitoryName:'',
     assignedRoomNumber:null,
-    qualities:[],
     answersAsUser:{
       isIntrovert:false,
       isMessy:false,

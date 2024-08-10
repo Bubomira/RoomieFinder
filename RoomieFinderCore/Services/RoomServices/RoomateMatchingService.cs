@@ -74,9 +74,7 @@ namespace RoomieFinderCore.Services.RoomServices
                           IsIntrovert = s.AnswerSheet.IsIntrovert == studentGeneralAnswers.IsIntrovert,
                           IsMessy = s.AnswerSheet.IsMessy == studentGeneralAnswers.IsMessy,
                           WakesUpEarly = s.AnswerSheet.WakesUpEarly == studentGeneralAnswers.WakesUpEarly
-                      },
-                      Qualities = s.StudentQualities.Select(sq => sq.Quality.Name)
-                      .ToList()
+                      }
                   })
                  .ToListAsync();
         }
