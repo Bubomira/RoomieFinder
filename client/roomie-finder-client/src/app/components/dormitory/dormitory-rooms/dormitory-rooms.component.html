@@ -19,7 +19,10 @@
         }
         @else{
             @for(room of rooms;track room.id){
-                <app-room-details-card [personCount]="userCount" [room]="room"/>
+                <app-room-details-card 
+                  [userIds]="firstUserId&&secondUserId?[firstUserId,secondUserId]:[firstUserId]"
+                  [personCount]="userCount"
+                  [room]="room"/>
             }
         }
       </section>

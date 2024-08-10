@@ -50,7 +50,6 @@ export class DormitoryRoomsComponent {
       this.dormitoryService.getAllSingleRoomsFromADormitory(dormitoryId).subscribe({
         next:(roomsList:RoomDetails[])=>{
           this.rooms = roomsList;
-          console.log(roomsList);
         },
         error:(error:HttpErrorResponse)=>this.router.navigate(['404'])
       })
@@ -58,7 +57,6 @@ export class DormitoryRoomsComponent {
       this.dormitoryService.getAllRoomsFromADormitory(dormitoryId).subscribe({
         next:(roomsList:RoomDetails[])=>{
           this.rooms = roomsList;
-          console.log(roomsList);
         },
         error:(error:HttpErrorResponse)=>this.router.navigate(['404'])
       })

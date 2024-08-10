@@ -19,6 +19,7 @@
     }
     @else{
         <button 
+         (click)="assignToRoom()"
          [disabled]="personCount>room.remainingCapacity"
          class="rounded-md self-center bg-indigo-600 px-3 py-2 text-base font-semibold leading-6 text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
          Assign room
