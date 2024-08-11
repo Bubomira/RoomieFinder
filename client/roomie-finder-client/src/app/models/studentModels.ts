@@ -26,6 +26,7 @@ export interface StudentSearchList extends StudentList{
 
 export interface BestRoomateList extends BaseStudentList{
     isMale:boolean,
+    userAssignedRoomId:number|null,
     bestMatches:StudentBestMatch[]
 }
 

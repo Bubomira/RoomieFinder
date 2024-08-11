@@ -35,13 +35,13 @@ namespace RoomieFinderCore.Services.DormitoryServices
                 Id = r.Id,
                 RoomNumber = r.RoomNumber,
                 RemainingCapacity = r.RemainingCapacity,
-                RoomType = r.RoomType
+                RoomType = r.RoomType,
             })
             .ToListAsync();
 
-        public Task<List<RoomDetailsDto>> GetAllRoomsFromADormitoryByIdAsync(int dormitoryId) =>
+        public Task<List<RoomDetailsDto>> GetAllRoomsFromADormitoryByIdAsync(int dormitoryId,bool isMale) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Room>()
-            .Where(r => r.DormitoryId == dormitoryId)
+            .Where(r => r.DormitoryId == dormitoryId && (r.Students.Count==0 || r.Students.Any(s=>s.IsMale==isMale)))
             .Select(r => new RoomDetailsDto()
             {
                 Id = r.Id,

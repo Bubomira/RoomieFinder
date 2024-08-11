@@ -24,7 +24,7 @@ namespace RoomieFinderCore.Contracts.DormitotyContracts
         /// </summary>
         /// <param name="dormitoryId"></param>
         /// <returns></returns>
-        public Task<List<RoomDetailsDto>> GetAllRoomsFromADormitoryByIdAsync(int dormitoryId);
+        public Task<List<RoomDetailsDto>> GetAllRoomsFromADormitoryByIdAsync(int dormitoryId, bool isMale);
 
         /// <summary>
         /// Gets all of the single rooms from a dormitory by its id

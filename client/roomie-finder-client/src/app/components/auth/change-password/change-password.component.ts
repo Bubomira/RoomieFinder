@@ -53,7 +53,9 @@ export class ChangePasswordComponent {
       this.authService.changePasswordAsync(user).subscribe({
         next:(res:string)=>{
           this.jwtService.changeHasSetPassword();
-          return this.router.navigateByUrl('/');
+          return this.jwtService.checkIfStudentHasFilledOutTheAnswerSheet()?
+           this.router.navigateByUrl('/')
+           : this.router.navigateByUrl('/answer-sheet');
         },
         error:(error:HttpErrorResponse)=>{
           console.log(error)

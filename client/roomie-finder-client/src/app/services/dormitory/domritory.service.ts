@@ -22,8 +22,8 @@ export class DomritoryService {
       }
     })
 
-   getAllRoomsFromADormitory=(dormitoryId:number):Observable<RoomDetails[]>=>
-    this.http.get<RoomDetails[]>(`${dormitoryEndpoint}/${dormitoryId}/rooms`,{
+   getAllRoomsFromADormitory=(dormitoryId:number,isMale:boolean):Observable<RoomDetails[]>=>
+    this.http.get<RoomDetails[]>(`${dormitoryEndpoint}/${dormitoryId}/rooms?isMale=${isMale}`,{
       headers:{
          'Authorization':`Bearer ${this.jwt.getUserToken()}`
       }

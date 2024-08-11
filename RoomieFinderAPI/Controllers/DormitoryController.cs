@@ -26,18 +26,18 @@ namespace RoomieFinderAPI.Controllers
         [HttpGet("{dormitoryId}/rooms")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(List<RoomDetailsDto>))]
-        public async Task<IActionResult> GetAllRoomsFromADormitory(int dormitoryId)
+        public async Task<IActionResult> GetAllRoomsFromADormitory(int dormitoryId, [FromQuery]bool isMale)
         {
             if (await _dormitoryContract.CheckIfDormitoryExistsByIdAsync(dormitoryId))
             {
-                return Ok(await _dormitoryContract.GetAllRoomsFromADormitoryByIdAsync(dormitoryId));
+                return Ok(await _dormitoryContract.GetAllRoomsFromADormitoryByIdAsync(dormitoryId,isMale));
             }
             return NotFound();
         }
 
         [HttpGet("{dormitoryId}/rooms/single")]
         [ProducesResponseType(200, Type = typeof(List<RoomDetailsDto>))]
-        public async Task<IActionResult> GetAllSingleRoomsFromADormitory(int dormitoryId)
+        public async Task<IActionResult> GetAllSingleRoomsFromADormitory(int dormitoryId, [FromQuery] bool isMale)
         {
             if (await _dormitoryContract.CheckIfDormitoryExistsByIdAsync(dormitoryId))
             {

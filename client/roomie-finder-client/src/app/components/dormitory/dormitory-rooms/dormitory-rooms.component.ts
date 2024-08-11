@@ -14,6 +14,7 @@ export class DormitoryRoomsComponent {
    protected secondUserId:string|null=null;
    protected userCount:number=1;
    protected isSearched:boolean=false;
+   private isMale:boolean=false;
    
    protected dormitories:DormitoryPreview[]=[];
    protected rooms:RoomDetails[]=[];
@@ -24,6 +25,7 @@ export class DormitoryRoomsComponent {
       activatedRoute.queryParamMap.subscribe(params=>{
         this.firstUserId = params.get('firstUser');
         this.secondUserId=params.get('secondUser');
+        this.isMale=params.get('isMale')=='true'?true:false;
       })
       if(!this.firstUserId){
          this.router.navigate(['404'])
@@ -54,7 +56,7 @@ export class DormitoryRoomsComponent {
         error:(error:HttpErrorResponse)=>this.router.navigate(['404'])
       })
       :
-      this.dormitoryService.getAllRoomsFromADormitory(dormitoryId).subscribe({
+      this.dormitoryService.getAllRoomsFromADormitory(dormitoryId,this.isMale).subscribe({
         next:(roomsList:RoomDetails[])=>{
           this.rooms = roomsList;
         },

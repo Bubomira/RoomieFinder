@@ -37,8 +37,12 @@ namespace RoomieFinderAPI.Controllers
                 if (!await _roomCheckerContract.CheckIfStudentIsAlreadyAsignedToTheSpecifiedRoomAsync(userId, roomId)
                     && await _roomCheckerContract.CheckIfRoomHasCapacityAsync(roomId))
                 {
-                    await _roomContract.AsignRoomToStudentAsync(userId, roomId);
-                    return NoContent();
+                    bool isMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
+                    if (await _roomCheckerContract.CheckIfStudentCanBeAssignedToRoomByGenderAsync(roomId,isMale))
+                    {
+                        await _roomContract.AsignRoomToStudentAsync(userId, roomId);
+                        return NoContent(); 
+                    }
                 }
                 return BadRequest();
             }

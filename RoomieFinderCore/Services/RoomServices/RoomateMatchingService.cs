@@ -31,13 +31,23 @@ namespace RoomieFinderCore.Services.RoomServices
                 .Select(sq => sq.QualityId)
                 .ToListAsync();
 
+            roomateMatchesListDto.UserAssignedRoomId = await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+               .Where(s => s.ApplicationUserId == userId)
+               .Select(s => s.RoomId)
+               .FirstOrDefaultAsync();
+
             // Initial requirement are that the room a student is asiigned in still has capacity and that the gender matches
             var matches = _unitOfWork.GetAllAsReadOnlyAsync<Student>()
                 .Where(s =>
-                (s.Room == null || s.Room.RemainingCapacity != NoCapacityLeft)
+                (s.Room == null || (s.Room.RemainingCapacity != NoCapacityLeft))
                 && s.IsMale == roomateMatchesListDto.IsMale
                 && s.ApplicationUserId != userId
                 && s.AnswerSheet != null);
+
+            if (roomateMatchesListDto.UserAssignedRoomId != null)
+            {
+                matches = matches.Where(s => s.Room == null);
+            }
 
             // the query orders the potential matches by the general answers first
             matches = matches

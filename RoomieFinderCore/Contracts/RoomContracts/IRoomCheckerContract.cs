@@ -17,6 +17,14 @@
 
         public Task<bool> CheckIfRoomHasCapacityAsync(int roomId);
 
+        /// <summary>
+        /// Checks whether a student can be assigned to a room baes on gender regulations
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Task<bool> CheckIfStudentCanBeAssignedToRoomByGenderAsync(int roomId, bool isMale);
+
 
         /// <summary>
         /// Checks if there are any free spaces in othe rooms

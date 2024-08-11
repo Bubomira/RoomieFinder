@@ -21,6 +21,10 @@ namespace RoomieFinderCore.Services.RoomServices
             _unitOfWork.GetAllAsReadOnlyAsync<Room>()
             .AnyAsync(r => r.Id == roomId);
 
+        public Task<bool> CheckIfStudentCanBeAssignedToRoomByGenderAsync(int roomId,bool isMale) =>
+              _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+              .AnyAsync(r => r.Id==roomId && (r.Students.Count==0 || r.Students.All(s=>s.IsMale==isMale)));
+
 
         public Task<bool> CheckIfRoomHasCapacityAsync(int roomId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Room>()

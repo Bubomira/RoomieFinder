@@ -1,6 +1,10 @@
-import { Component,Input } from '@angular/core';
+import { Component,inject,Input } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { StudentBestMatch } from '../../../../models/studentModels';
 import { BestMatchMessages } from '../../../../utils/messages';
+import { RoomService } from '../../../../services/room/room.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-student-match-card',
@@ -8,8 +12,13 @@ import { BestMatchMessages } from '../../../../utils/messages';
 })
 export class StudentMatchCardComponent {
   protected messages = BestMatchMessages;
+  private roomService = inject(RoomService);
+  private router = inject(Router);
 
    @Input() id:string|null='';
+
+   @Input() matcherAssignedRoomId:number|null=null;
+   @Input() isMale:boolean=false;
 
    @Input() student:StudentBestMatch={
     id:'',
@@ -29,4 +38,15 @@ export class StudentMatchCardComponent {
     }
    };
 
+   addStudentToRoom=(roomId:number,userId:string)=>{
+     this.roomService.addStudentToRoom(roomId,userId)
+     .subscribe({
+      next:()=>{
+        return this.router.navigate(['/'])
+      },
+      error:(error:HttpErrorResponse)=>{
+        alert(`Could not add student ${this.student.fullName} to room`)
+      }
+     })
+   }
 }

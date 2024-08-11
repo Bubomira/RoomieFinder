@@ -17,16 +17,21 @@
      @if(student.hasAssignedRoom){ 
        <p>Assigned dormitory name: {{student.assignedDormitoryName}}</p>
        <p>Assigned room number: {{student.assignedRoomNumber}}</p>
-       <!-- to do: add student to room -->
-       <button
-         class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-         Add student to room
-     </button>
+    }
+    @if(matcherAssignedRoomId || student.hasAssignedRoom){
+        <button
+           (click)="matcherAssignedRoomId?
+           addStudentToRoom(matcherAssignedRoomId,student.id)
+           :
+           addStudentToRoom(student.assignedRoomId?student.assignedRoomId:0,id?id:'')"
+           class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+           Add student to room
+       </button>
      }
      @else{
       <a 
         [routerLink]="['/match-in-a-room']"
-        [queryParams]="{firstUser:student.id,secondUser:id}"
+        [queryParams]="{firstUser:student.id,secondUser:id,isMale:isMale}"
         class="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
          Match in a room!
       </a>

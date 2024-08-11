@@ -18,7 +18,7 @@ export class RoomDetailsCardComponent {
     id:0,
     roomNumber:0,
     remainingCapacity:0,
-    roomType:roomType.single
+    roomType:roomType.single,
    }
 
    @Input() userIds:any[]=[];

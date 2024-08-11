@@ -29,6 +29,8 @@ namespace RoomieFinderCore.Dtos.StudentDtos
         public bool IsMale { get; set; }
         public string UserId { get; set; }
 
+        public int? UserAssignedRoomId { get; set; }
+
         public int TotalCount { get; set; }
         public List<StudentBestMatchDto> BestMatches { get; set; }
             = new List<StudentBestMatchDto>();
