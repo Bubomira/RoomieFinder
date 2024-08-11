@@ -1,15 +1,17 @@
 <section class="flex">
-    <section class="basis-5/12 shadow-md gap-4 shadow-indigo-600 py-10 px-2 m-4 flex flex-col items-center">
-        <img class="w-40"  src="{{student?.isMale?'maleAvatar.png':'femaleAvatar.png'}}"/> 
-        <section class="text-sm ">
-            <p class="text-xl text-indigo-600 font-semibold">Personal data:</p>
-            <p>Full name: <span class="font-semibold">{{student?.fullname}}</span></p>
-            <p>Email: <span class="font-semibold">{{student?.email}}</span></p>
-            <p>Username: <span class="font-semibold">{{student?.userName}}</span></p>
-            <p>Year at university: <span class="font-semibold">{{student?.yearAtUiversity}}</span></p>
-            <p>Gender: <span class="font-semibold">{{student?.isMale? 'Male':'Female'}}</span></p>
-        </section>  
-        <section class="text-sm">
+    <section class="grid grid-col-4 basis-5/12 shadow-md gap-4 shadow-indigo-600 py-10 px-2 m-4">
+        <section class="col-start-2 col-end-3">
+            <img class="w-40"  src="{{student?.isMale?'maleAvatar.png':'femaleAvatar.png'}}"/> 
+            <section class="text-sm">
+                <p class="text-xl text-indigo-600 font-semibold">Personal data:</p>
+                <p>Full name: <span class="font-semibold">{{student?.fullname}}</span></p>
+                <p>Email: <span class="font-semibold">{{student?.email}}</span></p>
+                <p>Username: <span class="font-semibold">{{student?.userName}}</span></p>
+                <p>Year at university: <span class="font-semibold">{{student?.yearAtUiversity}}</span></p>
+                <p>Gender: <span class="font-semibold">{{student?.isMale? 'Male':'Female'}}</span></p>
+            </section>  
+        </section>
+        <section class="text-sm col-start-2 col-end-3">
             <p class="text-xl text-indigo-600 font-semibold">Answersheet answers:</p>
              @if(student?.generalAnswers?.isFilledOut){
                  <section>
@@ -25,26 +27,46 @@
              }
         </section>
     </section>
-    <section class="basis-3/12 text-sm gap-3 shadow-md shadow-indigo-600 py-10 px-2 m-4 flex flex-col items-center">
-        <section>
+
+    <section class="grid grid-col-4 grid-rows-none basis-3/12 text-sm gap-3 shadow-md shadow-indigo-600 py-10 px-2 m-4">
+        <section class="col-start-2 col-end-3">
             <p class="text-xl text-indigo-600 font-semibold">Room details:</p>
-            @if(student?.room?.id==null){
-                <p>(No room yet...)</p>
-            }
-            @else{
-                <p>Room number: {{student?.room.roomNumber}}</p>
-                <p>Room type: {{student?.room.roomType}}</p>
-                <p>Remaining capacity: {{student?.room.remainingCapacity}}</p>
-            }
+            <section>
+                @if(student?.room?.id==null){
+                    <p>(No room yet...)</p>
+                }
+                @else{
+                    <p>Room number: 
+                        <span class="font-semibold">
+                           {{student?.room.roomNumber}}
+                        </span>
+                    </p>
+                    <p>Room type: 
+                        <span class="font-semibold">
+                           {{roomTypes[student?.room.roomType]}}
+                       </span>
+                    </p>
+                    <p>Remaining capacity: 
+                        <span class="font-semibold">
+                        {{student?.room.remainingCapacity}} 
+                        {{student?.room.remainingCapacity==1?'person':'people'}}
+                       </span>
+                    </p>
+                }
+            </section>
         </section>
-        <section class="flex flex-col gap-3">
+        <section class="col-start-2 col-end-3 gap-3">
             <article>
                 <p class="text-xl text-indigo-600 font-semibold">Roomates:</p>
                @if(student?.roomates?.length==0){
                  <p>(No roomates yet...)</p>
                 }
                 @else{
-                    <!-- to be done -->
+                   <ul class="list-disc">
+                     @for(roomate of student?.roomates;track roomate.id){
+                       <app-roomate-card [roomate]="roomate" [isAdmin]="isAdmin"/>
+                     }
+                   </ul>
                 }
             </article>
             <a 
