@@ -36,7 +36,7 @@ namespace RoomieFinderCore.Services.RequestServices
                 .Select(r => r.RequestType)
                 .ToListAsync();
 
-            return possibleRequestTypes.Where(prt => currentRequestsTypes.Contains(prt))
+            return possibleRequestTypes.Where(prt => currentRequestsTypes.Contains(prt)==false)
                 .ToList();
         }
     }
