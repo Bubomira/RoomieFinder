@@ -1,0 +1,14 @@
+<li>
+    <p>Type: 
+        <span class="font-semibold">
+            <a [routerLink]="['/request',request.id]">
+                {{requestTypes[request.requestType]}}
+            </a>
+        </span>
+    </p>
+    <p>Status: 
+        <span class="font-semibold">
+           {{requestStatus[request.requestStatus]}}
+        </span>
+    </p>
+</li>
