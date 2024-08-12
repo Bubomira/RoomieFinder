@@ -21,6 +21,7 @@ import { StudentMatchCardComponent } from './components/student/student-cards/st
 import { DormitoryRoomsComponent } from './components/dormitory/dormitory-rooms/dormitory-rooms.component';
 import { RoomDetailsCardComponent } from './components/dormitory/room-details-card/room-details-card.component';
 import { RoomateCardComponent } from './components/student/student-cards/roomate-card/roomate-card.component';
+import { RequestSubmitComponent } from './components/request/request-submit/request-submit.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { RoomateCardComponent } from './components/student/student-cards/roomate
     DormitoryRoomsComponent,
     RoomDetailsCardComponent,
     RoomateCardComponent,
+    RequestSubmitComponent,
 ],
     imports: [
     BrowserModule,

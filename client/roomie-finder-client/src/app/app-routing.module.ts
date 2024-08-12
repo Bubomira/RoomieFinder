@@ -18,12 +18,14 @@ import { StudentProfileComponent } from './components/student/student-profile/st
 import { StudentsWithoutRoomComponent } from './components/student/students-without-room/students-without-room.component';
 import { StudentRoomateMatchesComponent } from './components/student/student-roomate-matches/student-roomate-matches.component';
 import { DormitoryRoomsComponent } from './components/dormitory/dormitory-rooms/dormitory-rooms.component';
+import { RequestSubmitComponent } from './components/request/request-submit/request-submit.component';
 
 const routes: Routes = [
      {path:'login', component:LoginComponent,canActivate:[guestGuard]},
      {path:'logout',component:LogoutComponent,canActivate:[authGuard]},
      {path:'change-password',component:ChangePasswordComponent,canActivate:[authGuard,changePasswordGuard,studentGuard]},
      {path:'register-student',component:RegisterStudentComponent,canActivate:[authGuard,adminGuard]},
+     
      {path:'answer-sheet',component:AnswerSheetComponent,canActivate:[authGuard,answerSheetGuard,studentGuard]},
 
      {path:'student-list',component:StudentListComponent, canActivate:[authGuard,adminGuard]},
@@ -31,7 +33,9 @@ const routes: Routes = [
      {path:'students-without-room',component:StudentsWithoutRoomComponent,canActivate:[authGuard,adminGuard]},
      {path:'find-matches',component:StudentRoomateMatchesComponent,canActivate:[authGuard,adminGuard]},
 
-     {path:'match-in-a-room',component:DormitoryRoomsComponent,canActivate:[authGuard,adminGuard]}
+     {path:'match-in-a-room',component:DormitoryRoomsComponent,canActivate:[authGuard,adminGuard]},
+
+     {path:'request-submit',component:RequestSubmitComponent,canActivate:[authGuard,studentGuard]}
 ];
 
 @NgModule({
