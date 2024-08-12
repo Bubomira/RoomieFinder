@@ -34,6 +34,6 @@ namespace RoomieFinderCore.Contracts.RequestContracts
         /// <param name="userId"></param>
         /// <param name="requestType"></param>
         /// <returns></returns>
-        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestForUserAsync(string userId);
+        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestOfTypeForUserAsync(string userId,RequestType requestType);
     }
 }

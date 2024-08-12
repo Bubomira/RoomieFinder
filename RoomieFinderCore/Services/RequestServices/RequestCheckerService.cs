@@ -24,9 +24,9 @@ namespace RoomieFinderCore.Services.RequestServices
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()
             .AnyAsync(r => r.Id == requestId && r.Student.ApplicationUserId == userId);
 
-        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestForUserAsync(string userId) =>
+        public Task<bool> CheckIfThereIsAnotherUnArchivedRequestOfTypeForUserAsync(string userId, RequestType requestType) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()
-            .AnyAsync(r => r.Student.ApplicationUserId == userId);
+            .AnyAsync(r => r.Student.ApplicationUserId == userId && r.RequestType==requestType && r.RequestStatus!=RequestStatus.Archived);
 
         public Task<bool> ChecksIfTheRequestIsSubmittedByUserAndPendingAsync(int requestId, string userId) =>
               _unitOfWork.GetAllAsReadOnlyAsync<Request>()

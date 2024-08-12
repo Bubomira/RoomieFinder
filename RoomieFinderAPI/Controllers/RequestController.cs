@@ -84,7 +84,7 @@ namespace RoomieFinderAPI.Controllers
         public async Task<IActionResult> SubmitRequest([FromBody] RequestPostDto requestPostDto)
         {
             if (ModelState.IsValid
-                && !await _requestCheckerContract.CheckIfThereIsAnotherUnArchivedRequestForUserAsync(User.Id() ?? ""))
+                && !await _requestCheckerContract.CheckIfThereIsAnotherUnArchivedRequestOfTypeForUserAsync(User.Id() ?? "",requestPostDto.RequestType))
             {
                 if (requestPostDto.RequestType == RequestType.SpecificRoomate && !await _studentCheckerContract.CheckIfStudentExistsByEmailAsync(requestPostDto.Comment))
                 {
