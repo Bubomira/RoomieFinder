@@ -5,3 +5,8 @@ export interface RequestPreview{
     requestType:requestType,
     requestStatus:requestStatus
 } 
+
+export interface RequestPostDto{
+    comment:string|null,
+    requestType:requestType|null
+}

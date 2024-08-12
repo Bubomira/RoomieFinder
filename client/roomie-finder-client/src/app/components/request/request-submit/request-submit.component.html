@@ -13,7 +13,10 @@
                  <div class="flex gap-2 items-center" *ngFor="let request of possibleRequestTypes; index as i">
                      <input formControlName="requestType" name="requestType" [value]="request" id="{{i}}" type="radio"/>
                     <label class="text-sm font-medium leading-6 text-gray-900" for="{{i}}">{{requestTypes[request]}}</label>
-                 </div>       
+                 </div>   
+                 <div class="text-red-600" *ngIf="c.requestType.invalid && (c.requestType.dirty || c.requestType.touched)">
+                    <p *ngIf="c.requestType.hasError('required')">Please, pick an option</p>
+               </div>    
               </div>
              <div>
                  <label for="comment" class="block text-sm font-medium leading-6 text-gray-900">Comment</label>
@@ -28,7 +31,10 @@
       
       
             <div>
-              <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
+              <button 
+              [disabled]="requestForm.invalid"
+              type="submit" 
+              class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
             </div>
           </form>
       

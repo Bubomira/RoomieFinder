@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { requestType } from '../../../utils/enums';
 import { RequestService } from '../../../services/request/request.service';
 import { commentConditionalRequiredField } from '../../../validators/commentCustomValidator';
+import { RequestPostDto } from '../../../models/requestModels';
 
 @Component({
   selector: 'app-request-submit',
@@ -20,7 +21,7 @@ export class RequestSubmitComponent {
 
   protected requestForm = this.formBuilder.group({
     comment:[''],
-    requestType:[requestType,[Validators.required]]
+    requestType:[null,[Validators.required]]
   })
 
   constructor(private requestService:RequestService,private router:Router) {
@@ -42,11 +43,25 @@ export class RequestSubmitComponent {
     
   }
 
-
-
   onSubmit(e:Event){
      e.preventDefault();
-     console.log(this.requestForm);
+     if(this.requestForm.invalid){
+      alert('Please, fill in the form correctly!')
+      return;
+     }
+     let requestPost:RequestPostDto={
+       comment:this.c.comment.value,
+       requestType:this.c.requestType.value
+     }
+     this.requestService.submitRequest(requestPost).subscribe({
+      next:()=>{
+        alert('Your request has been submitted')
+       return this.router.navigate(['/'])
+      },
+      error:()=>{
+        alert('Could not submit request. Check for inaccuracies or try again later!')
+      }
+     })
   }
 
   protected c = this.requestForm.controls;
