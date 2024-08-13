@@ -1,7 +1,8 @@
 import {buildUrl} from 'build-url-ts'
 
 import * as endpoints from  './endpoints'
-import { areGraduated, genderPreference } from './enums'
+import { areGraduated, genderPreference, requestStatus, requestType } from './enums'
+import { RequestSearchList } from '../models/requestModels'
 
 export const buildStudentListUrl=
      (pageNumber:number,search:string|null,graduated:areGraduated,gender:genderPreference)=>
@@ -22,3 +23,13 @@ export const buildStudentWithouARoomUrl=(pageNumber:number)=>
             pageNumber:pageNumber,
         }
 })
+
+export const buildRequestListUrl=(pageNumber:number,prefferedRequestStatus:requestStatus,prefferedRequestType:requestType)=>
+    buildUrl(endpoints.requestEndpoint,{
+        path:'all',
+        queryParams:{
+            currentPage:pageNumber,
+            prefferedRequestStatus:prefferedRequestStatus,
+            prefferedRequestType:prefferedRequestType
+        }
+    })

@@ -10,3 +10,11 @@ export interface RequestPostDto{
     comment:string|null,
     requestType:requestType|null
 }
+
+export interface RequestSearchList{
+    requests:RequestPreview[],
+    currentPage:number,
+    prefferedRequestType:requestType,
+    prefferedRequestStatus:requestStatus,
+    totalCount:number
+}
