@@ -35,9 +35,10 @@ namespace RoomieFinderCore.Services.RequestServices
             requestListDto.Requests = await requests
                 .Skip((requestListDto.CurrentPage - 1) * RequestListDto.MaxItemsOnPage)
                 .Take(RequestListDto.MaxItemsOnPage)
-                .Select(r => new RequestPreviewDto()
+                .Select(r => new RequestSearchPreviewDto()
                 {
                     Id = r.Id,
+                    RequesterEmail=r.Student.ApplicationUser.Email,
                     RequestStatus = r.RequestStatus,
                     RequestType = r.RequestType
                 })

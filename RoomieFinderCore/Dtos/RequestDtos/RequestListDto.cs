@@ -23,7 +23,7 @@ namespace RoomieFinderCore.Dtos.RequestDtos
         public RequestStatus PrefferedRequestStatus { get; set; } = RequestStatus.DoesntMatter;
         public int TotalCount { get; set; }
 
-        public List<RequestPreviewDto> Requests { get; set; }
-           = new List<RequestPreviewDto>();
+        public List<RequestSearchPreviewDto> Requests { get; set; }
+           = new List<RequestSearchPreviewDto>();
     }
 }

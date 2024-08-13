@@ -35,13 +35,11 @@ namespace RoomieFinderAPI.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(RequestListDto))]
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetAllRequests([FromQuery] int pageNumber)
+        public async Task<IActionResult> GetAllRequests([FromQuery] RequestListDto requestListDto)
         {
-            RequestListDto requestListDto = new RequestListDto() { CurrentPage = pageNumber };
-
             await _requestContract.GetAllRequestsAsync(requestListDto);
 
-            if (requestListDto.Requests.Count == 0)
+            if (requestListDto.Requests.Count == 0 && requestListDto.CurrentPage!=1)
             {
                 return BadRequest();
             }
