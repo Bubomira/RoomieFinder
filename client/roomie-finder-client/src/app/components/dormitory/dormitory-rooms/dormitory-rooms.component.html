@@ -20,7 +20,7 @@
         @else{
             @for(room of rooms;track room.id){
                 <app-room-details-card 
-                  [userIds]="firstUserId&&secondUserId?[firstUserId,secondUserId]:[firstUserId]"
+                  [userIds]="secondUserId?[firstUserId,secondUserId]:[firstUserId]"
                   [personCount]="userCount"
                   [room]="room"/>
             }
