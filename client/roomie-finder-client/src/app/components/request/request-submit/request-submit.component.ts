@@ -51,7 +51,7 @@ export class RequestSubmitComponent {
      }
      let requestPost:RequestPostDto={
        comment:this.c.comment.value,
-       requestType:this.c.requestType.value
+       requestType:Number(this.c.requestType.value)
      }
      this.requestService.submitRequest(requestPost).subscribe({
       next:()=>{

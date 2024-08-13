@@ -9,12 +9,14 @@
       
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form class="space-y-6" (submit)="onSubmit($event)" [formGroup]="requestForm">
-              <div class="grid grid-cols-3">
-                 <div class="flex gap-2 items-center" *ngFor="let request of possibleRequestTypes; index as i">
-                     <input formControlName="requestType" name="requestType" [value]="request" id="{{i}}" type="radio"/>
-                    <label class="text-sm font-medium leading-6 text-gray-900" for="{{i}}">{{requestTypes[request]}}</label>
-                 </div>   
-                 <div class="text-red-600" *ngIf="c.requestType.invalid && (c.requestType.dirty || c.requestType.touched)">
+              <div>
+                <label for="requestType" class="block text-sm font-medium leading-6 text-gray-900">Request Type</label>
+                <select id="requestType" formControlName="requestType" class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                 @for(request of possibleRequestTypes;track request){
+                    <option [value]="request">{{requestTypes[request]}}</option>
+                 }
+                </select>
+                <div class="text-red-600" *ngIf="c.requestType.invalid && (c.requestType.dirty || c.requestType.touched)">
                     <p *ngIf="c.requestType.hasError('required')">Please, pick an option</p>
                </div>    
               </div>
