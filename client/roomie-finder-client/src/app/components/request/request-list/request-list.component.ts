@@ -1,11 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { requestStatus, requestType } from '../../../utils/enums';
 import { RequestSearchList } from '../../../models/requestModels';
 import { RequestService } from '../../../services/request/request.service';
-import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-request-list',
@@ -19,6 +19,7 @@ export class RequestListComponent {
    protected requestTypes=requestType;
    protected requestStatuses = requestStatus;
    protected requestSearchList:any;
+   protected isSearched=false;
 
    protected requestSearchForm = this.formBuilder.group({
     requestType:[requestType.doesntMatter],
@@ -27,7 +28,13 @@ export class RequestListComponent {
 
    onSubmit(e:Event){
      e.preventDefault();
+     this.isSearched=true;
      this.getData(1);     
+   }
+
+   onLink(e:Event,pageNumber:number){
+     e.preventDefault();
+     this.getData(pageNumber);
    }
 
 
