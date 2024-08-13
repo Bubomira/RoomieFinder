@@ -24,6 +24,7 @@ import { RoomateCardComponent } from './components/student/student-cards/roomate
 import { RequestSubmitComponent } from './components/request/request-submit/request-submit.component';
 import { RequestProfileCardComponent } from './components/request/request-cards/request-profile-card/request-profile-card.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
+import { RequestPreviewCardComponent } from './components/request/request-cards/request-preview-card/request-preview-card.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { RequestListComponent } from './components/request/request-list/request-
     RequestSubmitComponent,
     RequestProfileCardComponent,
     RequestListComponent,
+    RequestPreviewCardComponent,
 ],
     imports: [
     BrowserModule,

@@ -6,13 +6,17 @@ export interface RequestPreview{
     requestStatus:requestStatus
 } 
 
+export interface RequestSearchPreview extends RequestPreview{
+    requesterEmail:string
+}
+
 export interface RequestPostDto{
     comment:string|null,
     requestType:requestType|null
 }
 
 export interface RequestSearchList{
-    requests:RequestPreview[],
+    requests:RequestSearchPreview[],
     currentPage:number,
     prefferedRequestType:requestType,
     prefferedRequestStatus:requestStatus,

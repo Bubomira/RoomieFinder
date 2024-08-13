@@ -1,0 +1,11 @@
+<article class="flex flex-col p-4 gap-2 rounded-2xl shadow-2xl text-gray-900">
+    <p>Requester email: {{request.requesterEmail}}</p>
+    <p>Type: {{requestTypes[request.requestType]}}</p>
+    <p>Status: {{requestStatuses[request.requestStatus]}}</p>
+    <a 
+      [routerLink]="['/request-details',request.id]"
+      class="bg-indigo-600 text-slate-200 px-4 py-2 rounded-2xl self-center">
+      See details
+    </a>
+</article>
+
