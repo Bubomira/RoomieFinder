@@ -1,0 +1,21 @@
+<section class="mt-4">
+   <form (submit)="onSubmit($event)" [formGroup]="requestSearchForm" class="flex gap-2 justify-center" >
+      <select id="requestType" formControlName="requestType" class="basis-3/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <option [value]="requestTypes.singleRoom">Single room</option>
+        <option [value]="requestTypes.changeRoom">Change room</option>
+        <option [value]="requestTypes.specificRoomate">Specific roomate</option>
+        <option [value]="requestTypes.doesntMatter">All</option>
+      </select>
+      <select id="requestStatus" formControlName="requestStatus" class="basis-3/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <option [value]="requestStatuses.pending">Pending</option>
+        <option [value]="requestStatuses.accepted">Accepted</option>
+        <option [value]="requestStatuses.declined">Declined</option>
+        <option [value]="requestStatuses.archived">Archived</option>
+        <option [value]="requestStatuses.doesntMatter">All</option>
+      </select>
+      <button
+         class="basis-1/12 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+         Submit
+      </button>
+   </form>
+</section>

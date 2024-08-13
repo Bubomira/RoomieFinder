@@ -23,6 +23,7 @@ import { RoomDetailsCardComponent } from './components/dormitory/room-details-ca
 import { RoomateCardComponent } from './components/student/student-cards/roomate-card/roomate-card.component';
 import { RequestSubmitComponent } from './components/request/request-submit/request-submit.component';
 import { RequestProfileCardComponent } from './components/request/request-cards/request-profile-card/request-profile-card.component';
+import { RequestListComponent } from './components/request/request-list/request-list.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { RequestProfileCardComponent } from './components/request/request-cards/
     RoomateCardComponent,
     RequestSubmitComponent,
     RequestProfileCardComponent,
+    RequestListComponent,
 ],
     imports: [
     BrowserModule,
