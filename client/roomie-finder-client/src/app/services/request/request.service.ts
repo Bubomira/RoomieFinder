@@ -31,7 +31,7 @@ export class RequestService {
 
     getRequestList=(pageNumber:number,type:requestType,status:requestStatus):Observable<RequestSearchList>=>{
         let url = buildRequestListUrl(pageNumber,status,type);
-        return this.http.get<RequestSearchList>(url?url:`${requestEndpoint}/all?pageNumber=1`,{
+        return this.http.get<RequestSearchList>(url?url:`${requestEndpoint}/all?currentPage=1`,{
           headers:{
             'Authorization':`Bearer ${this.jwt.getUserToken()}`
          }
