@@ -2,7 +2,7 @@
 
 namespace RoomieFinderCore.Dtos.RequestDtos
 {
-    public class RequestDetailsDto : RequestPreviewDto
+    public class RequestDetailsDto : RequestSearchPreviewDto
     {
         public string? Comment { get; set; }
 

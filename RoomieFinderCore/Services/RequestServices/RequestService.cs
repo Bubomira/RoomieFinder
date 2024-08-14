@@ -54,6 +54,7 @@ namespace RoomieFinderCore.Services.RequestServices
                 Comment = r.Comment,
                 RequestType = r.RequestType,
                 RequestStatus = r.RequestStatus,
+                RequesterEmail=r.Student.ApplicationUser.Email,
                 RequesterUserId = r.Student.ApplicationUserId,
                 RequesterFullName = $"{r.Student.ApplicationUser.FirstName} {r.Student.ApplicationUser.LastName}"
             })
