@@ -4,41 +4,59 @@
             <p class="text-indigo-600 text-center text-3xl">Request {{request?.id}}</p>
        </header>
        <div class="border-b-2 border-indigo-200"></div>
-       <main class="flex py-4 gap-3 justify-around">
-            <section class=" flex flex-col gap-1">
-            <p>Type: 
-                <span class="font-semibold">
-                    {{requestTypes[request?.requestType]}}
-                </span>
-            </p>
-            <p>Staus:
-                <span class="font-semibold">
-                    {{requestStatuses[request?.requestStatus]}}
-                </span>
-            </p>
-            </section>
-            <section class="flex flex-col gap-1 ">
-            <p>Requester email: 
-                <span class="font-semibold">
-                    {{request?.requesterEmail}}
-                </span>
-            </p>
-            <p>Requester full name:
-                <span class="font-semibold">
-                    {{request?.requesterFullName}}
-                </span>
-            </p>
-            </section>
+       <main class="grid grid-cols-6 py-4">
+                <section class="col-start-2 flex flex-col gap-1 py-2">
+                <p>Type: 
+                    <span class="font-semibold">
+                        {{requestTypes[request?.requestType]}}
+                    </span>
+                </p>
+                <p>Staus:
+                    <span class="font-semibold">
+                        {{requestStatuses[request?.requestStatus]}}
+                    </span>
+                </p>
+                </section>
+                <section class=" col-start-4 col-span-3 flex flex-col gap-1 ">
+                <p>Requester email: 
+                    <span class="font-semibold">
+                        {{request?.requesterEmail}}
+                    </span>
+                </p>
+                <p>Requester full name:
+                    <span class="font-semibold">
+                        {{request?.requesterFullName}}
+                    </span>
+                </p>
+                </section>
+                <section class="py-2 col-start-2 col-span-5">
+                    <p>Comment:
+                        <span class="font-semibold">
+                            {{request?.comment? request?.comment : '(no comment)'}}
+                        </span>
+                    </p>
+                </section>
         </main>
         <div class="border-b-2 border-indigo-200"></div>
         <section class="flex justify-center gap-2 py-5">
             @if(request?.requestStatus!=requestStatuses.archived){
                 @if(!isAdmin && request?.requestStatus==requestStatuses.pending){ 
                 <button  
-                   (click)="onRemove"
+                   (click)="onRemove()"
                    class="justify-center w-1/5 rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                    Remove request
                 </button>
+                }
+                @if(isAdmin && request?.requestStatus==requestStatuses.pending){
+                    <button                     
+                      class="rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                      Accept
+                   </button>
+                   <button  
+                     (click)="onDecline()"
+                     class="rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                     Decline
+                   </button>
                 }
             }
         </section>
