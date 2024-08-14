@@ -6,6 +6,8 @@ namespace RoomieFinderCore.Dtos.RequestDtos
     {
         public string? Comment { get; set; }
 
+        public bool CanBeAccepted { get; set; } = false;
+
         public required string RequesterFullName { get; set; }
         public required string RequesterUserId { get; set; }
     }

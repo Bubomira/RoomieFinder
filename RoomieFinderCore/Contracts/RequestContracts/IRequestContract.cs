@@ -31,7 +31,14 @@ namespace RoomieFinderCore.Contracts.RequestContracts
         /// </summary>
         /// <param name="requestId"></param>
         /// <returns></returns>
-        public Task<RequestDetailsDto> GetRequestDetailsAsync(int requestId);
+        public Task<RequestDetailsDto> GetRequestDetailsAsync(int requestId,bool isMale);
+
+        /// <summary>
+        /// Gets the email of the wanted roomate if a student has requested a specific roomate
+        /// </summary>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        public Task<string?> GetSpecificRoomateEmailByRequestId(int requestId);
 
     }
 }

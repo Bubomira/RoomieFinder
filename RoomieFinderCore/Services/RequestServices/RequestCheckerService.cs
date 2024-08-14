@@ -16,9 +16,18 @@ namespace RoomieFinderCore.Services.RequestServices
         {
             _unitOfWork = unitOfWork;
         }
+        public Task<bool> CheckIfStudentIsMaleByRequestIdAsync(int requestId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Request>()
+            .Where(r => r.Id == requestId)
+            .Select(r => r.Student.IsMale)
+            .FirstOrDefaultAsync();
         public Task<bool> CheckIfRequestExistsByIdAsync(int requestId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()
             .AnyAsync(r => r.Id == requestId);
+
+        public Task<bool> CheckIfRequestIsOfTypeAsync(int requestId, RequestType requestType) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Request>()
+            .AnyAsync(r => r.Id == requestId && r.RequestType == requestType);
 
         public Task<bool> ChecksIfRequestIsSubmittedByUserAsync(int requestId, string userId) =>
             _unitOfWork.GetAllAsReadOnlyAsync<Request>()

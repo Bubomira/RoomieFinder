@@ -14,6 +14,10 @@ namespace RoomieFinderCore.Services.StudentServices
             _unitOfWork = unitOfWork;
         }
 
+        public Task<bool> CheckIfEmailBelongsToCurrentUserByIdAsync(string userId, string email) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<ApplicationUser>()
+            .AnyAsync(a => a.Id == userId && a.Email == email);
+
         public Task<bool> CheckIfStudentIsMaleAsync(string userId) =>
              _unitOfWork.GetAllAsReadOnlyAsync<Student>()
              .Where(s => s.ApplicationUserId == userId)

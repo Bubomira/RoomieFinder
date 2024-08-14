@@ -61,8 +61,10 @@ namespace RoomieFinderAPI.Controllers
                 {
                     return Forbid();
                 }
-                var request = await _requestContract.GetRequestDetailsAsync(requestId);
-                return Ok(request);
+
+                bool isMale = await _requestCheckerContract.CheckIfStudentIsMaleByRequestIdAsync(requestId);
+               
+                return Ok(await _requestContract.GetRequestDetailsAsync(requestId, isMale));
             }
             return NotFound();
         }
@@ -84,7 +86,9 @@ namespace RoomieFinderAPI.Controllers
             if (ModelState.IsValid
                 && !await _requestCheckerContract.CheckIfThereIsAnotherUnArchivedRequestOfTypeForUserAsync(User.Id() ?? "",requestPostDto.RequestType))
             {
-                if (requestPostDto.RequestType == RequestType.SpecificRoomate && !await _studentCheckerContract.CheckIfStudentExistsByEmailAsync(requestPostDto.Comment))
+                if (requestPostDto.RequestType == RequestType.SpecificRoomate
+                    && (!await _studentCheckerContract.CheckIfStudentExistsByEmailAsync(requestPostDto.Comment) ||
+                        await _studentCheckerContract.CheckIfEmailBelongsToCurrentUserByIdAsync(User.Id() ?? "", requestPostDto.Comment)))
                 {
                     return BadRequest();
                 }
@@ -113,13 +117,25 @@ namespace RoomieFinderAPI.Controllers
         }
 
         [HttpGet("accept/{requestId}")]
-        [ProducesResponseType(204)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(200,Type =typeof(string))]
         [Authorize(Roles = "GreatAdmin", AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> AcceptRequest(int requestId)
         {
             if (await _requestCheckerContract.CheckIfRequestExistsByIdAsync(requestId))
             {
+                if (await _requestCheckerContract.CheckIfRequestIsOfTypeAsync(requestId, RequestType.SpecificRoomate)) 
+                {
+                    var specificRoomateEmail = await _requestContract.GetSpecificRoomateEmailByRequestId(requestId);
+                    if (string.IsNullOrEmpty(specificRoomateEmail) 
+                        || !await _studentCheckerContract.CheckIfStudentExistsByEmailAsync(specificRoomateEmail))
+                    {
+                        return BadRequest();
+                    }
+                    await _requestStatusContract.ChangeRequestStatusAsync(requestId, RequestStatus.Accepted);
+                    return Ok(new {specificUserId= await _studentContract.GetUserIdByEmailAsync(specificRoomateEmail)});
+                }
                 await _requestStatusContract.ChangeRequestStatusAsync(requestId, RequestStatus.Accepted);
                 return NoContent();
             }

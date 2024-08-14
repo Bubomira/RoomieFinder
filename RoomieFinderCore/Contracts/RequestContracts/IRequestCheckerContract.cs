@@ -14,6 +14,21 @@ namespace RoomieFinderCore.Contracts.RequestContracts
         public Task<bool> CheckIfRequestExistsByIdAsync(int requestId);
 
         /// <summary>
+        /// Checks if a student is male by request id to fulfill gender regulations
+        /// </summary>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        public Task<bool> CheckIfStudentIsMaleByRequestIdAsync(int requestId);
+
+        /// <summary>
+        /// Checks if the given request is of the wanted type
+        /// </summary>
+        /// <param name="requestId"></param>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
+        public Task<bool> CheckIfRequestIsOfTypeAsync(int requestId, RequestType requestType);
+
+        /// <summary>
         /// Checks if the wanted request is submitted by the user
         /// </summary>
         /// <param name="requestId"></param>

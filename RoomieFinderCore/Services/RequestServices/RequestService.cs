@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RoomieFinderCore.Contracts.RequestContracts;
 using RoomieFinderCore.Dtos.RequestDtos;
 using RoomieFinderInfrastructure.Enums;
 using RoomieFinderInfrastructure.Models;
 using RoomieFinderInfrastructure.UnitOfWork;
+
+using static RoomieFinderInfrastructure.Constants.ModelConstants.RoomConstants;
 
 namespace RoomieFinderCore.Services.RequestServices
 {
@@ -16,6 +17,12 @@ namespace RoomieFinderCore.Services.RequestServices
         {
             _unitOfWork = unitOfWork;
         }
+
+        public Task<string?> GetSpecificRoomateEmailByRequestId(int requestId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Request>()
+            .Where(r => r.Id == requestId)
+            .Select(r => r.Comment)
+            .FirstOrDefaultAsync();
         public async Task GetAllRequestsAsync(RequestListDto requestListDto)
         {
             var requests = _unitOfWork.GetAllAsReadOnlyAsync<Request>();
@@ -45,8 +52,9 @@ namespace RoomieFinderCore.Services.RequestServices
                 .ToListAsync();
         }
 
-        public Task<RequestDetailsDto> GetRequestDetailsAsync(int requestId) =>
-            _unitOfWork.GetAllAsReadOnlyAsync<Request>()
+        public async Task<RequestDetailsDto> GetRequestDetailsAsync(int requestId,bool isMale)
+        {
+            var requestDetails = await _unitOfWork.GetAllAsReadOnlyAsync<Request>()
             .Where(r => r.Id == requestId)
             .Select(r => new RequestDetailsDto()
             {
@@ -59,6 +67,43 @@ namespace RoomieFinderCore.Services.RequestServices
                 RequesterFullName = $"{r.Student.ApplicationUser.FirstName} {r.Student.ApplicationUser.LastName}"
             })
             .FirstAsync();
+
+            if (requestDetails.RequestStatus == RequestStatus.Pending)
+            {
+                switch (requestDetails.RequestType)
+                {
+                    case RequestType.SingleRoom:
+                        requestDetails.CanBeAccepted = (await _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+                            .AnyAsync(r => r.RoomType == RoomType.Single && r.RemainingCapacity > NoCapacityLeft)
+                            &&
+                            (await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+                            .AnyAsync(s => s.ApplicationUserId == requestDetails.RequesterUserId && s.Room == null)));
+
+                        break;
+                    case RequestType.ChangeRoom:
+                        requestDetails.CanBeAccepted = (await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+                             .AnyAsync(s => s.ApplicationUserId == requestDetails.RequesterUserId && s.Room != null))
+                             &&
+                             (await _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+                            .AnyAsync(r => r.RemainingCapacity > NoCapacityLeft && (r.Students.Count==0 || r.Students.Any(s=>s.IsMale==isMale))));
+
+                        break;
+                    case RequestType.SpecificRoomate:
+                        requestDetails.CanBeAccepted = (await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+                            .AnyAsync(s => s.ApplicationUserId == requestDetails.RequesterUserId && s.Room == null))
+                            &&
+                            (await _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+                            .AnyAsync(s => s.ApplicationUser.Email == requestDetails.Comment && s.Room == null))
+                            &&
+                            (await _unitOfWork.GetAllAsReadOnlyAsync<Room>()
+                            .AnyAsync(r => r.RemainingCapacity >= DoubleCapcity && (r.Students.Count == 0 || r.Students.Any(s => s.IsMale == isMale))));
+
+                        break;
+                }
+            }
+
+            return requestDetails;
+        }
 
         public async Task SubmitRequestAsync(RequestPostDto requestPostDto, int studentId)
         {
