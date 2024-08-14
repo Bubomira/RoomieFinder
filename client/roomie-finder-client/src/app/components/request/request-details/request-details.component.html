@@ -1,0 +1,45 @@
+<section class="flex justify-center mt-7">
+    <article class=" w-3/5 py-3 gap-2 rounded-2xl shadow-md shadow-indigo-600 text-gray-900">
+        <header class="py-5">
+            <p class="text-indigo-600 text-center text-3xl">Request {{request?.id}}</p>
+       </header>
+       <div class="border-b-2 border-indigo-200"></div>
+       <main class="flex py-4 gap-3 justify-around">
+            <section class=" flex flex-col gap-1">
+            <p>Type: 
+                <span class="font-semibold">
+                    {{requestTypes[request?.requestType]}}
+                </span>
+            </p>
+            <p>Staus:
+                <span class="font-semibold">
+                    {{requestStatus[request?.requestStatus]}}
+                </span>
+            </p>
+            </section>
+            <section class="flex flex-col gap-1 ">
+            <p>Requester email: 
+                <span class="font-semibold">
+                    {{request.requesterEmail}}
+                </span>
+            </p>
+            <p>Requester full name:
+                <span class="font-semibold">
+                    {{request.requesterFullName}}
+                </span>
+            </p>
+            </section>
+        </main>
+        <div class="border-b-2 border-indigo-200"></div>
+        <section class="flex justify-center gap-2 py-5">
+            @if(request.requestStatus!=requestStatus.archived){
+                <!-- if(!isAdmin){ -->
+                <button  
+                class="justify-center w-1/5 rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Remove request
+              </button>
+                <!-- } -->
+            }
+        </section>
+    </article>
+</section>

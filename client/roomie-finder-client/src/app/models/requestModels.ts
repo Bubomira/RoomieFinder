@@ -22,3 +22,8 @@ export interface RequestSearchList{
     prefferedRequestStatus:requestStatus,
     totalCount:number
 }
+
+export interface RequestDetails extends RequestSearchPreview{
+  requesterId:string,
+  requesterFullNme:string
+}

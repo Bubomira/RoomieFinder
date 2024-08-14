@@ -20,6 +20,7 @@ import { StudentRoomateMatchesComponent } from './components/student/student-roo
 import { DormitoryRoomsComponent } from './components/dormitory/dormitory-rooms/dormitory-rooms.component';
 import { RequestSubmitComponent } from './components/request/request-submit/request-submit.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
+import { RequestDetailsComponent } from './components/request/request-details/request-details.component';
 
 const routes: Routes = [
      {path:'login', component:LoginComponent,canActivate:[guestGuard]},
@@ -37,7 +38,8 @@ const routes: Routes = [
      {path:'match-in-a-room',component:DormitoryRoomsComponent,canActivate:[authGuard,adminGuard]},
 
      {path:'request-submit',component:RequestSubmitComponent,canActivate:[authGuard,studentGuard]},
-     {path:'request-list',component:RequestListComponent,canActivate:[authGuard,adminGuard]}
+     {path:'request-list',component:RequestListComponent,canActivate:[authGuard,adminGuard]},
+     {path:'request-details/:id',component:RequestDetailsComponent,canActivate:[authGuard]}
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { requestStatus, requestType } from '../../utils/enums';
 import { JwtService } from '../jwt/jwt.service';
 import { requestEndpoint } from '../../utils/endpoints';
-import { RequestPostDto, RequestSearchList } from '../../models/requestModels';
+import { RequestDetails, RequestPostDto, RequestSearchList } from '../../models/requestModels';
 import { buildRequestListUrl } from '../../utils/urlBuilder';
 
 @Injectable({
@@ -37,4 +37,11 @@ export class RequestService {
          }
         })
     }
+
+    getRequestDetails=(requestId:number):Observable<RequestDetails>=>
+      this.http.get<RequestDetails>(`${requestEndpoint}/details/${requestId}`,{
+        headers:{
+           'Authorization':`Bearer ${this.jwt.getUserToken()}`
+        }
+      })
 }
