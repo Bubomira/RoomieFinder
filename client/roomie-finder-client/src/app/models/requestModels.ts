@@ -25,5 +25,6 @@ export interface RequestSearchList{
 
 export interface RequestDetails extends RequestSearchPreview{
   requesterId:string,
-  requesterFullNme:string
+  requesterFullNme:string,
+  canBeAccepted:boolean,
 }

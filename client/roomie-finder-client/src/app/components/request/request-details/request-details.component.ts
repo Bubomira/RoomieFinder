@@ -7,6 +7,7 @@ import { RequestDetails } from '../../../models/requestModels';
 
 import { requestType,requestStatus } from '../../../utils/enums';
 import { JwtService } from '../../../services/jwt/jwt.service';
+import { RoomService } from '../../../services/room/room.service';
 
 @Component({
   selector: 'app-request-details',
@@ -23,6 +24,7 @@ export class RequestDetailsComponent implements OnInit {
  constructor(private activatedRoute:ActivatedRoute,
   private requestService:RequestService,
   private JwtService:JwtService,
+  private roomService:RoomService,
   private router:Router) {
      this.activatedRoute.paramMap.subscribe(paramMap=>{
        this.requestId=Number(paramMap.get('id'));       
@@ -52,5 +54,29 @@ export class RequestDetailsComponent implements OnInit {
       next:()=>this.router.navigateByUrl('/'),
       error:(err:HttpErrorResponse)=>alert('Could not decline request, try again later')
     })
-   
+
+    onAccept=()=>{
+     this.requestService.acceptRequest(this.requestId).subscribe({
+      next:(data:any)=>{
+        if(data){
+          var specificUserId= data.specificUserId
+          if(specificUserId && this.request.requestType== requestType.specificRoomate){
+            return this.router.navigate(['/match-in-a-room',{firstUserId:specificUserId,secondUserId:this.request.requesterId}])
+          }           
+        }
+        else if(this.request.requestType==requestType.singleRoom){
+          return this.router.navigate(['/match-in-a-room',{firstUserId:this.request.requesterId}])
+        }
+        else if(this.request.requestType==requestType.changeRoom){
+           this.roomService.removeStudentFromRoom(this.request.requesterId).subscribe({
+            next:()=> this.router.navigate(['/student',this.request.requesterId]),
+            error:()=> alert('Could not remove student from room.')
+           })
+        }
+        return;
+      },
+      error:(error:HttpErrorResponse)=> alert('Could not accept request, try again later')
+     })
+    }      
+
 }

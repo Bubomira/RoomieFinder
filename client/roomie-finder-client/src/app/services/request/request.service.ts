@@ -58,4 +58,13 @@ export class RequestService {
           'Authorization':`Bearer ${this.jwt.getUserToken()}`
        }
       })
+
+    acceptRequest=(requestId:number):Observable<any>=>{
+      return this.http.get<any>(`${requestEndpoint}/accept/${requestId}`,{
+       headers:{
+         'Authorization':`Bearer ${this.jwt.getUserToken()}`,
+      }
+     })
+    }
+    
 }
