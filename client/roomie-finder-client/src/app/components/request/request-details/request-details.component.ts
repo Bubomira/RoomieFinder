@@ -18,7 +18,7 @@ export class RequestDetailsComponent implements OnInit {
    protected isAdmin:boolean=false;
 
    protected requestTypes=requestType;
-   protected requestStatus=requestStatus
+   protected requestStatuses=requestStatus
 
  constructor(private activatedRoute:ActivatedRoute,
   private requestService:RequestService,
@@ -41,4 +41,10 @@ export class RequestDetailsComponent implements OnInit {
     })
   }
 
+  onRemove=()=>
+    this.requestService.removeRequest(this.request.id).subscribe({
+      next:()=>this.router.navigate(['/student',this.request.requesterUserId]),
+      error:(err:HttpErrorResponse)=>alert('Could not remove request, try again later')
+    })
+   
 }

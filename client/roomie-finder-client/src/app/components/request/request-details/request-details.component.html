@@ -13,32 +13,33 @@
             </p>
             <p>Staus:
                 <span class="font-semibold">
-                    {{requestStatus[request?.requestStatus]}}
+                    {{requestStatuses[request?.requestStatus]}}
                 </span>
             </p>
             </section>
             <section class="flex flex-col gap-1 ">
             <p>Requester email: 
                 <span class="font-semibold">
-                    {{request.requesterEmail}}
+                    {{request?.requesterEmail}}
                 </span>
             </p>
             <p>Requester full name:
                 <span class="font-semibold">
-                    {{request.requesterFullName}}
+                    {{request?.requesterFullName}}
                 </span>
             </p>
             </section>
         </main>
         <div class="border-b-2 border-indigo-200"></div>
         <section class="flex justify-center gap-2 py-5">
-            @if(request.requestStatus!=requestStatus.archived){
-                <!-- if(!isAdmin){ -->
+            @if(request?.requestStatus!=requestStatuses.archived){
+                @if(!isAdmin && request?.requestStatus==requestStatuses.pending){ 
                 <button  
-                class="justify-center w-1/5 rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Remove request
-              </button>
-                <!-- } -->
+                   (click)="onRemove"
+                   class="justify-center w-1/5 rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                   Remove request
+                </button>
+                }
             }
         </section>
     </article>

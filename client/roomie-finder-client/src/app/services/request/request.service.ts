@@ -44,4 +44,11 @@ export class RequestService {
            'Authorization':`Bearer ${this.jwt.getUserToken()}`
         }
       })
+
+  removeRequest=(requestId:number)=>
+    this.http.get(`${requestEndpoint}/remove/${requestId}`,{
+      headers:{
+        'Authorization':`Bearer ${this.jwt.getUserToken()}`
+     }
+    })
 }
