@@ -51,4 +51,11 @@ export class RequestService {
         'Authorization':`Bearer ${this.jwt.getUserToken()}`
      }
     })
+
+    declineRequest=(requestId:number)=>
+      this.http.get(`${requestEndpoint}/decline/${requestId}`,{
+        headers:{
+          'Authorization':`Bearer ${this.jwt.getUserToken()}`
+       }
+      })
 }

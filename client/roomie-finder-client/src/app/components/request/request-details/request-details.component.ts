@@ -46,5 +46,11 @@ export class RequestDetailsComponent implements OnInit {
       next:()=>this.router.navigate(['/student',this.request.requesterUserId]),
       error:(err:HttpErrorResponse)=>alert('Could not remove request, try again later')
     })
+
+  onDecline=()=>
+    this.requestService.declineRequest(this.requestId).subscribe({
+      next:()=>this.router.navigateByUrl('/'),
+      error:(err:HttpErrorResponse)=>alert('Could not decline request, try again later')
+    })
    
 }
