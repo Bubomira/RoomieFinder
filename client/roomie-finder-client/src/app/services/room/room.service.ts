@@ -25,8 +25,8 @@ export class RoomService {
         }
       })
 
-    removeStudentFromRoom=(roomId:number,userId:string)=>
-      this.http.get(`${roomEndpoint}/${roomId}/remove/student/${userId}`,{
+    removeStudentFromRoom=(userId:string)=>
+      this.http.get(`${roomEndpoint}/remove/student/${userId}`,{
         headers:{
           'Authorization':`Bearer ${this.jwt.getUserToken()}`
         }

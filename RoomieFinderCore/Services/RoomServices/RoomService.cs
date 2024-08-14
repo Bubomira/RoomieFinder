@@ -15,6 +15,12 @@ namespace RoomieFinderCore.Services.RoomServices
         {
             _unitOfWork = unitOfWork;
         }
+
+        public Task<int?> GetStudentsRoomIdByUserIdAsync(string userId) =>
+            _unitOfWork.GetAllAsReadOnlyAsync<Student>()
+            .Where(s => s.ApplicationUserId == userId)
+            .Select(s => s.RoomId)
+            .FirstOrDefaultAsync();
         public async Task AsignRoomToStudentAsync(string userId, int roomId)
         {
             await _unitOfWork.GetAllAsync<Student>()

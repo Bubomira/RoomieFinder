@@ -33,6 +33,7 @@ namespace RoomieFinderInfrastructure.Constants
         public static class RoomConstants
         {
             public const int NoCapacityLeft = 0;
+            public const int DoubleCapcity = 2;
         }
 
         public static class RequestConstants

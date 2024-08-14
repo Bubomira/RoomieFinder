@@ -38,10 +38,10 @@ namespace RoomieFinderAPI.Controllers
                     && await _roomCheckerContract.CheckIfRoomHasCapacityAsync(roomId))
                 {
                     bool isMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
-                    if (await _roomCheckerContract.CheckIfStudentCanBeAssignedToRoomByGenderAsync(roomId,isMale))
+                    if (await _roomCheckerContract.CheckIfStudentCanBeAssignedToRoomByGenderAsync(roomId, isMale))
                     {
                         await _roomContract.AsignRoomToStudentAsync(userId, roomId);
-                        return NoContent(); 
+                        return NoContent();
                     }
                 }
                 return BadRequest();
@@ -50,32 +50,26 @@ namespace RoomieFinderAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet("{roomId}/add/student/by/email/{studentEmail}")]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> AddStudentToRoomByEmail(int roomId, string studentEmail)
-        {
-            var userId = await _studentContract.GetUserIdByEmailAsync(studentEmail);
-            if (string.IsNullOrEmpty(userId))
-            {
-                return BadRequest();
-            };
-
-            return RedirectToAction(nameof(AddStudentToRoom), new { roomId = roomId, userId = userId });
-        }
-
-        [HttpDelete("{roomId}/remove/student/{userId}")]
+        [HttpDelete("remove/student/{userId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> RemoveStudentFromRoom(int roomId, string userId)
+        public async Task<IActionResult> RemoveStudentFromTheirRoom(string userId)
         {
-            if (await _roomCheckerContract.CheckIfStudentIsAlreadyAsignedToTheSpecifiedRoomAsync(userId, roomId)
-                && await _roomCheckerContract.CheckIfThereIsACapacityInOtherRoomsAsync(roomId))
+            if (await _studentCheckerContract.CheckIfStudentExistsByUserIdAsync(userId))
             {
-                await _roomContract.RemoveStudentFromARoomAsync(userId);
-                return NoContent();
+                bool isMale = await _studentCheckerContract.CheckIfStudentIsMaleAsync(userId);
+
+                int? roomId = await _roomContract.GetStudentsRoomIdByUserIdAsync(userId);
+                if (roomId != null && await _roomCheckerContract.CheckIfThereIsACapacityInOtherRoomsAsync(roomId, isMale))
+                {
+                    await _roomContract.RemoveStudentFromARoomAsync(userId);
+                    return NoContent();
+                }
+                return BadRequest();
+
             }
 
-            return BadRequest();
+            return NotFound();
         }
     }
 }
