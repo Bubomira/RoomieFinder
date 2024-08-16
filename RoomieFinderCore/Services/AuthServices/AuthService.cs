@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RoomieFinderCore.Contracts.AuthContracts;
 using RoomieFinderCore.Dtos.UserDtos;
 using RoomieFinderInfrastructure.Models;
@@ -58,7 +59,11 @@ namespace RoomieFinderCore.Services.AuthServices
                         HasChangedPassword = user.HasChangedPassword,
                         Id = user.Id,
                         IsAdmin = isAdmin,
-                        HasFilledOutAnswerhseet = user.Student?.AnswerSheet != null,
+                        HasFilledOutAnswerhseet = 
+                        await _unitOfWork.GetAllAsReadOnlyAsync<ApplicationUser>()
+                        .Where(au=>au.Id==user.Id)
+                        .Select(au=>au.Student.AnswerSheet!=null)
+                        .FirstOrDefaultAsync(),
                         Token = await _jwtService.GenerateJWT(user, isAdmin)
                     };
                 }
