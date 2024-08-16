@@ -10,5 +10,5 @@ export const studentGuard: CanActivateFn = (route, state) => {
   if(!jwt.checkIfUserIsAdmin()){
     return true;
   }
-  return router.navigate(['']);
+  return router.navigate(['/404']);
 };

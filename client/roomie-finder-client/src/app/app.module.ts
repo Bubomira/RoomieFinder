@@ -26,6 +26,7 @@ import { RequestProfileCardComponent } from './components/request/request-cards/
 import { RequestListComponent } from './components/request/request-list/request-list.component';
 import { RequestPreviewCardComponent } from './components/request/request-cards/request-preview-card/request-preview-card.component';
 import { RequestDetailsComponent } from './components/request/request-details/request-details.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RequestDetailsComponent } from './components/request/request-details/re
     RequestListComponent,
     RequestPreviewCardComponent,
     RequestDetailsComponent,
+    NotFoundComponent,
 ],
     imports: [
     BrowserModule,

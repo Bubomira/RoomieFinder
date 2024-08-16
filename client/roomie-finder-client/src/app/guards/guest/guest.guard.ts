@@ -11,5 +11,5 @@ export const guestGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  return router.navigateByUrl('/')
+  return router.navigateByUrl('/404')
 };

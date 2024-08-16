@@ -21,25 +21,29 @@ import { DormitoryRoomsComponent } from './components/dormitory/dormitory-rooms/
 import { RequestSubmitComponent } from './components/request/request-submit/request-submit.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
 import { RequestDetailsComponent } from './components/request/request-details/request-details.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
      {path:'login', component:LoginComponent,canActivate:[guestGuard]},
      {path:'logout',component:LogoutComponent,canActivate:[authGuard]},
-     {path:'change-password',component:ChangePasswordComponent,canActivate:[authGuard,changePasswordGuard,studentGuard]},
+     {path:'change-password',component:ChangePasswordComponent,canActivate:[authGuard,studentGuard,changePasswordGuard(false)]},
      {path:'register-student',component:RegisterStudentComponent,canActivate:[authGuard,adminGuard]},
 
-     {path:'answer-sheet',component:AnswerSheetComponent,canActivate:[authGuard,answerSheetGuard,studentGuard]},
+     {path:'answer-sheet',component:AnswerSheetComponent,canActivate:[authGuard,studentGuard,changePasswordGuard(true),answerSheetGuard(false)]},
 
      {path:'student-list',component:StudentListComponent, canActivate:[authGuard,adminGuard]},
-     {path:'student/:id',component:StudentProfileComponent,canActivate:[authGuard]},
+     {path:'student/:id',component:StudentProfileComponent,canActivate:[authGuard,changePasswordGuard(true)]},
+
      {path:'students-without-room',component:StudentsWithoutRoomComponent,canActivate:[authGuard,adminGuard]},
      {path:'find-matches',component:StudentRoomateMatchesComponent,canActivate:[authGuard,adminGuard]},
 
      {path:'match-in-a-room',component:DormitoryRoomsComponent,canActivate:[authGuard,adminGuard]},
 
-     {path:'request-submit',component:RequestSubmitComponent,canActivate:[authGuard,studentGuard]},
+     {path:'request-submit',component:RequestSubmitComponent,canActivate:[authGuard,studentGuard,changePasswordGuard(true),answerSheetGuard(true)]},
      {path:'request-list',component:RequestListComponent,canActivate:[authGuard,adminGuard]},
-     {path:'request-details/:id',component:RequestDetailsComponent,canActivate:[authGuard]}
+     {path:'request-details/:id',component:RequestDetailsComponent,canActivate:[authGuard]},
+
+     {path:'**', component:NotFoundComponent}
 ];
 
 @NgModule({
